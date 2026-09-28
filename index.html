@@ -232,7 +232,7 @@
                     <span class="fw-bold text-gradient" style="font-size: 1.15rem; background: linear-gradient(90deg, #f59e0b, #2563eb, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
                         MoneyTree Pro
                     </span>
-                    <span class="badge rounded-pill bg-secondary-subtle text-secondary ms-1 fw-bold" style="font-size: 0.7rem;">RMF & Savings V1.1 (Standalone)</span>
+                    <span class="badge rounded-pill bg-secondary-subtle text-secondary ms-1 fw-bold" style="font-size: 0.7rem;">RMF & Savings V1.2</span>
                 </div>
             </div>
 
@@ -920,9 +920,14 @@
                             <input class="form-check-input" type="checkbox" id="pocketLock">
                             <label class="form-check-label small fw-bold" for="pocketLock">🔒 ล็อกกระเป๋า (Lock Pocket) เพื่อกันเผลอใช้เงิน</label>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100 py-2 fw-bold rounded-pill">
-                            <i class="fa-solid fa-save me-1"></i> บันทึก Cloud Pocket
-                        </button>
+                        <div class="d-flex gap-2">
+                            <button type="button" id="btnDeletePocket" class="btn btn-outline-danger w-50 py-2 fw-bold rounded-pill" onclick="deleteCurrentCloudPocket()" style="display: none;">
+                                <i class="fa-solid fa-trash me-1"></i> ลบกระเป๋า
+                            </button>
+                            <button type="submit" id="btnSavePocket" class="btn btn-primary w-100 py-2 fw-bold rounded-pill">
+                                <i class="fa-solid fa-save me-1"></i> บันทึก Cloud Pocket
+                            </button>
+                        </div>
                     </form>
                 </div>
             </div>
@@ -1499,6 +1504,7 @@
                                 <div class="d-flex align-items-center gap-1">
                                     ${p.isLocked ? '<span class="badge bg-danger rounded-pill" title="กระเป๋านี้ถูกล็อกไว้"><i class="fa-solid fa-lock"></i> ล็อก</span>' : ''}
                                     <button class="btn btn-sm text-secondary p-0 px-1" onclick="openCloudPocketModal('${p.id}')" title="แก้ไข Cloud Pocket"><i class="fa-solid fa-pen"></i></button>
+                                    <button class="btn btn-sm text-danger p-0 px-1" onclick="deleteCloudPocket('${p.id}', event)" title="ลบ Cloud Pocket"><i class="fa-solid fa-trash"></i></button>
                                 </div>
                             </div>
                             <h5 class="fw-bold m-0" style="color: #0369a1;">${p.name}</h5>
@@ -2220,6 +2226,11 @@
                     target.value = p.target || '';
                     color.value = p.color || '#2563eb';
                     isLock.checked = !!p.isLocked;
+
+                    const btnDel = document.getElementById('btnDeletePocket');
+                    if (btnDel) btnDel.style.display = 'block';
+                    const btnSave = document.getElementById('btnSavePocket');
+                    if (btnSave) btnSave.className = 'btn btn-primary w-50 py-2 fw-bold rounded-pill';
                 }
             } else {
                 title.innerText = '☁️ สร้าง Cloud Pocket ใหม่';
@@ -2230,9 +2241,47 @@
                 target.value = '';
                 color.value = '#2563eb';
                 isLock.checked = false;
+
+                const btnDel = document.getElementById('btnDeletePocket');
+                if (btnDel) btnDel.style.display = 'none';
+                const btnSave = document.getElementById('btnSavePocket');
+                if (btnSave) btnSave.className = 'btn btn-primary w-100 py-2 fw-bold rounded-pill';
             }
 
             new bootstrap.Modal(document.getElementById('modalCloudPocket')).show();
+        }
+
+        function deleteCloudPocket(pocketId, event = null) {
+            if (event) event.stopPropagation();
+            const p = appData.make.pockets.find(x => x.id === pocketId);
+            if (!p) return;
+
+            const bal = p.balance || 0;
+            if (bal > 0) {
+                if (!confirm(`⚠️ คำเตือน: Cloud Pocket "${p.name}" ยังมียอดเงินคงเหลือ ${formatCurrency(bal)}!\n\nคุณแน่ใจหรือไม่ว่าต้องการลบกระเป๋านี้? (เงินในกระเป๋านี้จะถูกนำออกจากยอดรวม)`)) {
+                    return;
+                }
+            } else {
+                if (!confirm(`คุณแน่ใจหรือไม่ว่าต้องการลบ Cloud Pocket "${p.name}"?`)) {
+                    return;
+                }
+            }
+
+            appData.make.pockets = appData.make.pockets.filter(x => x.id !== pocketId);
+            saveData(appData);
+
+            const modalEl = document.getElementById('modalCloudPocket');
+            const modal = bootstrap.Modal.getInstance(modalEl);
+            if (modal) modal.hide();
+
+            renderAll();
+        }
+
+        function deleteCurrentCloudPocket() {
+            const editId = document.getElementById('pocketEditId').value;
+            if (editId) {
+                deleteCloudPocket(editId);
+            }
         }
 
         function saveCloudPocket(e) {
