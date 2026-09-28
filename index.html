@@ -232,7 +232,7 @@
                     <span class="fw-bold text-gradient" style="font-size: 1.15rem; background: linear-gradient(90deg, #f59e0b, #2563eb, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
                         MoneyTree Pro
                     </span>
-                    <span class="badge rounded-pill bg-secondary-subtle text-secondary ms-1 fw-bold" style="font-size: 0.7rem;">RMF & Savings V1.2</span>
+                    <span class="badge rounded-pill bg-secondary-subtle text-secondary ms-1 fw-bold" style="font-size: 0.7rem;">RMF & Savings V1.3</span>
                 </div>
             </div>
 
@@ -883,6 +883,47 @@
         </div>
     </div>
 
+    <!-- 1.5. Modal: Edit Kept Jar -->
+    <div class="modal fade" id="modalEditKeptJar" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold" id="editKeptModalTitle">🪙 แก้ไขกระปุก Kept</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="formEditKeptJar" onsubmit="saveEditKeptModal(event)">
+                        <input type="hidden" id="editKeptKey">
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold">ชื่อกระปุก</label>
+                            <input type="text" id="editKeptName" class="form-control" required>
+                        </div>
+                        <div class="row g-2 mb-3">
+                            <div class="col-6">
+                                <label class="form-label small fw-bold">ยอดเงินปัจจุบัน (บาท)</label>
+                                <input type="number" id="editKeptBalance" class="form-control fw-bold text-warning-emphasis" step="0.01" min="0" required>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label small fw-bold">อัตราดอกเบี้ย (% ต่อปี)</label>
+                                <div class="input-group">
+                                    <input type="number" id="editKeptRate" class="form-control" step="0.01" min="0">
+                                    <span class="input-group-text">%</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label small fw-bold">คำอธิบาย / หมายเหตุ</label>
+                            <input type="text" id="editKeptNote" class="form-control" placeholder="เช่น คิดดอกเบี้ยรายวัน จ่ายทุกวันที่ 28">
+                        </div>
+                        <button type="submit" class="btn btn-warning w-100 py-2 fw-bold rounded-pill text-dark">
+                            <i class="fa-solid fa-save me-1"></i> บันทึกการแก้ไขกระปุก
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- 2. Modal: Add/Edit Cloud Pocket (MAKE) -->
     <div class="modal fade" id="modalCloudPocket" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
@@ -1415,31 +1456,36 @@
             if (!container) return;
 
             const jars = [
-                { key: 'grow', icon: '💰', title: 'Grow', desc: 'กระปุกเงินก้อน ดอกเบี้ยสูง 2.22%', badge: 'ดอกเบี้ย 2.22%', color: '#f59e0b' },
-                { key: 'kept', icon: '👛', title: 'Kept', desc: 'กระเป๋าหลัก ไว้ใช้จ่าย/โอนเข้าออก', badge: 'กระเป๋าหลัก', color: '#64748b' },
-                { key: 'fun', icon: '🎯', title: 'Fun', desc: 'แอบเก็บ / สั่งเก็บเงินอัตโนมัติ', badge: 'ดอกเบี้ย 1.00%', color: '#ec4899' },
-                { key: 'together', icon: '🤝', title: 'Together', desc: 'กระปุกออมร่วมกัน / เป้าหมายพิเศษ', badge: 'ดอกเบี้ย 1.50%', color: '#8b5cf6' }
+                { key: 'grow', icon: '💰', title: 'Grow', defaultDesc: 'กระปุกเงินก้อน ดอกเบี้ยสูง 2.22%', defaultRate: 2.22, color: '#f59e0b' },
+                { key: 'kept', icon: '👛', title: 'Kept', defaultDesc: 'กระเป๋าหลัก ไว้ใช้จ่าย/โอนเข้าออก', defaultRate: 0.00, color: '#64748b' },
+                { key: 'fun', icon: '🎯', title: 'Fun', defaultDesc: 'แอบเก็บ / สั่งเก็บเงินอัตโนมัติ', defaultRate: 1.00, color: '#ec4899' },
+                { key: 'together', icon: '🤝', title: 'Together', defaultDesc: 'กระปุกออมร่วมกัน / เป้าหมายพิเศษ', defaultRate: 1.50, color: '#8b5cf6' }
             ];
 
             let html = '';
             jars.forEach(j => {
-                const acc = appData.kept.accounts[j.key] || { balance: 0, rate: 0 };
+                const acc = appData.kept.accounts[j.key] || { balance: 0, rate: j.defaultRate, name: j.title, note: j.defaultDesc };
                 const bal = acc.balance || 0;
-                const estYearlyInt = bal * ((acc.rate || 0) / 100);
+                const rate = acc.rate !== undefined ? acc.rate : j.defaultRate;
+                const estYearlyInt = bal * (rate / 100);
                 const estMonthlyInt = estYearlyInt / 12;
+                const badgeText = rate > 0 ? `ดอกเบี้ย ${rate.toFixed(2)}%` : 'กระเป๋าหลัก';
 
                 html += `
                     <div class="col-xl-3 col-md-6 col-12">
                         <div class="card p-3 h-100 kept-jar-card">
                             <div class="d-flex justify-content-between align-items-start mb-2">
                                 <div class="fs-2">${j.icon}</div>
-                                <span class="badge rounded-pill" style="background-color: #fef3c7; color: #b45309; font-weight: 700;">${j.badge}</span>
+                                <div class="d-flex align-items-center gap-1">
+                                    <span class="badge rounded-pill" style="background-color: #fef3c7; color: #b45309; font-weight: 700;">${badgeText}</span>
+                                    <button class="btn btn-sm text-secondary p-0 px-1" onclick="openEditKeptModal('${j.key}')" title="แก้ไขข้อมูลกระปุก ${acc.name || j.title}"><i class="fa-solid fa-pen"></i></button>
+                                </div>
                             </div>
-                            <h5 class="fw-bold m-0" style="color: #1e293b;">${j.title}</h5>
-                            <small class="text-muted mb-2">${j.desc}</small>
+                            <h5 class="fw-bold m-0" style="color: #1e293b;">${acc.name || j.title}</h5>
+                            <small class="text-muted mb-2">${acc.note || j.defaultDesc}</small>
                             <div class="metric-value my-2 privacy-hide" style="color: #d97706;">${formatCurrency(bal)}</div>
                             <div class="p-2 rounded-3 bg-white border small text-muted mb-3">
-                                <div>ประมาณการดอกเบี้ย:</div>
+                                <div>ประมาณการดอกเบี้ย (${rate}%):</div>
                                 <div class="fw-bold text-success privacy-hide">+${formatCurrency(estMonthlyInt)} / เดือน (+${formatCurrency(estYearlyInt)} / ปี)</div>
                             </div>
                             <div class="d-flex gap-1 mt-auto">
@@ -2202,6 +2248,45 @@
             openAddTxnModal('RMF', 'RMF_BUY');
             document.getElementById('txnRmfFund').value = code;
             onRmfFundSelect(code);
+        }
+
+        // ------------------ KEPT JAR MODAL ------------------
+        function openEditKeptModal(key) {
+            const acc = appData.kept.accounts[key] || { name: key, balance: 0, rate: 0, note: '' };
+            document.getElementById('editKeptKey').value = key;
+            document.getElementById('editKeptName').value = acc.name || key;
+            document.getElementById('editKeptBalance').value = acc.balance || 0;
+            document.getElementById('editKeptRate').value = acc.rate !== undefined ? acc.rate : 0;
+            document.getElementById('editKeptNote').value = acc.note || '';
+
+            const iconMap = { grow: '💰', kept: '👛', fun: '🎯', together: '🤝' };
+            document.getElementById('editKeptModalTitle').innerHTML = `${iconMap[key] || '🪙'} แก้ไขกระปุก: ${acc.name || key}`;
+
+            new bootstrap.Modal(document.getElementById('modalEditKeptJar')).show();
+        }
+
+        function saveEditKeptModal(e) {
+            e.preventDefault();
+            const key = document.getElementById('editKeptKey').value;
+            if (!key || !appData.kept.accounts[key]) return;
+
+            const name = document.getElementById('editKeptName').value.trim();
+            const balance = parseFloat(document.getElementById('editKeptBalance').value) || 0;
+            const rate = parseFloat(document.getElementById('editKeptRate').value) || 0;
+            const note = document.getElementById('editKeptNote').value.trim();
+
+            appData.kept.accounts[key].name = name;
+            appData.kept.accounts[key].balance = balance;
+            appData.kept.accounts[key].rate = rate;
+            appData.kept.accounts[key].note = note;
+
+            saveData(appData);
+
+            const modalEl = document.getElementById('modalEditKeptJar');
+            const modal = bootstrap.Modal.getInstance(modalEl);
+            if (modal) modal.hide();
+
+            renderAll();
         }
 
         // ------------------ CLOUD POCKET (MAKE) MODAL ------------------
