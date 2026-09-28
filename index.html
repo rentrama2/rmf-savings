@@ -238,9 +238,6 @@
 
             <!-- Top Actions -->
             <div class="d-flex align-items-center gap-2 flex-wrap ms-auto">
-                <a href="https://rentrama2.github.io/myportfolio/" class="btn btn-sm btn-outline-primary rounded-pill px-3 fw-bold" title="สลับไปยังหน้าพอร์ตหุ้นสหรัฐฯ (My Portfolio)">
-                    <i class="fa-solid fa-chart-line me-1"></i> พอร์ตหุ้น (Dime)
-                </a>
                 <button id="btnPrivacy" class="btn btn-sm btn-outline-secondary rounded-pill px-3 fw-bold" onclick="togglePrivacyMode()">
                     <i class="fa-regular fa-eye-slash me-1"></i> <span id="privacyBtnText">ซ่อนตัวเลข</span>
                 </button>
@@ -277,11 +274,11 @@
                 <div class="card p-3 h-100 metric-card metric-networth">
                     <div class="d-flex justify-content-between align-items-center mb-1">
                         <span class="metric-title"><i class="fa-solid fa-wallet text-primary me-1"></i> ทรัพย์สินสุทธิรวม (Net Worth)</span>
-                        <span class="badge rounded-pill bg-primary-subtle text-primary fw-bold" id="badgeStockIncluded" style="font-size: 0.72rem;">รวมทุกบัญชี</span>
+                        <span class="badge rounded-pill bg-primary-subtle text-primary fw-bold" style="font-size: 0.72rem;">Kept + MAKE + RMF</span>
                     </div>
                     <div class="metric-value text-primary" id="kpiNetWorth">฿0.00</div>
                     <div class="metric-sub d-flex justify-content-between align-items-center mt-1">
-                        <span>เงินสดออม + กองทุน + หุ้น</span>
+                        <span>เงินออม (Kept + MAKE) + กองทุน RMF</span>
                         <span class="fw-bold text-success" id="kpiTotalGain">+0.00%</span>
                     </div>
                 </div>
@@ -1185,37 +1182,6 @@
             }
         }
 
-        // Read US Stock value from index.html if available
-        function getUSStockValue() {
-            try {
-                const txns = JSON.parse(localStorage.getItem('myPortfolioTxns')) || [];
-                if (!txns.length) return 0;
-
-                // Let's approximate based on holdings or total
-                let holdings = {};
-                let cashTHB = 0;
-                txns.forEach(t => {
-                    const sym = t.ticker || t.symbol;
-                    if (t.type === 'DEPOSIT') cashTHB += (t.totalTHB || 0);
-                    else if (t.type === 'WITHDRAW') cashTHB -= (t.totalTHB || 0);
-                    else if (t.type === 'BUY') {
-                        if (!holdings[sym]) holdings[sym] = { shares: 0, costTHB: 0 };
-                        holdings[sym].shares += Number(t.shares || 0);
-                        holdings[sym].costTHB += Number(t.totalTHB || 0);
-                    } else if (t.type === 'SELL') {
-                        if (holdings[sym]) holdings[sym].shares -= Number(t.shares || 0);
-                    }
-                });
-
-                let totalStockTHB = 0;
-                for (let k in holdings) {
-                    if (holdings[k].shares > 0) totalStockTHB += holdings[k].costTHB;
-                }
-                return totalStockTHB + Math.max(0, cashTHB);
-            } catch (e) {
-                return 0;
-            }
-        }
 
         // ------------------ RENDER ENGINE ------------------
         function renderAll() {
@@ -1288,15 +1254,9 @@
             document.getElementById('kpiTaxBought').innerText = '฿' + formatNumber(boughtThisYear);
             document.getElementById('kpiTaxPct').innerText = taxPct.toFixed(1) + '%';
 
-            // Total Net Worth (including US stock if exists)
-            const usStockVal = getUSStockValue();
-            const netWorth = keptTotal + makeTotal + rmfMarketVal + usStockVal;
+            // Total Net Worth (Kept + MAKE + RMF only)
+            const netWorth = keptTotal + makeTotal + rmfMarketVal;
             document.getElementById('kpiNetWorth').innerText = formatCurrency(netWorth);
-            if (usStockVal > 0) {
-                document.getElementById('badgeStockIncluded').innerText = `+หุ้นสหรัฐฯ ฿${formatNumber(usStockVal)}`;
-            } else {
-                document.getElementById('badgeStockIncluded').innerText = `Kept + MAKE + RMF`;
-            }
 
             const totalEarnings = keptInterest + makeInterest + rmfGainTHB;
             document.getElementById('kpiTotalGain').innerText = (totalEarnings >= 0 ? '+' : '') + formatCurrency(totalEarnings) + ' กำไรสะสม';
@@ -1313,8 +1273,7 @@
             for (let k in appData.kept.accounts) keptTotal += (appData.kept.accounts[k].balance || 0);
             let makeTotal = appData.make.pockets.reduce((sum, p) => sum + (p.balance || 0), 0);
             let rmfMarketVal = appData.rmf.funds.reduce((sum, f) => sum + ((f.units || 0) * (f.currentNav || 0)), 0);
-            let usStockVal = getUSStockValue();
-            let total = keptTotal + makeTotal + rmfMarketVal + usStockVal;
+            let total = keptTotal + makeTotal + rmfMarketVal;
 
             document.getElementById('txtTotalAssetsLabel').innerText = 'รวม ' + formatCurrency(total);
 
@@ -1325,12 +1284,6 @@
             const labels = ['Kept (กรุงศรี)', 'MAKE (กสิกร)', 'กองทุน RMF'];
             const dataVals = [keptTotal, makeTotal, rmfMarketVal];
             const bgColors = ['#f59e0b', '#0284c7', '#10b981'];
-
-            if (usStockVal > 0) {
-                labels.push('พอร์ตหุ้น (Dime)');
-                dataVals.push(usStockVal);
-                bgColors.push('#8b5cf6');
-            }
 
             allocChart = new Chart(ctxDonut, {
                 type: 'doughnut',
