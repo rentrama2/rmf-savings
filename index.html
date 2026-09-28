@@ -143,7 +143,7 @@
             border-radius: 16px;
             border: 2px solid #fef3c7;
             background: linear-gradient(180deg, #fffbeb 0%, #ffffff 100%);
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
         }
 
         [data-bs-theme="dark"] .kept-jar-card {
@@ -155,6 +155,23 @@
             transform: translateY(-3px);
             box-shadow: 0 10px 20px -5px rgba(245, 158, 11, 0.15);
             border-color: #f59e0b;
+        }
+
+        .kept-jar-card.jar-disabled {
+            opacity: 0.62;
+            background: #f8fafc !important;
+            border: 2px dashed #cbd5e1 !important;
+            filter: grayscale(0.25);
+        }
+
+        [data-bs-theme="dark"] .kept-jar-card.jar-disabled {
+            background: #0f172a !important;
+            border-color: #334155 !important;
+        }
+
+        .kept-jar-card.jar-disabled:hover {
+            transform: none;
+            box-shadow: none;
         }
 
         /* Make Cloud Pocket Cards */
@@ -232,7 +249,7 @@
                     <span class="fw-bold text-gradient" style="font-size: 1.15rem; background: linear-gradient(90deg, #f59e0b, #2563eb, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
                         MoneyTree Pro
                     </span>
-                    <span class="badge rounded-pill bg-secondary-subtle text-secondary ms-1 fw-bold" style="font-size: 0.7rem;">RMF & Savings V1.3</span>
+                    <span class="badge rounded-pill bg-secondary-subtle text-secondary ms-1 fw-bold" style="font-size: 0.7rem;">RMF & Savings V1.4</span>
                 </div>
             </div>
 
@@ -289,7 +306,7 @@
                 <div class="card p-3 h-100 metric-card metric-kept cursor-pointer" onclick="switchTab('kept')">
                     <div class="d-flex justify-content-between align-items-center mb-1">
                         <span class="metric-title" style="color: #d97706;">🟡 Kept (กรุงศรี)</span>
-                        <span class="badge badge-kept rounded-pill">4 กระปุก</span>
+                        <span class="badge badge-kept rounded-pill" id="kpiKeptActiveCount">กระปุกที่ใช้</span>
                     </div>
                     <div class="metric-value text-warning-emphasis" id="kpiKeptTotal">฿0.00</div>
                     <div class="metric-sub d-flex justify-content-between align-items-center mt-1">
@@ -469,10 +486,13 @@
                             </div>
                             <div>
                                 <h5 class="fw-bold m-0" style="color: #b45309;">Kept by Krungsri (แอปบริหารเงินเก็บ ดอกเบี้ยสูง)</h5>
-                                <small class="text-muted">แยก 4 กระปุกอัจฉริยะ: Kept (ใช้จ่าย), Grow (ดอกเบี้ยสูง 2.22%), Fun (แอบเก็บ), Together (เก็บร่วมกัน)</small>
+                                <small class="text-muted">แยก 5 กระปุก: Grow (ดอกสูง 2.22%), Kept (ใช้จ่าย), Happy Tax Free (ปลอดภาษี 2.00%), Fun (แอบเก็บ), Together (ร่วมกัน)</small>
                             </div>
                         </div>
-                        <div class="d-flex gap-2">
+                        <div class="d-flex gap-2 flex-wrap">
+                            <button id="btnToggleKeptFilter" class="btn btn-outline-secondary fw-bold rounded-pill px-3" onclick="toggleKeptFilter()">
+                                <i class="fa-solid fa-filter me-1"></i> <span id="lblKeptFilter">แสดงเฉพาะที่ใช้</span>
+                            </button>
                             <button class="btn btn-warning fw-bold rounded-pill px-3 text-dark" onclick="openAddTxnModal('KEPT', 'KEPT_INTEREST')">
                                 <i class="fa-solid fa-coins me-1"></i> บันทึกดอกเบี้ยรับ
                             </button>
@@ -486,7 +506,7 @@
                     </div>
                 </div>
 
-                <!-- 4 Jars Grid -->
+                <!-- Kept Jars Grid -->
                 <div class="row g-3 mb-4" id="keptJarsContainer">
                     <!-- Dynamically generated from state.kept.accounts -->
                 </div>
@@ -811,6 +831,7 @@
                                     <select id="txnKeptAccount" class="form-select">
                                         <option value="grow">Grow (เงินก้อน ดอกเบี้ย 2.22%)</option>
                                         <option value="kept">Kept (กระเป๋าหลัก)</option>
+                                        <option value="taxfree">Happy Tax Free (ปลอดภาษี 2.00%)</option>
                                         <option value="fun">Fun (แอบเก็บ)</option>
                                         <option value="together">Together (เป้าหมายร่วม)</option>
                                     </select>
@@ -819,7 +840,8 @@
                                     <label class="form-label text-muted small fw-bold">ไปยังกระปุก</label>
                                     <select id="txnKeptToAccount" class="form-select">
                                         <option value="kept">Kept (กระเป๋าหลัก)</option>
-                                        <option value="grow">Grow (เงินก้อน)</option>
+                                        <option value="grow">Grow (เงินก้อน ดอกเบี้ย 2.22%)</option>
+                                        <option value="taxfree">Happy Tax Free (ปลอดภาษี 2.00%)</option>
                                         <option value="fun">Fun (แอบเก็บ)</option>
                                         <option value="together">Together (เป้าหมายร่วม)</option>
                                     </select>
@@ -897,6 +919,15 @@
                         <div class="mb-3">
                             <label class="form-label small fw-bold">ชื่อกระปุก</label>
                             <input type="text" id="editKeptName" class="form-control" required>
+                        </div>
+                        <div class="form-check form-switch mb-3 p-3 border rounded-3 bg-body-tertiary">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <label class="form-check-label fw-bold mb-0 cursor-pointer" for="editKeptEnabled">
+                                    <i class="fa-solid fa-power-off text-warning me-1"></i> เปิดใช้งานกระปุกนี้ (ใช้ / ไม่ใช้)
+                                </label>
+                                <input class="form-check-input ms-2" type="checkbox" role="switch" id="editKeptEnabled" style="width: 2.5em; height: 1.3em;">
+                            </div>
+                            <div class="small text-muted mt-1">หากไม่ได้ใช้กระปุกนี้ ให้ปิดสวิตช์ ยอดเงินจะไม่ถูกนำไปรวมในยอดรวม Kept และสินทรัพย์รวม</div>
                         </div>
                         <div class="row g-2 mb-3">
                             <div class="col-6">
@@ -1108,10 +1139,11 @@
             version: 1,
             kept: {
                 accounts: {
-                    grow: { name: 'Grow (เงินก้อน ดอกสูง)', balance: 120000, rate: 2.22, note: 'คิดดอกเบี้ยรายวัน จ่ายทุกวันที่ 28' },
-                    kept: { name: 'Kept (กระเป๋าหลัก)', balance: 15000, rate: 0.00, note: 'ใช้จ่าย โอนเข้าออก' },
-                    fun: { name: 'Fun (แอบเก็บ/หยอดกระปุก)', balance: 6500, rate: 1.00, note: 'หยอดกระปุกอัตโนมัติ' },
-                    together: { name: 'Together (เป้าหมายร่วม)', balance: 25000, rate: 1.50, note: 'ออมตามเป้าหมายร่วมกัน' }
+                    grow: { name: 'Grow (เงินก้อน ดอกสูง)', balance: 120000, rate: 2.22, note: 'คิดดอกเบี้ยรายวัน จ่ายทุกวันที่ 28', enabled: true },
+                    kept: { name: 'Kept (กระเป๋าหลัก)', balance: 15000, rate: 0.00, note: 'ใช้จ่าย โอนเข้าออก', enabled: true },
+                    taxfree: { name: 'Happy Tax Free (ปลอดภาษี)', balance: 25000, rate: 2.00, note: 'เงินฝากประจำปลอดภาษี 24 เดือน ดอกเบี้ย 2.00% ไม่เสียภาษี 15%', enabled: true },
+                    fun: { name: 'Fun (แอบเก็บ/หยอดกระปุก)', balance: 6500, rate: 1.00, note: 'หยอดกระปุกอัตโนมัติ', enabled: false },
+                    together: { name: 'Together (เป้าหมายร่วม)', balance: 25000, rate: 1.50, note: 'ออมตามเป้าหมายร่วมกัน', enabled: false }
                 }
             },
             make: {
@@ -1206,6 +1238,22 @@
                 const stored = localStorage.getItem(STORAGE_KEY);
                 if (stored) {
                     const parsed = JSON.parse(stored);
+                    if (!parsed.kept) parsed.kept = { accounts: {} };
+                    if (!parsed.kept.accounts) parsed.kept.accounts = {};
+                    if (!parsed.kept.accounts.taxfree) {
+                        parsed.kept.accounts.taxfree = {
+                            name: 'Happy Tax Free (ปลอดภาษี)',
+                            balance: 0,
+                            rate: 2.00,
+                            note: 'เงินฝากประจำปลอดภาษี 24 เดือน ดอกเบี้ย 2.00% ไม่เสียภาษี 15%',
+                            enabled: true
+                        };
+                    }
+                    for (let k in parsed.kept.accounts) {
+                        if (parsed.kept.accounts[k].enabled === undefined) {
+                            parsed.kept.accounts[k].enabled = true;
+                        }
+                    }
                     return parsed;
                 }
             } catch (e) {
@@ -1243,8 +1291,12 @@
         function updateKpis() {
             // Kept
             let keptTotal = 0;
+            let activeKeptCount = 0;
             for (let k in appData.kept.accounts) {
-                keptTotal += (appData.kept.accounts[k].balance || 0);
+                if (appData.kept.accounts[k].enabled !== false) {
+                    keptTotal += (appData.kept.accounts[k].balance || 0);
+                    activeKeptCount++;
+                }
             }
             let keptInterest = appData.transactions
                 .filter(t => t.category === 'KEPT' && t.type === 'KEPT_INTEREST')
@@ -1252,6 +1304,8 @@
 
             document.getElementById('kpiKeptTotal').innerText = formatCurrency(keptTotal);
             document.getElementById('kpiKeptInterest').innerText = '+' + formatCurrency(keptInterest);
+            const badgeKeptCount = document.getElementById('kpiKeptActiveCount');
+            if (badgeKeptCount) badgeKeptCount.innerText = activeKeptCount + ' กระปุกที่ใช้';
 
             // MAKE
             let makeTotal = appData.make.pockets.reduce((sum, p) => sum + (p.balance || 0), 0);
@@ -1316,7 +1370,11 @@
         // 2. Asset Allocation & Trends Charts
         function renderAssetCharts() {
             let keptTotal = 0;
-            for (let k in appData.kept.accounts) keptTotal += (appData.kept.accounts[k].balance || 0);
+            for (let k in appData.kept.accounts) {
+                if (appData.kept.accounts[k].enabled !== false) {
+                    keptTotal += (appData.kept.accounts[k].balance || 0);
+                }
+            }
             let makeTotal = appData.make.pockets.reduce((sum, p) => sum + (p.balance || 0), 0);
             let rmfMarketVal = appData.rmf.funds.reduce((sum, f) => sum + ((f.units || 0) * (f.currentNav || 0)), 0);
             let total = keptTotal + makeTotal + rmfMarketVal;
@@ -1450,51 +1508,115 @@
             container.innerHTML = html;
         }
 
+        // Filter state for Kept Tab
+        let keptFilterActiveOnly = false;
+        function toggleKeptFilter() {
+            keptFilterActiveOnly = !keptFilterActiveOnly;
+            renderKeptTab();
+        }
+
+        function toggleKeptJar(key, event) {
+            if (event) event.stopPropagation();
+            if (!appData.kept.accounts[key]) {
+                appData.kept.accounts[key] = {
+                    name: key,
+                    balance: 0,
+                    rate: 0,
+                    note: '',
+                    enabled: true
+                };
+            }
+            const isCurrentlyEnabled = appData.kept.accounts[key].enabled !== false;
+            appData.kept.accounts[key].enabled = !isCurrentlyEnabled;
+            saveData(appData);
+            renderAll();
+        }
+
         // 3. Kept Tab
         function renderKeptTab() {
             const container = document.getElementById('keptJarsContainer');
             if (!container) return;
 
-            const jars = [
+            const allJars = [
                 { key: 'grow', icon: '💰', title: 'Grow', defaultDesc: 'กระปุกเงินก้อน ดอกเบี้ยสูง 2.22%', defaultRate: 2.22, color: '#f59e0b' },
                 { key: 'kept', icon: '👛', title: 'Kept', defaultDesc: 'กระเป๋าหลัก ไว้ใช้จ่าย/โอนเข้าออก', defaultRate: 0.00, color: '#64748b' },
+                { key: 'taxfree', icon: '🌱', title: 'Happy Tax Free', defaultDesc: 'เงินฝากประจำปลอดภาษี 24 เดือน ดอกเบี้ย 2.00% ไม่เสียภาษี 15%', defaultRate: 2.00, color: '#059669' },
                 { key: 'fun', icon: '🎯', title: 'Fun', defaultDesc: 'แอบเก็บ / สั่งเก็บเงินอัตโนมัติ', defaultRate: 1.00, color: '#ec4899' },
                 { key: 'together', icon: '🤝', title: 'Together', defaultDesc: 'กระปุกออมร่วมกัน / เป้าหมายพิเศษ', defaultRate: 1.50, color: '#8b5cf6' }
             ];
 
+            const activeJarsCount = allJars.filter(j => appData.kept.accounts[j.key]?.enabled !== false).length;
+
+            const filterBtn = document.getElementById('btnToggleKeptFilter');
+            const filterLbl = document.getElementById('lblKeptFilter');
+            if (filterBtn && filterLbl) {
+                if (keptFilterActiveOnly) {
+                    filterBtn.className = 'btn btn-warning text-dark fw-bold rounded-pill px-3';
+                    filterLbl.innerHTML = `แสดงทั้งหมด (${allJars.length} กระปุก)`;
+                } else {
+                    filterBtn.className = 'btn btn-outline-secondary fw-bold rounded-pill px-3';
+                    filterLbl.innerHTML = `แสดงเฉพาะที่ใช้ (${activeJarsCount} กระปุก)`;
+                }
+            }
+
+            const displayJars = keptFilterActiveOnly 
+                ? allJars.filter(j => appData.kept.accounts[j.key]?.enabled !== false)
+                : allJars;
+
             let html = '';
-            jars.forEach(j => {
-                const acc = appData.kept.accounts[j.key] || { balance: 0, rate: j.defaultRate, name: j.title, note: j.defaultDesc };
+            displayJars.forEach(j => {
+                const acc = appData.kept.accounts[j.key] || { balance: 0, rate: j.defaultRate, name: j.title, note: j.defaultDesc, enabled: true };
+                const isEnabled = acc.enabled !== false;
                 const bal = acc.balance || 0;
                 const rate = acc.rate !== undefined ? acc.rate : j.defaultRate;
                 const estYearlyInt = bal * (rate / 100);
                 const estMonthlyInt = estYearlyInt / 12;
-                const badgeText = rate > 0 ? `ดอกเบี้ย ${rate.toFixed(2)}%` : 'กระเป๋าหลัก';
+
+                let badgeText = rate > 0 ? `ดอกเบี้ย ${rate.toFixed(2)}%` : 'กระเป๋าหลัก';
+                if (j.key === 'taxfree') {
+                    badgeText = `ปลอดภาษี ${rate.toFixed(2)}%`;
+                }
 
                 html += `
-                    <div class="col-xl-3 col-md-6 col-12">
-                        <div class="card p-3 h-100 kept-jar-card">
+                    <div class="col-xl-4 col-md-6 col-12">
+                        <div class="card p-3 h-100 kept-jar-card ${isEnabled ? '' : 'jar-disabled'}">
                             <div class="d-flex justify-content-between align-items-start mb-2">
                                 <div class="fs-2">${j.icon}</div>
                                 <div class="d-flex align-items-center gap-1">
+                                    <button class="btn btn-sm ${isEnabled ? 'btn-success' : 'btn-outline-secondary'} rounded-pill px-2 py-0 fw-bold" 
+                                            style="font-size: 0.72rem; line-height: 1.6;" 
+                                            onclick="toggleKeptJar('${j.key}', event)" 
+                                            title="${isEnabled ? 'คลิกเพื่อเปลี่ยนเป็น [ไม่ใช้]' : 'คลิกเพื่อเปิดใช้งานกระปุกนี้'}">
+                                        <i class="fa-solid ${isEnabled ? 'fa-check' : 'fa-ban'} me-1"></i>${isEnabled ? 'ใช้กระปุกนี้' : 'ไม่ได้ใช้'}
+                                    </button>
                                     <span class="badge rounded-pill" style="background-color: #fef3c7; color: #b45309; font-weight: 700;">${badgeText}</span>
                                     <button class="btn btn-sm text-secondary p-0 px-1" onclick="openEditKeptModal('${j.key}')" title="แก้ไขข้อมูลกระปุก ${acc.name || j.title}"><i class="fa-solid fa-pen"></i></button>
                                 </div>
                             </div>
-                            <h5 class="fw-bold m-0" style="color: #1e293b;">${acc.name || j.title}</h5>
+                            <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+                                <h5 class="fw-bold m-0" style="color: #1e293b;">${acc.name || j.title}</h5>
+                                ${j.key === 'taxfree' ? '<span class="badge bg-success-subtle text-success border border-success-subtle rounded-pill" style="font-size: 0.68rem;">ปลอดภาษี 15%</span>' : ''}
+                                ${!isEnabled ? '<span class="badge bg-secondary-subtle text-secondary rounded-pill" style="font-size: 0.68rem;">ปิดการคำนวณ</span>' : ''}
+                            </div>
                             <small class="text-muted mb-2">${acc.note || j.defaultDesc}</small>
-                            <div class="metric-value my-2 privacy-hide" style="color: #d97706;">${formatCurrency(bal)}</div>
+                            <div class="metric-value my-2 privacy-hide" style="color: ${isEnabled ? '#d97706' : '#94a3b8'};">${formatCurrency(bal)}</div>
                             <div class="p-2 rounded-3 bg-white border small text-muted mb-3">
                                 <div>ประมาณการดอกเบี้ย (${rate}%):</div>
-                                <div class="fw-bold text-success privacy-hide">+${formatCurrency(estMonthlyInt)} / เดือน (+${formatCurrency(estYearlyInt)} / ปี)</div>
+                                <div class="fw-bold ${isEnabled ? 'text-success' : 'text-muted'} privacy-hide">+${formatCurrency(estMonthlyInt)} / เดือน (+${formatCurrency(estYearlyInt)} / ปี)</div>
                             </div>
                             <div class="d-flex gap-1 mt-auto">
-                                <button class="btn btn-sm btn-outline-warning text-dark fw-bold rounded-pill w-100" onclick="quickKeptAction('${j.key}', 'DEPOSIT')">
-                                    <i class="fa-solid fa-plus me-1"></i> ฝาก
-                                </button>
-                                <button class="btn btn-sm btn-outline-secondary fw-bold rounded-pill w-100" onclick="quickKeptAction('${j.key}', 'WITHDRAW')">
-                                    <i class="fa-solid fa-minus me-1"></i> ถอน
-                                </button>
+                                ${isEnabled ? `
+                                    <button class="btn btn-sm btn-outline-warning text-dark fw-bold rounded-pill w-100" onclick="quickKeptAction('${j.key}', 'DEPOSIT')">
+                                        <i class="fa-solid fa-plus me-1"></i> ฝาก
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary fw-bold rounded-pill w-100" onclick="quickKeptAction('${j.key}', 'WITHDRAW')">
+                                        <i class="fa-solid fa-minus me-1"></i> ถอน
+                                    </button>
+                                ` : `
+                                    <button class="btn btn-sm btn-outline-secondary rounded-pill w-100 fw-bold" onclick="toggleKeptJar('${j.key}', event)">
+                                        <i class="fa-solid fa-power-off me-1"></i> กดเพื่อเปิดใช้กระปุกนี้
+                                    </button>
+                                `}
                             </div>
                         </div>
                     </div>
@@ -1884,9 +2006,13 @@
             const map = {
                 grow: 'Grow (ดอกเบี้ย 2.22%)',
                 kept: 'Kept (กระเป๋าหลัก)',
+                taxfree: 'Happy Tax Free (ปลอดภาษี 2.00%)',
                 fun: 'Fun (แอบเก็บ)',
                 together: 'Together (เป้าหมายร่วม)'
             };
+            if (appData.kept?.accounts?.[key]?.name) {
+                return appData.kept.accounts[key].name;
+            }
             return map[key] || key || '-';
         }
 
@@ -2049,6 +2175,7 @@
                     <option value="KEPT_INTEREST">🪙 บันทึกดอกเบี้ยรับ (Interest)</option>
                 `;
                 sectionKept.style.display = 'block';
+                populateKeptAccountsDropdown();
             } else if (cat === 'MAKE') {
                 typeSelect.innerHTML = `
                     <option value="MAKE_DEPOSIT">💰 ฝากเงินเข้า Cloud Pocket (Deposit)</option>
@@ -2078,6 +2205,41 @@
 
             const isRmf = val.startsWith('RMF_');
             document.getElementById('sectionRmfDetails').style.display = isRmf ? 'block' : 'none';
+        }
+
+        function populateKeptAccountsDropdown() {
+            const selFrom = document.getElementById('txnKeptAccount');
+            const selTo = document.getElementById('txnKeptToAccount');
+            if (!selFrom || !selTo) return;
+            selFrom.innerHTML = '';
+            selTo.innerHTML = '';
+
+            const jarsMeta = [
+                { key: 'grow', defaultName: 'Grow (เงินก้อน ดอกเบี้ย 2.22%)' },
+                { key: 'kept', defaultName: 'Kept (กระเป๋าหลัก)' },
+                { key: 'taxfree', defaultName: 'Happy Tax Free (ปลอดภาษี 2.00%)' },
+                { key: 'fun', defaultName: 'Fun (แอบเก็บ)' },
+                { key: 'together', defaultName: 'Together (เป้าหมายร่วม)' }
+            ];
+
+            jarsMeta.forEach(j => {
+                const acc = appData.kept.accounts[j.key];
+                const isEnabled = !acc || acc.enabled !== false;
+                const name = acc?.name || j.defaultName;
+                const label = isEnabled ? name : `${name} (ไม่ได้ใช้)`;
+
+                const opt1 = document.createElement('option');
+                opt1.value = j.key;
+                opt1.text = label;
+                if (!isEnabled) opt1.className = 'text-muted';
+                selFrom.appendChild(opt1);
+
+                const opt2 = document.createElement('option');
+                opt2.value = j.key;
+                opt2.text = label;
+                if (!isEnabled) opt2.className = 'text-muted';
+                selTo.appendChild(opt2);
+            });
         }
 
         function populateMakePocketsDropdown() {
@@ -2252,14 +2414,15 @@
 
         // ------------------ KEPT JAR MODAL ------------------
         function openEditKeptModal(key) {
-            const acc = appData.kept.accounts[key] || { name: key, balance: 0, rate: 0, note: '' };
+            const acc = appData.kept.accounts[key] || { name: key, balance: 0, rate: 0, note: '', enabled: true };
             document.getElementById('editKeptKey').value = key;
             document.getElementById('editKeptName').value = acc.name || key;
             document.getElementById('editKeptBalance').value = acc.balance || 0;
             document.getElementById('editKeptRate').value = acc.rate !== undefined ? acc.rate : 0;
             document.getElementById('editKeptNote').value = acc.note || '';
+            document.getElementById('editKeptEnabled').checked = acc.enabled !== false;
 
-            const iconMap = { grow: '💰', kept: '👛', fun: '🎯', together: '🤝' };
+            const iconMap = { grow: '💰', kept: '👛', taxfree: '🌱', fun: '🎯', together: '🤝' };
             document.getElementById('editKeptModalTitle').innerHTML = `${iconMap[key] || '🪙'} แก้ไขกระปุก: ${acc.name || key}`;
 
             new bootstrap.Modal(document.getElementById('modalEditKeptJar')).show();
@@ -2274,11 +2437,13 @@
             const balance = parseFloat(document.getElementById('editKeptBalance').value) || 0;
             const rate = parseFloat(document.getElementById('editKeptRate').value) || 0;
             const note = document.getElementById('editKeptNote').value.trim();
+            const enabled = document.getElementById('editKeptEnabled').checked;
 
             appData.kept.accounts[key].name = name;
             appData.kept.accounts[key].balance = balance;
             appData.kept.accounts[key].rate = rate;
             appData.kept.accounts[key].note = note;
+            appData.kept.accounts[key].enabled = enabled;
 
             saveData(appData);
 
