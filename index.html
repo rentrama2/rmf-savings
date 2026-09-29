@@ -289,7 +289,7 @@
                     <span class="fw-bold text-gradient" style="font-size: 1.15rem; background: linear-gradient(90deg, #f59e0b, #2563eb, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
                         MoneyTree Pro
                     </span>
-                    <span class="badge rounded-pill bg-success-subtle text-success ms-1 fw-bold" style="font-size: 0.7rem;"><i class="fa-solid fa-code-branch me-1"></i>V2.0 (Official Tickers)</span>
+                    <span class="badge rounded-pill bg-success-subtle text-success ms-1 fw-bold" style="font-size: 0.7rem;"><i class="fa-solid fa-code-branch me-1"></i>V2.1 (Complete BBLAM RMF)</span>
                 </div>
             </div>
 
@@ -2735,22 +2735,70 @@
             { code: 'SCBRMMONEY', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ ตราสารตลาดเงิน เพื่อการเลี้ยงชีพ', nameEn: 'SCB Money Market Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารตลาดเงินและเงินฝากสภาพคล่องสูง' },
 
             // ==========================================
-            // 3. BBLAM - บลจ. บัวหลวง (Official SEC tickers omit hyphen before RMF)
+            // 3. BBLAM - บลจ. บัวหลวง (Official SEC & Finnomena 42+ Complete Fund Lineup)
             // ==========================================
-            { code: 'B-USARMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงยูเอสเอเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang USA Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนในหุ้นสหรัฐฯ ขนาดใหญ่และศักยภาพเติบโต' },
+            // --- Global Thematic & Equity (หุ้นต่างประเทศ & นวัตกรรม) ---
             { code: 'B-USPASSIVERMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงหุ้นยูเอสพาสซีฟเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang US Equity Passive Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี S&P 500 (iShares Core S&P 500 ETF)' },
-            { code: 'B-INNOTECHRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงอินโนเวชั่นเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Innovation Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนใน BGF World Technology Fund' },
-            { code: 'B-FUTURERMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงหุ้นฟิวเจอร์เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Future Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในหุ้นเมกะเทรนด์แห่งอนาคตและ AI' },
-            { code: 'B-VIETNAMRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงเวียดนามเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Vietnam Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนามศักยภาพเติบโต' },
-            { code: 'B-CHINARMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงไชน่าเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang China Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีนผ่าน Allianz China A Shares' },
-            { code: 'B-BHARATRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงภารตะเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Bharata Retirement Mutual Fund', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดียผ่าน RAMS India Equities' },
+            { code: 'B-USALPHARMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงยูเอสอัลฟ่าเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang US Alpha Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'หุ้นสหรัฐฯ คุณภาพสูงเติบโตเชิงรุก (JPMorgan US Growth)' },
+            { code: 'B-USARMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงยูเอสเอเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang USA Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนในหุ้นสหรัฐฯ ขนาดใหญ่และศักยภาพเติบโต' },
+            { code: 'B-INNOTECHRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงโกลบอลอินโนเวชั่นและเทคโนโลยีเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Global Innovation and Technology Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนใน Fidelity Funds - Global Technology Fund' },
+            { code: 'B-FUTURERMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงหุ้นฟิวเจอร์เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Future Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในเมกะเทรนด์แห่งอนาคต AI, เทคโนโลยี และผู้บริโภคยุคใหม่' },
+            { code: 'B-GTORMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงโกลบอลธีมเมติกออพพอร์ทูนิตี้เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Global Thematic Opportunities Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในนวัตกรรมเปลี่ยนโลกผ่าน Wellington Global Innovation' },
+            { code: 'B-OPPRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงหุ้น Opportunities เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Opportunities Retirement Mutual Fund', category: 'หุ้นทั่วโลก', note: 'ลงทุนในธีมการเติบโตระยะยาวของโลก (Pictet - Global Thematic Opportunities)' },
+            { code: 'B-GLOBALRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงหุ้นโกลบอลเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Global Equity Retirement Mutual Fund', category: 'หุ้นทั่วโลก', note: 'ลงทุนในหุ้นคุณภาพชั้นนำทั่วโลกผ่าน Wellington Global Quality Growth' },
+            { code: 'B-SIPRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงยั่งยืนเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Sustainable Investing Portfolio Retirement Mutual Fund', category: 'หุ้นพลังงานสะอาด & ESG', note: 'ลงทุนในธุรกิจยั่งยืนระดับโลกตามหลักเกณฑ์ ESG' },
+            { code: 'B-PREMIUMRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวง Premium Brands เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Premium Brands Retirement Mutual Fund', category: 'หุ้นทั่วโลก', note: 'ลงทุนในแบรนด์พรีเมียมและสินค้าหรูหราทั่วโลกผ่าน Pictet-Premium Brands' },
+            { code: 'BCARERMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงโกลบอลเฮลธ์แคร์เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Global Health Care Retirement Mutual Fund', category: 'หุ้นเฮลธ์แคร์', note: 'ลงทุนในนวัตกรรมการแพทย์และการดูแลสุขภาพระดับโลกผ่าน Wellington Global Health Care' },
+            { code: 'B-GLOB-INFRARMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงหุ้นโกลบอล อินฟราสตรัคเจอร์ เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Global Infrastructure Equity Retirement Mutual Fund', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนในโครงสร้างพื้นฐานระดับโลกผ่าน FTGF ClearBridge Global Infrastructure' },
+
+            // --- Regional & Country Equities (หุ้นเอเชียและรายประเทศ) ---
+            { code: 'B-CHINAARMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงหุ้นจีนเอแชร์เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang China A-Shares Equity Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีน A-Shares ผ่าน Allianz China A-Shares' },
+            { code: 'B-CHINARMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงไชน่าเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang China Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีนและเศรษฐกิจจีนยุคใหม่' },
+            { code: 'B-VIETNAMRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงเวียดนามเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Vietnam Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนามศักยภาพเติบโตสูง' },
+            { code: 'B-INDIAMRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงหุ้นอินเดียมิดแคปเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang India Mid Cap Retirement Mutual Fund', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดียขนาดกลางผ่าน Kotak Funds - India Midcap Fund' },
+            { code: 'B-BHARATRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงภารตะเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Bharata Retirement Mutual Fund', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดียผ่าน RAMS India Equities Portfolio Fund' },
             { code: 'B-NIPPONRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงนิปปอนเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Nippon Retirement Mutual Fund', category: 'หุ้นญี่ปุ่น', note: 'ลงทุนในหุ้นญี่ปุ่นคุณภาพสูง' },
-            { code: 'B-GLOBALRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงโกลบอลเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Global Retirement Mutual Fund', category: 'หุ้นทั่วโลก', note: 'ลงทุนในหุ้นคุณภาพชั้นนำทั่วโลก' },
-            { code: 'BERMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงตราสารทุนเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Equity Retirement Mutual Fund', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทยพื้นฐานมั่นคง' },
-            { code: 'B-TNLRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงธนทวีเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Thanatavee Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้ไทยคุณภาพดี' },
+            { code: 'B-ASIARMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงหุ้นเอเชียเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Asia Equity Retirement Mutual Fund', category: 'หุ้นเอเชีย', note: 'ลงทุนในหุ้นเอเชียเติบโตสูง (ไม่รวมญี่ปุ่น) ผ่าน Invesco Asian Equity Fund' },
+            { code: 'B-ASEANRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงหุ้นอาเซียนเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang ASEAN Equity Retirement Mutual Fund', category: 'หุ้นเอเชีย', note: 'ลงทุนในตราสารทุนของบริษัทชั้นนำในภูมิภาคอาเซียน' },
+            { code: 'B-ASIATECHRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงเอเชียเทคโนโลยีเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Asia Technology Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในหุ้นผู้นำเทคโนโลยีและนวัตกรรมแห่งเอเชีย' },
+
+            // --- Thai Equities (หุ้นไทย) ---
+            { code: 'BERMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงตราสารทุนเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Equity Retirement Mutual Fund', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทยปัจจัยพื้นฐานดีและมั่นคง' },
+            { code: 'BBASICRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงปัจจัย 4 เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Basic Retirement Mutual Fund', category: 'หุ้นไทย', note: 'เน้นลงทุนในหุ้นกลุ่มปัจจัย 4 (อาหาร การแพทย์ ที่อยู่อาศัย เสื้อผ้า)' },
+            { code: 'B-SM-RMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวง Small-Mid Cap เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Small-Mid Cap Retirement Mutual Fund', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทยขนาดเล็กและขนาดกลาง (SET/mai) ศักยภาพเติบโตสูง' },
+            { code: 'B-TOPTENRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงทศพลเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Top-Ten Retirement Mutual Fund', category: 'หุ้นไทย', note: 'คัดสรรเน้นหุ้นไทยปัจจัยพื้นฐานเด่นที่สุด 10 บริษัทแรก' },
+            { code: 'BSIRIRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงสิริผลบรรษัทภิบาลเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Siriphol Corporate Governance Retirement Mutual Fund', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทยบรรษัทภิบาลดีเด่น ปันผลสูงและสม่ำเสมอ' },
+
+            // --- Mixed & Multi-Asset Allocation (กองทุนผสม & จัดพอร์ตสินทรัพย์) ---
+            { code: 'B-WEALTHCRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวง Wealth Conservative เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Wealth Conservative Retirement Mutual Fund', category: 'กองทุนผสม', note: 'พอร์ตสำเร็จรูปความเสี่ยงต่ำ เน้นตราสารหนี้ หุ้น/ทางเลือกไม่เกิน 20%' },
+            { code: 'B-WEALTHMRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวง Wealth Moderate เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Wealth Moderate Retirement Mutual Fund', category: 'กองทุนผสม', note: 'พอร์ตสำเร็จรูปความเสี่ยงปานกลาง หุ้น/ทางเลือกไม่เกิน 40%' },
+            { code: 'B-WEALTHBRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวง Wealth Balanced เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Wealth Balanced Retirement Mutual Fund', category: 'กองทุนผสม', note: 'พอร์ตสำเร็จรูปสมดุล เพิ่มผลตอบแทน หุ้น/ทางเลือกไม่เกิน 60%' },
+            { code: 'B-WEALTHDRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวง Wealth Dynamic เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Wealth Dynamic Retirement Mutual Fund', category: 'กองทุนผสม', note: 'พอร์ตสำเร็จรูปเติบโตเชิงรุก เน้นตราสารทุน หุ้น/ทางเลือกไม่เกิน 75%' },
+            { code: 'B-WEALTHGRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวง Wealth Growth เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Wealth Growth Retirement Mutual Fund', category: 'กองทุนผสม', note: 'พอร์ตสำเร็จรูปเติบโตระยะยาวสูงสุด หุ้น/ทางเลือกไม่เกิน 80%' },
+            { code: 'BMAPS25RMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงบีแมพส์ 25 เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Multi-Asset Portfolio Solution 25 RMF', category: 'กองทุนผสม', note: 'จัดสรรสินทรัพย์สำเร็จรูป กระจายลงทุนในสินทรัพย์เสี่ยงไม่เกิน 25%' },
+            { code: 'BMAPS55RMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงบีแมพส์ 55 เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Multi-Asset Portfolio Solution 55 RMF', category: 'กองทุนผสม', note: 'จัดสรรสินทรัพย์สำเร็จรูป กระจายลงทุนในสินทรัพย์เสี่ยงไม่เกิน 55%' },
+            { code: 'BMAPS100RMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงบีแมพส์ 100 เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Multi-Asset Portfolio Solution 100 RMF', category: 'กองทุนผสม', note: 'จัดสรรสินทรัพย์สำเร็จรูป กระจายลงทุนในสินทรัพย์เสี่ยงสูงสุด 100%' },
+            { code: 'BFLRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงเฟล็กซิเบิ้ลเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Flexible Retirement Mutual Fund', category: 'กองทุนผสม', note: 'บริหารสัดส่วนหุ้นไทยและตราสารหนี้อย่างยืดหยุ่น 0-100%' },
+            { code: 'B25RMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงหุ้น 25% เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang 25% Equity Retirement Mutual Fund', category: 'กองทุนผสม', note: 'ลงทุนในตราสารหนี้เป็นหลัก และลงทุนในหุ้นไม่เกิน 25%' },
+
+            // --- Alternative, Infrastructure & Real Estate (ทองคำ & โครงสร้างพื้นฐาน & อสังหาริมทรัพย์) ---
             { code: 'BGOLDRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงโกลด์เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Gold Retirement Mutual Fund', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนในทองคำแท่งผ่าน SPDR Gold Trust' },
+            { code: 'IN-RMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงโครงสร้างพื้นฐานเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Infrastructure Retirement Mutual Fund', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนในตราสารทุนกลุ่มธุรกิจโครงสร้างพื้นฐานไทย' },
+            { code: 'B-IR-FOFRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดฟันด์ออฟฟันด์บัวหลวงโครงสร้างพื้นฐานและอสังหาริมทรัพย์เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Infrastructure and Real Estate Fund of Funds RMF', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนในกองทุนโครงสร้างพื้นฐาน อสังหาริมทรัพย์ และ REITs ทั้งในและต่างประเทศ' },
             { code: 'B-PROPRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงอสังหาริมทรัพย์เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Property Retirement Mutual Fund', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนในกองทุนรวมอสังหาริมทรัพย์และ REITs' },
-            { code: 'B-DYNAMICRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวง ไดนามิก บอนด์เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Dynamic Bond Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้ทั่วโลกแบบยืดหยุ่น' },
+
+            // --- Fixed Income & Money Market (ตราสารหนี้ & ตลาดเงิน) ---
+            { code: 'MM-RMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงมันนี่มาร์เก็ตเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Money Market Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารตลาดเงินและตราสารหนี้ระยะสั้น สภาพคล่องสูง ความเสี่ยงต่ำมาก' },
+            { code: 'BFRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงตราสารหนี้เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Fixed Income Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในพันธบัตรรัฐบาลและหุ้นกู้เอกชนคุณภาพดีระยะปานกลางถึงยาว' },
+            { code: 'B-TNLRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงธนทวีเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Thanatavee Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้ไทยคุณภาพดี มั่นคงสูง' },
+            { code: 'B-DYNAMICRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวง ไดนามิก บอนด์เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Dynamic Bond Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'กระจายลงทุนในตราสารหนี้ทั่วโลกแบบยืดหยุ่นผ่าน BGF Dynamic High Income' },
+
+            // --- BCAP Target Date & Passive Series (กลุ่มบัวหลวง / BCAP) ---
+            { code: 'BCAP-SET RMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบีแคป เซ็ท อินเด็กซ์เพื่อการเลี้ยงชีพ', nameEn: 'BCAP SET Index Retirement Mutual Fund', category: 'หุ้นไทย', note: 'ลงทุนเชิงรับอิงดัชนี SET Total Return Index' },
+            { code: 'BCAP-2030 RMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบีแคป โกลบอล ทาร์เก็ต เดท 2030 เพื่อการเลี้ยงชีพ', nameEn: 'BCAP Global Target Date 2030 Retirement Mutual Fund', category: 'กองทุนผสม', note: 'พอร์ต Target Date ปรับสัดส่วนอัตโนมัติ สำหรับผู้เกษียณรอบปี 2030' },
+            { code: 'BCAP-2040 RMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบีแคป โกลบอล ทาร์เก็ต เดท 2040 เพื่อการเลี้ยงชีพ', nameEn: 'BCAP Global Target Date 2040 Retirement Mutual Fund', category: 'กองทุนผสม', note: 'พอร์ต Target Date ปรับสัดส่วนอัตโนมัติ สำหรับผู้เกษียณรอบปี 2040' },
+            { code: 'BCAP-2050 RMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบีแคป โกลบอล ทาร์เก็ต เดท 2050 เพื่อการเลี้ยงชีพ', nameEn: 'BCAP Global Target Date 2050 Retirement Mutual Fund', category: 'กองทุนผสม', note: 'พอร์ต Target Date ปรับสัดส่วนอัตโนมัติ สำหรับผู้เกษียณรอบปี 2050' },
+
 
             // ==========================================
             // 4. KSAM - บลจ. กรุงศรี (Official SEC tickers omit hyphen before RMF)
@@ -2941,7 +2989,7 @@
                 detectedAmc = 'KAsset (กสิกรไทย)';
             } else if (clean.startsWith('SCB') || clean.startsWith('SCBRM') || clean.includes('ไทยพาณิชย์')) {
                 detectedAmc = 'SCBAM (ไทยพาณิชย์)';
-            } else if (clean.startsWith('B-') || clean.startsWith('BBL') || clean.includes('บัวหลวง')) {
+            } else if (clean.startsWith('B-') || clean.startsWith('BBL') || clean.startsWith('BERMF') || clean.startsWith('BFRMF') || clean.startsWith('BFLRMF') || clean.startsWith('BBASIC') || clean.startsWith('BMAPS') || clean.startsWith('BCAP') || clean.startsWith('BSIRI') || clean.startsWith('BCARERMF') || clean.startsWith('MM-RMF') || clean.startsWith('IN-RMF') || clean.startsWith('BGOLD') || clean.includes('บัวหลวง')) {
                 detectedAmc = 'BBLAM (บัวหลวง)';
             } else if (clean.startsWith('KF') || clean.startsWith('KSAM') || clean.includes('กรุงศรี')) {
                 detectedAmc = 'KSAM (กรุงศรี)';
@@ -3241,7 +3289,7 @@
                 } else if (lower.includes('scb')) {
                     codeInput.value = 'SCBRM';
                 } else if (lower.includes('bbl')) {
-                    codeInput.value = 'B-';
+                    codeInput.value = '';
                 } else if (lower.includes('กรุงศรี') || lower.includes('ksam')) {
                     codeInput.value = 'KF';
                 } else if (lower.includes('kkp')) {
