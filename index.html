@@ -249,7 +249,7 @@
                     <span class="fw-bold text-gradient" style="font-size: 1.15rem; background: linear-gradient(90deg, #f59e0b, #2563eb, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
                         MoneyTree Pro
                     </span>
-                    <span class="badge rounded-pill bg-secondary-subtle text-secondary ms-1 fw-bold" style="font-size: 0.7rem;">RMF & Savings V1.4</span>
+                    <span class="badge rounded-pill bg-secondary-subtle text-secondary ms-1 fw-bold" style="font-size: 0.7rem;">RMF & Savings V1.5</span>
                 </div>
             </div>
 
@@ -1017,30 +1017,68 @@
                 <div class="modal-body">
                     <form id="formAddFund" onsubmit="saveRmfFund(event)">
                         <input type="hidden" id="fundEditId">
+
+                        <!-- Auto Detect Live Banner -->
+                        <div id="rmfAutoDetectBanner" class="alert alert-success py-2 px-3 small mb-3 d-none align-items-center justify-content-between rounded-3 border-success-subtle shadow-sm" style="background-color: #ecfdf5;">
+                            <div>
+                                <i class="fa-solid fa-wand-magic-sparkles text-success me-1"></i>
+                                <span id="rmfAutoDetectText">ตรวจพบข้อมูลกองทุนอัตโนมัติ</span>
+                            </div>
+                            <button type="button" class="btn-close btn-close-sm" style="font-size: 0.65rem;" onclick="dismissRmfAutoDetect()" title="ปิด"></button>
+                        </div>
+
                         <div class="row g-2 mb-3">
                             <div class="col-7">
-                                <label class="form-label small fw-bold">รหัสกองทุน (Ticker / Code)</label>
-                                <input type="text" id="fundCode" class="form-control fw-bold" placeholder="เช่น K-USA-RMF" required style="text-transform: uppercase;">
+                                <label class="form-label small fw-bold d-flex justify-content-between align-items-center">
+                                    <span>รหัสกองทุน (Ticker / Code)</span>
+                                    <span class="badge bg-success-subtle text-success fw-bold" style="font-size: 0.68rem;"><i class="fa-solid fa-wand-magic-sparkles me-1"></i>Auto-Detect</span>
+                                </label>
+                                <input type="text" id="fundCode" class="form-control fw-bold" placeholder="เช่น ASP-VIETRMF, K-USA-RMF" list="rmfPresetsList" oninput="onFundCodeInput(this.value)" required style="text-transform: uppercase;">
+                                <datalist id="rmfPresetsList">
+                                    <!-- Dynamic & preloaded options -->
+                                </datalist>
                             </div>
                             <div class="col-5">
                                 <label class="form-label small fw-bold">บลจ. (AMC)</label>
-                                <input type="text" id="fundAmc" class="form-control" placeholder="เช่น KAsset, SCBAM" required>
+                                <input type="text" id="fundAmc" class="form-control" placeholder="เช่น Asset Plus, KAsset, SCBAM" required>
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label small fw-bold">ชื่อเต็มกองทุน</label>
-                            <input type="text" id="fundName" class="form-control" placeholder="เช่น เค ยูเอสเอ หุ้นทุนเพื่อการเลี้ยงชีพ" required>
+                            <label class="form-label small fw-bold d-flex justify-content-between align-items-center">
+                                <span>ชื่อเต็มกองทุน</span>
+                                <span class="text-muted small fw-normal" style="font-size: 0.72rem;">(พิมพ์ชื่อหรือรหัสกองทุนได้)</span>
+                            </label>
+                            <input type="text" id="fundName" class="form-control" placeholder="เช่น แอสเซทพลัส เวียดนาม เพื่อการเลี้ยงชีพ" oninput="onFundNameInput(this.value)" required>
                         </div>
-                        <div class="row g-2 mb-3">
+                        <div class="row g-2 mb-2">
                             <div class="col-6">
                                 <label class="form-label small fw-bold">หมวดหมู่ / สินทรัพย์</label>
-                                <input type="text" id="fundCategory" class="form-control" placeholder="เช่น หุ้นสหรัฐฯ, หุ้นทั่วโลก, ตราสารหนี้">
+                                <input type="text" id="fundCategory" class="form-control fw-bold text-primary" placeholder="เช่น หุ้นเวียดนาม, หุ้นสหรัฐฯ, ตราสารหนี้">
                             </div>
                             <div class="col-6">
                                 <label class="form-label small fw-bold">ราคา NAV ล่าสุด</label>
                                 <input type="number" id="fundCurrentNav" class="form-control" step="0.0001" placeholder="เช่น 21.3500" required>
                             </div>
                         </div>
+
+                        <!-- Quick Category Pills -->
+                        <div class="mb-3">
+                            <label class="form-label text-muted mb-1" style="font-size: 0.75rem;"><i class="fa-solid fa-tags text-primary me-1"></i>หมวดหมู่ยอดนิยม (คลิกเพื่อเลือกทันที):</label>
+                            <div class="d-flex flex-wrap gap-1">
+                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 rounded-pill" style="font-size: 0.74rem;" onclick="setFundCategory('หุ้นเวียดนาม')">🇻🇳 หุ้นเวียดนาม</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 rounded-pill" style="font-size: 0.74rem;" onclick="setFundCategory('หุ้นสหรัฐฯ')">🇺🇸 หุ้นสหรัฐฯ</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 rounded-pill" style="font-size: 0.74rem;" onclick="setFundCategory('หุ้นทั่วโลก')">🌐 หุ้นทั่วโลก</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 rounded-pill" style="font-size: 0.74rem;" onclick="setFundCategory('หุ้นเทคโนโลยี')">💻 เทคโนโลยี</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 rounded-pill" style="font-size: 0.74rem;" onclick="setFundCategory('หุ้นจีน')">🇨🇳 หุ้นจีน</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 rounded-pill" style="font-size: 0.74rem;" onclick="setFundCategory('หุ้นอินเดีย')">🇮🇳 หุ้นอินเดีย</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 rounded-pill" style="font-size: 0.74rem;" onclick="setFundCategory('หุ้นไทย')">🇹🇭 หุ้นไทย</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 rounded-pill" style="font-size: 0.74rem;" onclick="setFundCategory('หุ้นเฮลธ์แคร์')">🏥 เฮลธ์แคร์</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 rounded-pill" style="font-size: 0.74rem;" onclick="setFundCategory('ตราสารหนี้ / ตลาดเงิน')">🏦 ตราสารหนี้</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 rounded-pill" style="font-size: 0.74rem;" onclick="setFundCategory('สินค้าโภคภัณฑ์ (ทองคำ)')">🪙 ทองคำ</button>
+                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 rounded-pill" style="font-size: 0.74rem;" onclick="setFundCategory('กองทุนอสังหาริมทรัพย์ & REITs')">🏢 อสังหาฯ/REITs</button>
+                            </div>
+                        </div>
+
                         <div class="row g-2 mb-3">
                             <div class="col-6">
                                 <label class="form-label small fw-bold">จำนวนหน่วยเริ่มต้น</label>
@@ -1229,6 +1267,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             initTheme();
             initPrivacy();
+            initRmfPresets();
             renderAll();
         });
 
@@ -1809,7 +1848,7 @@
                             <div class="fw-bold text-success">${f.code}</div>
                             <small class="text-muted">${f.amc} • ${f.name}</small>
                         </td>
-                        <td><span class="badge bg-body-secondary text-secondary">${f.category || 'กองทุนรวม'}</span></td>
+                        <td>${getRmfCategoryBadge(f.category)}</td>
                         <td class="fw-bold privacy-hide">${units.toFixed(4)}</td>
                         <td class="privacy-hide">฿${(f.avgCost || 0).toFixed(4)}</td>
                         <td class="fw-bold privacy-hide">${formatCurrency(cost)}</td>
@@ -2571,8 +2610,287 @@
             renderAll();
         }
 
+        // ------------------ RMF PRESET DATABASE & AUTO DETECTOR ------------------
+        const RMF_DATABASE = [
+            { code: 'ASP-VIETRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'แอสเซทพลัส เวียดนาม เพื่อการเลี้ยงชีพ', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนามที่มีศักยภาพการเติบโตสูง' },
+            { code: 'PRINCIPAL VNEQ-RMF', amc: 'Principal (พรินซิเพิล)', name: 'พรินซิเพิล เวียดนาม อิควิตี้ เพื่อการเลี้ยงชีพ', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
+            { code: 'K-VIETNAM-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค เวียดนาม หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
+            { code: 'SCBVIET(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์ หุ้นเวียดนาม เพื่อการเลี้ยงชีพ', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
+            { code: 'B-VIETNAMRMF', amc: 'BBLAM (บัวหลวง)', name: 'บัวหลวงเวียดนามเพื่อการเลี้ยงชีพ', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
+            
+            { code: 'K-USA-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค ยูเอสเอ หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนใน Morgan Stanley US Advantage' },
+            { code: 'SCBUS(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์หุ้นยูเอส เพื่อการเลี้ยงชีพ', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนในหุ้นสหรัฐฯ' },
+            { code: 'KF-USARMF', amc: 'KSAM (กรุงศรี)', name: 'กรุงศรียูเอสอิควิตี้เพื่อการเลี้ยงชีพ', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนใน Baillie Gifford US Growth Trust' },
+            { code: 'SCBNDQ(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์ ดัชนี NASDAQ เพื่อการเลี้ยงชีพ', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี NASDAQ-100' },
+            { code: 'K-US500X-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค ยูเอส 500 หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี S&P 500' },
+            
+            { code: 'B-INNOTECHRMF', amc: 'BBLAM (บัวหลวง)', name: 'บัวหลวงอินโนเวชั่นเพื่อการเลี้ยงชีพ', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนใน BGF World Technology Fund' },
+            { code: 'KF-INNOTECHRMF', amc: 'KSAM (กรุงศรี)', name: 'กรุงศรีอินโนเวชั่นเพื่อการเลี้ยงชีพ', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนใน BGF World Technology' },
+            { code: 'SCBSEMI(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์ Semiconductor เพื่อการเลี้ยงชีพ', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในหุ้นเซมิคอนดักเตอร์ทั่วโลก' },
+            { code: 'SCBEV(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์ Electric Vehicles เพื่อการเลี้ยงชีพ', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในยานยนต์ไฟฟ้าและห่วงโซ่อุปทาน' },
+            
+            { code: 'ONE-UGG-RMF', amc: 'ONEAM (วรรณ)', name: 'วรรณ อัลติเมท โกลบอล โกรว์ธ เพื่อการเลี้ยงชีพ', category: 'หุ้นทั่วโลก', note: 'ลงทุนใน Baillie Gifford Long Term Global Growth' },
+            { code: 'SCBWORLD(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์ หุ้นทั่วโลก เพื่อการเลี้ยงชีพ', category: 'หุ้นทั่วโลก', note: 'ลงทุนในหุ้นทั่วโลก' },
+            { code: 'K-GINCOME-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค โกลบอล อินคัม เพื่อการเลี้ยงชีพ', category: 'สินทรัพย์ผสมทั่วโลก', note: 'ลงทุนใน JPMorgan Global Income' },
+            
+            { code: 'K-GHEALTH-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค โกลบอล เฮลท์แคร์ หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นเฮลธ์แคร์', note: 'ลงทุนใน JPMorgan Global Healthcare' },
+            { code: 'SCBHEALTH(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์ โกลบอลเฮลธ์แคร์ เพื่อการเลี้ยงชีพ', category: 'หุ้นเฮลธ์แคร์', note: 'ลงทุนในหุ้นเฮลธ์แคร์ทั่วโลก' },
+            
+            { code: 'K-CHINA-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค ไชน่า หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีน' },
+            { code: 'SCBCHINA(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์หุ้นจีน เพื่อการเลี้ยงชีพ', category: 'หุ้นจีน', note: 'ลงทุนใน Hang Seng China Enterprises' },
+            { code: 'KF-CHINARMF', amc: 'KSAM (กรุงศรี)', name: 'กรุงศรีไชน่าเพื่อการเลี้ยงชีพ', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีน A-Shares / H-Shares' },
+            
+            { code: 'K-INDIA-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค อินเดีย หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดีย' },
+            { code: 'SCBINDIA(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์หุ้นอินเดีย เพื่อการเลี้ยงชีพ', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดีย' },
+            { code: 'KF-INDIARMF', amc: 'KSAM (กรุงศรี)', name: 'กรุงศรีอินเดียเพื่อการเลี้ยงชีพ', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดีย' },
+
+            { code: 'K-JP-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค เจแปน หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นญี่ปุ่น', note: 'ลงทุนในหุ้นญี่ปุ่น' },
+            { code: 'SCBJAPAN(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์หุ้นญี่ปุ่น เพื่อการเลี้ยงชีพ', category: 'หุ้นญี่ปุ่น', note: 'ลงทุนใน Nikkei 225' },
+
+            { code: 'T-GoldRMF', amc: 'Eastspring (อีสท์สปริง)', name: 'ธนชาตทองคำแท่งเพื่อการเลี้ยงชีพ', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนในทองคำแท่ง SPDR Gold' },
+            { code: 'SCBGOLD(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์โกลด์ เพื่อการเลี้ยงชีพ', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนใน SPDR Gold Trust' },
+            { code: 'KGDRMF', amc: 'KAsset (กสิกรไทย)', name: 'เค โกลด์ เพื่อการเลี้ยงชีพ', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนใน SPDR Gold Shares' },
+
+            { code: 'SCBRM4', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นไทย', note: 'หุ้นไทยปัจจัยพื้นฐานดี' },
+            { code: 'BERMF', amc: 'BBLAM (บัวหลวง)', name: 'บัวหลวงตราสารทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทย' },
+            { code: 'K-EQRMF', amc: 'KAsset (กสิกรไทย)', name: 'เค หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทย' },
+
+            { code: 'B-TNLRMF', amc: 'BBLAM (บัวหลวง)', name: 'บัวหลวงธนทวีเพื่อการเลี้ยงชีพ', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้ไทย' },
+            { code: 'K-FIXED-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค ตราสารหนี้เพื่อการเลี้ยงชีพ', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้' },
+            { code: 'SCBRF1', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์พันธบัตรรัฐบาลเพื่อการเลี้ยงชีพ', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'พันธบัตรรัฐบาล' },
+
+            { code: 'K-PROP-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค พร็อพเพอร์ตี้ เซคเตอร์ เพื่อการเลี้ยงชีพ', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนในกองทุนอสังหาริมทรัพย์ & REITs' },
+            { code: 'SCBPROP(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์ พร็อพเพอร์ตี้ เพื่อการเลี้ยงชีพ', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนใน REITs ไทยและสิงคโปร์' },
+            { code: 'K-CLIMATE-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค ไคลเมท แอคชั่น หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นพลังงานสะอาด & ESG', note: 'ลงทุนในหุ้นที่เกี่ยวข้องกับสิ่งแวดล้อม' }
+        ];
+
+        function initRmfPresets() {
+            const list = document.getElementById('rmfPresetsList');
+            if (!list) return;
+            let html = '';
+            RMF_DATABASE.forEach(item => {
+                html += `<option value="${item.code}">${item.name} (${item.category} • ${item.amc})</option>`;
+            });
+            list.innerHTML = html;
+        }
+
+        function detectRmfInfo(rawInput) {
+            if (!rawInput || typeof rawInput !== 'string') return null;
+            const clean = rawInput.trim().toUpperCase();
+            if (clean.length < 2) return null;
+
+            // 1. Direct match in RMF_DATABASE
+            const exactMatch = RMF_DATABASE.find(item => 
+                item.code.toUpperCase() === clean || 
+                clean.includes(item.code.toUpperCase()) ||
+                item.code.toUpperCase().replace(/[-() ]/g, '') === clean.replace(/[-() ]/g, '')
+            );
+            if (exactMatch) {
+                return { ...exactMatch, confidence: 'high' };
+            }
+
+            // 2. Rule-based Heuristic Detection
+            let detectedAmc = '';
+            let detectedCat = '';
+            let detectedName = '';
+            let detectedNote = '';
+
+            // A. Detect AMC by Prefix / Keyword
+            if (clean.startsWith('ASP') || clean.includes('ASSET PLUS') || clean.includes('แอสเซท พลัส') || clean.includes('แอสเซทพลัส')) {
+                detectedAmc = 'Asset Plus (แอสเซท พลัส)';
+            } else if (clean.startsWith('K-') || clean.startsWith('K_') || clean.startsWith('KASSET') || clean.includes('กสิกร')) {
+                detectedAmc = 'KAsset (กสิกรไทย)';
+            } else if (clean.startsWith('SCB') || clean.includes('ไทยพาณิชย์')) {
+                detectedAmc = 'SCBAM (ไทยพาณิชย์)';
+            } else if (clean.startsWith('B-') || clean.startsWith('BBL') || clean.includes('บัวหลวง')) {
+                detectedAmc = 'BBLAM (บัวหลวง)';
+            } else if (clean.startsWith('KF') || clean.startsWith('KSAM') || clean.includes('กรุงศรี')) {
+                detectedAmc = 'KSAM (กรุงศรี)';
+            } else if (clean.startsWith('PRINCIPAL') || clean.startsWith('CIMB') || clean.includes('พรินซิเพิล')) {
+                detectedAmc = 'Principal (พรินซิเพิล)';
+            } else if (clean.startsWith('T-') || clean.startsWith('TTB') || clean.startsWith('TMB') || clean.includes('อีสท์สปริง')) {
+                detectedAmc = 'Eastspring (อีสท์สปริง)';
+            } else if (clean.startsWith('ONE') || clean.startsWith('1AM') || clean.includes('วรรณ')) {
+                detectedAmc = 'ONEAM (วรรณ)';
+            } else if (clean.startsWith('KT-') || clean.startsWith('KTAM') || clean.includes('กรุงไทย')) {
+                detectedAmc = 'KTAM (กรุงไทย)';
+            } else if (clean.startsWith('UOB') || clean.includes('ยูโอบี')) {
+                detectedAmc = 'UOBAM (ยูโอบี)';
+            } else if (clean.startsWith('LH') || clean.includes('แลนด์ แอนด์ เฮ้าส์')) {
+                detectedAmc = 'LH Fund (แลนด์ แอนด์ เฮ้าส์)';
+            } else if (clean.startsWith('TISCO') || clean.includes('ทิสโก้')) {
+                detectedAmc = 'TISCOAM (ทิสโก้)';
+            } else if (clean.startsWith('DAOL') || clean.includes('ดาโอ')) {
+                detectedAmc = 'DAOL (ดาโอ)';
+            } else if (clean.startsWith('KWI') || clean.includes('เคดับบลิวไอ')) {
+                detectedAmc = 'KWI (เคดับบลิวไอ)';
+            } else if (clean.startsWith('X-') || clean.includes('เอ็กซ์สปริง')) {
+                detectedAmc = 'XSpring (เอ็กซ์สปริง)';
+            } else if (clean.startsWith('TALIS') || clean.includes('ทาลิส')) {
+                detectedAmc = 'Talis (ทาลิส)';
+            } else if (clean.startsWith('MFC') || clean.includes('เอ็มเอฟซี')) {
+                detectedAmc = 'MFC (เอ็มเอฟซี)';
+            } else if (clean.startsWith('AB') || clean.includes('อเบอร์ดีน')) {
+                detectedAmc = 'abrdn (อเบอร์ดีน)';
+            } else if (clean.startsWith('PHIL') || clean.includes('ฟิลลิป')) {
+                detectedAmc = 'Phillip (ฟิลลิป)';
+            }
+
+            // B. Detect Category by Keywords
+            if (clean.includes('VIET') || clean.includes('VNEQ') || clean.includes('เวียดนาม')) {
+                detectedCat = 'หุ้นเวียดนาม';
+                detectedNote = 'ลงทุนในหุ้นเวียดนาม';
+            } else if (clean.includes('USA') || clean.includes('NDX') || clean.includes('NASDAQ') || clean.includes('S&P') || clean.includes('US500') || clean.includes('US-') || clean.includes('สหรัฐ')) {
+                detectedCat = 'หุ้นสหรัฐฯ';
+                detectedNote = 'ลงทุนในหุ้นสหรัฐฯ';
+            } else if (clean.includes('CHINA') || clean.includes('CHIN') || clean.includes('A-SHARE') || clean.includes('HK') || clean.includes('HANG SENG') || clean.includes('จีน')) {
+                detectedCat = 'หุ้นจีน';
+                detectedNote = 'ลงทุนในหุ้นจีน';
+            } else if (clean.includes('TECH') || clean.includes('INNO') || clean.includes('CYBER') || clean.includes('SEMI') || clean.includes('AI') || clean.includes('CLOUD') || clean.includes('DIGITAL') || clean.includes('เทคโนโลยี')) {
+                detectedCat = 'หุ้นเทคโนโลยี';
+                detectedNote = 'ลงทุนในกลุ่มเทคโนโลยีและนวัตกรรม';
+            } else if (clean.includes('INDIA') || clean.includes('NIFTY') || clean.includes('อินเดีย')) {
+                detectedCat = 'หุ้นอินเดีย';
+                detectedNote = 'ลงทุนในหุ้นอินเดีย';
+            } else if (clean.includes('JAPAN') || clean.includes('NIKKEI') || clean.includes('NIPPON') || clean.includes('ญี่ปุ่น')) {
+                detectedCat = 'หุ้นญี่ปุ่น';
+                detectedNote = 'ลงทุนในหุ้นญี่ปุ่น';
+            } else if (clean.includes('EUROPE') || clean.includes('STOXX') || clean.includes('ยุโรป')) {
+                detectedCat = 'หุ้นยุโรป';
+                detectedNote = 'ลงทุนในหุ้นยุโรป';
+            } else if (clean.includes('WORLD') || clean.includes('GLOBAL') || clean.includes('ทั่วโลก')) {
+                detectedCat = 'หุ้นทั่วโลก';
+                detectedNote = 'ลงทุนในหุ้นทั่วโลก';
+            } else if (clean.includes('ASIA') || clean.includes('APAC') || clean.includes('EMERGING') || clean.includes('เอเชีย')) {
+                detectedCat = 'หุ้นเอเชีย / ตลาดเกิดใหม่';
+                detectedNote = 'ลงทุนในหุ้นภูมิภาคเอเชีย';
+            } else if (clean.includes('HEALTH') || clean.includes('CARE') || clean.includes('MED') || clean.includes('PHARMA') || clean.includes('BIOTECH') || clean.includes('การแพทย์')) {
+                detectedCat = 'หุ้นเฮลธ์แคร์';
+                detectedNote = 'ลงทุนในกลุ่มสุขภาพและการแพทย์ทั่วโลก';
+            } else if (clean.includes('GOLD') || clean.includes('ทอง')) {
+                detectedCat = 'สินค้าโภคภัณฑ์ (ทองคำ)';
+                detectedNote = 'ลงทุนในทองคำแท่ง';
+            } else if (clean.includes('PROP') || clean.includes('REIT') || clean.includes('INFRA') || clean.includes('อสังหา')) {
+                detectedCat = 'กองทุนอสังหาริมทรัพย์ & REITs';
+                detectedNote = 'ลงทุนในอสังหาริมทรัพย์ & กองทรัสต์ REITs';
+            } else if (clean.includes('ENERGY') || clean.includes('CLEAN') || clean.includes('ESG') || clean.includes('CLIMATE') || clean.includes('พลังงาน')) {
+                detectedCat = 'หุ้นพลังงานสะอาด & ESG';
+                detectedNote = 'ลงทุนในกลุ่มพลังงานสะอาดและธุรกิจยั่งยืน';
+            } else if (clean.includes('FIXED') || clean.includes('BOND') || clean.includes('GOV') || clean.includes('TREASURY') || clean.includes('DEBT') || clean.includes('ตราสารหนี้') || clean.includes('ตลาดเงิน')) {
+                detectedCat = 'ตราสารหนี้ / ตลาดเงิน';
+                detectedNote = 'ลงทุนในตราสารหนี้และพันธบัตร';
+            } else if (clean.includes('SET') || clean.includes('THAI') || clean.includes('EQRMF') || clean.includes('หุ้นไทย')) {
+                detectedCat = 'หุ้นไทย';
+                detectedNote = 'ลงทุนในหุ้นไทย';
+            }
+
+            if (!detectedAmc && !detectedCat) return null;
+
+            return {
+                code: rawInput.trim().toUpperCase(),
+                amc: detectedAmc || '',
+                name: detectedName || rawInput.trim(),
+                category: detectedCat || 'กองทุนรวมทั่วไป',
+                note: detectedNote || '',
+                confidence: 'heuristic'
+            };
+        }
+
+        function onFundCodeInput(val) {
+            if (!val || val.trim().length < 2) return;
+            const detected = detectRmfInfo(val);
+            if (detected) {
+                applyDetectedRmf(detected, false);
+            }
+        }
+
+        function onFundNameInput(val) {
+            if (!val || val.trim().length < 2) return;
+            const codeInput = document.getElementById('fundCode');
+            const isCodeEmpty = !codeInput.value.trim();
+            
+            const upper = val.trim().toUpperCase();
+            const looksLikeTicker = /^[A-Z0-9_\-()]{3,}$/.test(upper) || upper.includes('RMF') || upper.includes('-') || upper.startsWith('ASP') || upper.startsWith('SCB') || upper.startsWith('K-');
+            
+            const detected = detectRmfInfo(val);
+            if (detected) {
+                if (isCodeEmpty && looksLikeTicker) {
+                    codeInput.value = detected.code || upper;
+                }
+                applyDetectedRmf(detected, looksLikeTicker);
+            }
+        }
+
+        function applyDetectedRmf(info, isFromTickerInName = false) {
+            const codeInput = document.getElementById('fundCode');
+            const amcInput = document.getElementById('fundAmc');
+            const nameInput = document.getElementById('fundName');
+            const catInput = document.getElementById('fundCategory');
+            const noteInput = document.getElementById('fundNote');
+
+            if (info.code && (!codeInput.value.trim() || isFromTickerInName)) {
+                codeInput.value = info.code;
+            }
+            if (info.amc && (!amcInput.value.trim() || amcInput.value === '')) {
+                amcInput.value = info.amc;
+            }
+            if (info.category) {
+                catInput.value = info.category;
+            }
+            if (info.name && (isFromTickerInName || !nameInput.value.trim())) {
+                nameInput.value = info.name;
+            }
+            if (info.note && !noteInput.value.trim()) {
+                noteInput.value = info.note;
+            }
+
+            // Show Auto-Detect notification banner
+            const banner = document.getElementById('rmfAutoDetectBanner');
+            const textEl = document.getElementById('rmfAutoDetectText');
+            if (banner && textEl) {
+                banner.classList.remove('d-none');
+                banner.classList.add('d-flex');
+                textEl.innerHTML = `<strong>✨ ตรวจพบอัตโนมัติ:</strong> ${info.amc ? `บลจ. <b>${info.amc}</b>` : ''} • หมวดหมู่: <span class="badge bg-success">${info.category || 'กองทุนรวม'}</span>`;
+            }
+        }
+
+        function dismissRmfAutoDetect() {
+            const banner = document.getElementById('rmfAutoDetectBanner');
+            if (banner) {
+                banner.classList.add('d-none');
+                banner.classList.remove('d-flex');
+            }
+        }
+
+        function setFundCategory(cat) {
+            const catInput = document.getElementById('fundCategory');
+            if (catInput) {
+                catInput.value = cat;
+                catInput.focus();
+            }
+        }
+
+        function getRmfCategoryBadge(cat) {
+            if (!cat) return `<span class="badge bg-body-secondary text-secondary">กองทุนรวม</span>`;
+            if (cat.includes('เวียดนาม')) return `<span class="badge bg-danger-subtle text-danger border border-danger-subtle"><i class="fa-solid fa-star me-1"></i>${cat}</span>`;
+            if (cat.includes('สหรัฐ')) return `<span class="badge bg-primary-subtle text-primary border border-primary-subtle"><i class="fa-solid fa-flag-usa me-1"></i>${cat}</span>`;
+            if (cat.includes('เทคโนโลยี')) return `<span class="badge" style="background-color: #ede9fe; color: #6d28d9; border: 1px solid #ddd6fe;"><i class="fa-solid fa-microchip me-1"></i>${cat}</span>`;
+            if (cat.includes('จีน')) return `<span class="badge bg-warning-subtle text-danger border border-warning-subtle"><i class="fa-solid fa-dragon me-1"></i>${cat}</span>`;
+            if (cat.includes('ทั่วโลก')) return `<span class="badge bg-info-subtle text-info-emphasis border border-info-subtle"><i class="fa-solid fa-globe me-1"></i>${cat}</span>`;
+            if (cat.includes('ไทย')) return `<span class="badge bg-primary-subtle text-primary border border-primary-subtle"><i class="fa-solid fa-landmark me-1"></i>${cat}</span>`;
+            if (cat.includes('ทองคำ')) return `<span class="badge bg-warning text-dark border border-warning"><i class="fa-solid fa-coins me-1"></i>${cat}</span>`;
+            if (cat.includes('ตราสารหนี้')) return `<span class="badge bg-secondary-subtle text-secondary border border-secondary-subtle"><i class="fa-solid fa-vault me-1"></i>${cat}</span>`;
+            if (cat.includes('เฮลธ์แคร์')) return `<span class="badge bg-success-subtle text-success border border-success-subtle"><i class="fa-solid fa-heart-pulse me-1"></i>${cat}</span>`;
+            if (cat.includes('อินเดีย')) return `<span class="badge bg-warning-subtle text-warning-emphasis border border-warning-subtle"><i class="fa-solid fa-sun me-1"></i>${cat}</span>`;
+            if (cat.includes('ญี่ปุ่น')) return `<span class="badge bg-danger-subtle text-danger-emphasis border border-danger-subtle"><i class="fa-solid fa-circle-dot me-1"></i>${cat}</span>`;
+            return `<span class="badge bg-body-secondary text-secondary">${cat}</span>`;
+        }
+
         // ------------------ RMF FUND MODAL ------------------
         function openAddFundModal(fundId = null) {
+            initRmfPresets();
+            dismissRmfAutoDetect();
+
             const title = document.getElementById('fundModalTitle');
             const editId = document.getElementById('fundEditId');
             const code = document.getElementById('fundCode');
@@ -2618,21 +2936,32 @@
             e.preventDefault();
             const editId = document.getElementById('fundEditId').value;
             const code = document.getElementById('fundCode').value.trim().toUpperCase();
-            const amc = document.getElementById('fundAmc').value.trim();
-            const name = document.getElementById('fundName').value.trim();
-            const cat = document.getElementById('fundCategory').value.trim();
+            let amc = document.getElementById('fundAmc').value.trim();
+            let name = document.getElementById('fundName').value.trim();
+            let cat = document.getElementById('fundCategory').value.trim();
             const nav = parseFloat(document.getElementById('fundCurrentNav').value) || 0;
             const units = parseFloat(document.getElementById('fundUnits').value) || 0;
             const avgCost = parseFloat(document.getElementById('fundAvgCost').value) || 0;
-            const note = document.getElementById('fundNote').value.trim();
+            let note = document.getElementById('fundNote').value.trim();
+
+            // Auto-detect fallback if category or AMC was not filled
+            if (!cat || !amc) {
+                const auto = detectRmfInfo(code || name);
+                if (auto) {
+                    if (!cat && auto.category) cat = auto.category;
+                    if (!amc && auto.amc) amc = auto.amc;
+                    if (!name && auto.name) name = auto.name;
+                    if (!note && auto.note) note = auto.note;
+                }
+            }
 
             if (editId) {
                 const f = appData.rmf.funds.find(x => x.id === editId);
                 if (f) {
                     f.code = code;
-                    f.amc = amc;
-                    f.name = name;
-                    f.category = cat;
+                    f.amc = amc || 'บลจ.ทั่วไป';
+                    f.name = name || code;
+                    f.category = cat || 'กองทุนรวม';
                     f.currentNav = nav;
                     f.units = units;
                     f.avgCost = avgCost;
@@ -2642,9 +2971,9 @@
                 appData.rmf.funds.push({
                     id: 'fund_' + Date.now(),
                     code: code,
-                    amc: amc,
-                    name: name,
-                    category: cat,
+                    amc: amc || 'บลจ.ทั่วไป',
+                    name: name || code,
+                    category: cat || 'กองทุนรวม',
                     currentNav: nav,
                     units: units,
                     avgCost: avgCost,
