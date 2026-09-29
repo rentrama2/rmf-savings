@@ -289,7 +289,7 @@
                     <span class="fw-bold text-gradient" style="font-size: 1.15rem; background: linear-gradient(90deg, #f59e0b, #2563eb, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
                         MoneyTree Pro
                     </span>
-                    <span class="badge rounded-pill bg-success-subtle text-success ms-1 fw-bold" style="font-size: 0.7rem;"><i class="fa-solid fa-code-branch me-1"></i>V1.9 (Full Catalog)</span>
+                    <span class="badge rounded-pill bg-success-subtle text-success ms-1 fw-bold" style="font-size: 0.7rem;"><i class="fa-solid fa-code-branch me-1"></i>V2.0 (Official Tickers)</span>
                 </div>
             </div>
 
@@ -2680,66 +2680,67 @@
         // ------------------ RMF PRESET DATABASE & AUTO DETECTOR ------------------
         const RMF_DATABASE = [
             // ==========================================
-            // 1. Kasikorn (KAsset) - บลจ. กสิกรไทย
+            // 1. Kasikorn (KAsset) - บลจ. กสิกรไทย (Official SEC tickers omit hyphen before RMF)
             // ==========================================
-            { code: 'K-USA-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค ยูเอสเอ หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K USA Equity Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนใน Morgan Stanley US Advantage' },
-            { code: 'K-US500X-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค ยูเอส 500 หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K US500 Equity Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี S&P 500 (iShares Core S&P 500 ETF)' },
-            { code: 'K-USXNDQ-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค ยูเอส ดัชนีเอ็นดีคิว 100 เพื่อการเลี้ยงชีพ', nameEn: 'K US Index NDQ 100 Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี NASDAQ-100 (Invesco NASDAQ 100 ETF)' },
-            { code: 'K-VIETNAM-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค เวียดนาม หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K Vietnam Equity Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนามที่มีศักยภาพการเติบโตสูง' },
-            { code: 'K-CHINA-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค ไชน่า หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K China Equity Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีนผ่าน Fidelity China Consumer Fund' },
-            { code: 'K-CHX-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค ไชน่า ดัชนีซีเอสไอ 300 เพื่อการเลี้ยงชีพ', nameEn: 'K China CSI 300 Index Retirement Mutual Fund', category: 'หุ้นจีน', note: 'อิงดัชนี CSI 300 หุ้นจีน A-Shares' },
-            { code: 'K-INDIA-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค อินเดีย หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K India Equity Retirement Mutual Fund', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดียผ่าน First Sentier Indian Subcontinent Fund' },
-            { code: 'K-JP-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค เจแปน หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K Japan Equity Retirement Mutual Fund', category: 'หุ้นญี่ปุ่น', note: 'ลงทุนในหุ้นญี่ปุ่นผ่าน Nomura Japan Equity' },
-            { code: 'K-GTECH-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค โกลบอล เทคโนโลยี หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K Global Technology Equity Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในหุ้นเทคโนโลยีระดับโลกผ่าน BGF World Technology Fund' },
-            { code: 'K-SEMICON-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค เซมิคอนดักเตอร์ หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K Semiconductor Equity Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในชิปและเซมิคอนดักเตอร์โลก (VanEck Semiconductor ETF)' },
+            { code: 'K-US500XRMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค หุ้นยูเอส พาสซีฟ เพื่อการเลี้ยงชีพ', nameEn: 'K US500 Equity Passive Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี S&P 500 (iShares Core S&P 500 ETF)' },
+            { code: 'K-USXNDQRMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค หุ้นยูเอส ดัชนีเอ็นดีคิว 100 เพื่อการเลี้ยงชีพ', nameEn: 'K US Index NDQ 100 Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี NASDAQ-100 (Invesco NASDAQ 100 ETF)' },
+            { code: 'K-USARMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค ยูเอสเอ หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K USA Equity Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนใน Morgan Stanley US Advantage' },
+            { code: 'K-VIETNAMRMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค เวียดนาม หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K Vietnam Equity Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนามที่มีศักยภาพการเติบโตสูง' },
+            { code: 'K-CHINARMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค ไชน่า หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K China Equity Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีนผ่าน Fidelity China Consumer Fund' },
+            { code: 'K-CHXRMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค ไชน่า ดัชนีซีเอสไอ 300 เพื่อการเลี้ยงชีพ', nameEn: 'K China CSI 300 Index Retirement Mutual Fund', category: 'หุ้นจีน', note: 'อิงดัชนี CSI 300 หุ้นจีน A-Shares' },
+            { code: 'K-INDIARMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค อินเดีย หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K India Equity Retirement Mutual Fund', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดียผ่าน First Sentier Indian Subcontinent Fund' },
+            { code: 'K-JPRMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค เจแปน หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K Japan Equity Retirement Mutual Fund', category: 'หุ้นญี่ปุ่น', note: 'ลงทุนในหุ้นญี่ปุ่นผ่าน Nomura Japan Equity' },
+            { code: 'K-GTECHRMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค โกลบอล เทคโนโลยี หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K Global Technology Equity Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในหุ้นเทคโนโลยีระดับโลกผ่าน BGF World Technology Fund' },
             { code: 'K-GHRMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค โกลบอล เฮลท์แคร์ หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K Global Healthcare Equity Retirement Mutual Fund', category: 'หุ้นเฮลธ์แคร์', note: 'ลงทุนใน JPMorgan Global Healthcare Fund' },
-            { code: 'K-GINCOME-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค โกลบอล อินคัม เพื่อการเลี้ยงชีพ', nameEn: 'K Global Income Retirement Mutual Fund', category: 'สินทรัพย์ผสมทั่วโลก', note: 'ลงทุนใน JPMorgan Global Income Fund' },
+            { code: 'K-GINCOMERMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค โกลบอล อินคัม เพื่อการเลี้ยงชีพ', nameEn: 'K Global Income Retirement Mutual Fund', category: 'สินทรัพย์ผสมทั่วโลก', note: 'ลงทุนใน JPMorgan Global Income Fund' },
             { code: 'K-CHANGERMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค พอสซิทีฟ เชนจ์ หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K Positive Change Equity Retirement Mutual Fund', category: 'หุ้นทั่วโลก', note: 'ลงทุนใน Baillie Gifford Positive Change' },
-            { code: 'K-CLIMATE-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค ไคลเมท แอคชั่น หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K Climate Action Equity Retirement Mutual Fund', category: 'หุ้นพลังงานสะอาด & ESG', note: 'ลงทุนในหุ้นที่มุ่งลดภาวะโลกร้อน (DWS Invest ESG Climate Tech)' },
+            { code: 'K-CLIMATERMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค ไคลเมท แอคชั่น หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K Climate Action Equity Retirement Mutual Fund', category: 'หุ้นพลังงานสะอาด & ESG', note: 'ลงทุนในหุ้นที่มุ่งลดภาวะโลกร้อน (DWS Invest ESG Climate Tech)' },
             { code: 'K-PLANETRMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค Planetary Transition เพื่อการเลี้ยงชีพ', nameEn: 'K Planetary Transition Retirement Mutual Fund', category: 'หุ้นพลังงานสะอาด & ESG', note: 'ลงทุนในธุรกิจนวัตกรรมเพื่อความยั่งยืน' },
             { code: 'KGDRMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค โกลด์ เพื่อการเลี้ยงชีพ', nameEn: 'K Gold Retirement Mutual Fund', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนในทองคำแท่งผ่าน SPDR Gold Shares' },
             { code: 'K-EQRMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K Equity Retirement Mutual Fund', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทยปัจจัยพื้นฐานดี' },
             { code: 'K-VALUERMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค หุ้นปันผลเพื่อการเลี้ยงชีพ', nameEn: 'K Value Equity Retirement Mutual Fund', category: 'หุ้นไทย', note: 'เน้นลงทุนในหุ้นไทยที่จ่ายเงินปันผลสม่ำเสมอ' },
-            { code: 'K-STAR-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค สตาร์ เพื่อการเลี้ยงชีพ', nameEn: 'K Star Retirement Mutual Fund', category: 'หุ้นไทย', note: 'คัดเลือกลงทุนหุ้นไทยศักยภาพสูง' },
+            { code: 'K-STARRMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค สตาร์ เพื่อการเลี้ยงชีพ', nameEn: 'K Star Retirement Mutual Fund', category: 'หุ้นไทย', note: 'คัดเลือกลงทุนหุ้นไทยศักยภาพสูง' },
             { code: 'K-FLRMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค หุ้นทุนบริพัตรเพื่อการเลี้ยงชีพ', nameEn: 'K Flexible Retirement Mutual Fund', category: 'กองทุนผสม', note: 'บริหารสัดส่วนหุ้นไทยและตราสารหนี้ยืดหยุ่น 0-100%' },
-            { code: 'K-PROP-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค พร็อพเพอร์ตี้ เซคเตอร์ เพื่อการเลี้ยงชีพ', nameEn: 'K Property Sector Retirement Mutual Fund', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนในอสังหาริมทรัพย์และ REITs ไทย/สิงคโปร์' },
-            { code: 'K-GINFRA-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค โกลบอล อินฟราสตรัคเจอร์ เพื่อการเลี้ยงชีพ', nameEn: 'K Global Infrastructure Retirement Mutual Fund', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนในโครงสร้างพื้นฐานทั่วโลก' },
+            { code: 'K-PROPRMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค พร็อพเพอร์ตี้ เซคเตอร์ เพื่อการเลี้ยงชีพ', nameEn: 'K Property Sector Retirement Mutual Fund', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนในอสังหาริมทรัพย์และ REITs ไทย/สิงคโปร์' },
+            { code: 'K-GINFRARMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค โกลบอล อินฟราสตรัคเจอร์ เพื่อการเลี้ยงชีพ', nameEn: 'K Global Infrastructure Retirement Mutual Fund', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนในโครงสร้างพื้นฐานทั่วโลก' },
             { code: 'K-FIRMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค ตราสารหนี้เพื่อการเลี้ยงชีพ', nameEn: 'K Fixed Income Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้ภาครัฐและเอกชนระยะปานกลาง' },
-            { code: 'K-TREASURY-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค ตราสารหนี้ระยะสั้นเพื่อการเลี้ยงชีพ', nameEn: 'K Treasury Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในพันธบัตรและตราสารหนี้ระยะสั้นสภาพคล่องสูง' },
+            { code: 'K-TREASURYRMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค ตราสารหนี้ระยะสั้นเพื่อการเลี้ยงชีพ', nameEn: 'K Treasury Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในพันธบัตรและตราสารหนี้ระยะสั้นสภาพคล่องสูง' },
             { code: 'K-WPLIGHTRMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค เวลท์พลัส ไลท์ เพื่อการเลี้ยงชีพ', nameEn: 'K Wealth Plus Light RMF', category: 'กองทุนผสม', note: 'จัดพอร์ตผสมแบบระมัดระวัง (ร่วมกับ J.P. Morgan)' },
             { code: 'K-WPBALRMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค เวลท์พลัส บาลานซ์ เพื่อการเลี้ยงชีพ', nameEn: 'K Wealth Plus Balanced RMF', category: 'กองทุนผสม', note: 'จัดพอร์ตผสมแบบสมดุล (ร่วมกับ J.P. Morgan)' },
             { code: 'K-WPSPEEDRMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค เวลท์พลัส สปีดอัพ เพื่อการเลี้ยงชีพ', nameEn: 'K Wealth Plus Speed Up RMF', category: 'กองทุนผสม', note: 'จัดพอร์ตผสมเน้นการเติบโต (ร่วมกับ J.P. Morgan)' },
             { code: 'K-WPULTIRMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค เวลท์พลัส อัลติเมท เพื่อการเลี้ยงชีพ', nameEn: 'K Wealth Plus Ultimate RMF', category: 'กองทุนผสม', note: 'จัดพอร์ตผสมเน้นผลตอบแทนสูงสุด (ร่วมกับ J.P. Morgan)' },
 
             // ==========================================
-            // 2. SCBAM - บลจ. ไทยพาณิชย์
+            // 2. SCBAM - บลจ. ไทยพาณิชย์ (Official SEC prefix: SCBRM...)
             // ==========================================
-            { code: 'SCBUS(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์หุ้นยูเอส เพื่อการเลี้ยงชีพ', nameEn: 'SCB US Equity Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนในหุ้นสหรัฐฯ ขนาดใหญ่' },
-            { code: 'SCBNDQ(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ ดัชนี NASDAQ เพื่อการเลี้ยงชีพ', nameEn: 'SCB NASDAQ Index Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี NASDAQ-100 (Invesco QQQ)' },
-            { code: 'SCBS&P500(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ ดัชนี S&P 500 เพื่อการเลี้ยงชีพ', nameEn: 'SCB S&P 500 Index Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี S&P 500 (SPDR S&P 500 ETF)' },
-            { code: 'SCBSEMI(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ Semiconductor เพื่อการเลี้ยงชีพ', nameEn: 'SCB Semiconductor Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในหุ้นกลุ่มชิปและ Semiconductor ทั่วโลก' },
-            { code: 'SCBEV(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ Electric Vehicles เพื่อการเลี้ยงชีพ', nameEn: 'SCB Electric Vehicles Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในยานยนต์ไฟฟ้าและห่วงโซ่อุปทานแบตเตอรี่' },
-            { code: 'SCBVIET(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ หุ้นเวียดนาม เพื่อการเลี้ยงชีพ', nameEn: 'SCB Vietnam Equity Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนามที่มีอัตราเติบโตสูง' },
-            { code: 'SCBCHINA(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์หุ้นจีน เพื่อการเลี้ยงชีพ', nameEn: 'SCB China Equity Retirement Mutual Fund', category: 'หุ้นจีน', note: 'อิงดัชนี Hang Seng China Enterprises (HSCEI)' },
-            { code: 'SCBCHAA(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ หุ้นจีนเอแชร์ เพื่อการเลี้ยงชีพ', nameEn: 'SCB China A-Shares Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีน A-Shares ผ่าน ChinaAMC CSI 300 Index ETF' },
-            { code: 'SCBINDIA(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์หุ้นอินเดีย เพื่อการเลี้ยงชีพ', nameEn: 'SCB India Equity Retirement Mutual Fund', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดียผ่าน iShares MSCI India ETF' },
-            { code: 'SCBJAPAN(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์หุ้นญี่ปุ่น เพื่อการเลี้ยงชีพ', nameEn: 'SCB Japan Equity Retirement Mutual Fund', category: 'หุ้นญี่ปุ่น', note: 'อิงดัชนี Nikkei 225' },
-            { code: 'SCBWORLD(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ หุ้นทั่วโลก เพื่อการเลี้ยงชีพ', nameEn: 'SCB World Equity Retirement Mutual Fund', category: 'หุ้นทั่วโลก', note: 'ลงทุนในหุ้นคุณภาพชั้นนำทั่วโลก' },
-            { code: 'SCBHEALTH(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ โกลบอลเฮลธ์แคร์ เพื่อการเลี้ยงชีพ', nameEn: 'SCB Global Healthcare Retirement Mutual Fund', category: 'หุ้นเฮลธ์แคร์', note: 'ลงทุนในหุ้นกลุ่มสุขภาพ การแพทย์ และชีวเวชภัณฑ์' },
-            { code: 'SCBMLCA(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ หุ้นยุโรป เพื่อการเลี้ยงชีพ', nameEn: 'SCB European Equity Retirement Mutual Fund', category: 'หุ้นยุโรป', note: 'ลงทุนในหุ้นยุโรปขนาดใหญ่ผ่าน iShares Core EURO STOXX 50' },
-            { code: 'SCBGOLD(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์โกลด์ เพื่อการเลี้ยงชีพ', nameEn: 'SCB Gold Retirement Mutual Fund', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนในทองคำแท่งผ่าน SPDR Gold Trust' },
-            { code: 'SCBPROP(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ พร็อพเพอร์ตี้ เพื่อการเลี้ยงชีพ', nameEn: 'SCB Property Retirement Mutual Fund', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนใน REITs และ Property Funds ไทยและเอเชีย' },
-            { code: 'SCBRM4', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'SCB Equity Retirement Mutual Fund', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทยปัจจัยพื้นฐานดี' },
-            { code: 'SCBSET50(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ ดัชนี SET50 เพื่อการเลี้ยงชีพ', nameEn: 'SCB SET50 Index Retirement Mutual Fund', category: 'หุ้นไทย', note: 'อิงดัชนี SET50' },
-            { code: 'SCBRF1', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์พันธบัตรรัฐบาลเพื่อการเลี้ยงชีพ', nameEn: 'SCB Government Bond Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในพันธบัตรรัฐบาลไทย' },
-            { code: 'SCBFP(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ ตราสารหนี้ระยะสั้น เพื่อการเลี้ยงชีพ', nameEn: 'SCB Short Term Fixed Income Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ตราสารหนี้ระยะสั้นเน้นความมั่นคงและสภาพคล่อง' },
+            { code: 'SCBRMS&P500', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ ดัชนี S&P 500 เพื่อการเลี้ยงชีพ', nameEn: 'SCB S&P 500 Index Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี S&P 500 (SPDR S&P 500 ETF Trust)' },
+            { code: 'SCBRMNDQ', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ หุ้นยูเอส ดัชนีเอ็นดีคิว เพื่อการเลี้ยงชีพ', nameEn: 'SCB US Index NDQ Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี NASDAQ-100 (Invesco QQQ)' },
+            { code: 'SCBRMUSA', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์หุ้นยูเอส เพื่อการเลี้ยงชีพ', nameEn: 'SCB US Equity Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนใน Morgan Stanley US Advantage / หุ้นสหรัฐฯ คุณภาพสูง' },
+            { code: 'SCBRMCTECH', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ China Technology เพื่อการเลี้ยงชีพ', nameEn: 'SCB China Technology Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในหุ้นกลุ่มเทคโนโลยีจีนผ่าน Invesco China Technology ETF' },
+            { code: 'SCBRMVIET', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ หุ้นเวียดนาม เพื่อการเลี้ยงชีพ', nameEn: 'SCB Vietnam Equity Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนามที่มีอัตราเติบโตสูง' },
+            { code: 'SCBRMCHINA', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์หุ้นจีน เพื่อการเลี้ยงชีพ', nameEn: 'SCB China Equity Retirement Mutual Fund', category: 'หุ้นจีน', note: 'อิงดัชนี Hang Seng China Enterprises (HSCEI)' },
+            { code: 'SCBRMCHA', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ หุ้นจีนเอแชร์ เพื่อการเลี้ยงชีพ', nameEn: 'SCB China A-Shares Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีน A-Shares ผ่าน ChinaAMC CSI 300 Index ETF' },
+            { code: 'SCBRMIND', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์หุ้นอินเดีย เพื่อการเลี้ยงชีพ', nameEn: 'SCB India Equity Retirement Mutual Fund', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดียผ่าน iShares MSCI India ETF' },
+            { code: 'SCBRMJAPAN(A)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์หุ้นญี่ปุ่น เพื่อการเลี้ยงชีพ', nameEn: 'SCB Japan Equity Retirement Mutual Fund', category: 'หุ้นญี่ปุ่น', note: 'อิงดัชนี Nikkei 225' },
+            { code: 'SCBRMWORLD', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ หุ้นทั่วโลก เพื่อการเลี้ยงชีพ', nameEn: 'SCB World Equity Retirement Mutual Fund', category: 'หุ้นทั่วโลก', note: 'ลงทุนในหุ้นคุณภาพชั้นนำทั่วโลก' },
+            { code: 'SCBRMGHC', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ โกลบอลเฮลธ์แคร์ เพื่อการเลี้ยงชีพ', nameEn: 'SCB Global Healthcare Retirement Mutual Fund', category: 'หุ้นเฮลธ์แคร์', note: 'ลงทุนใน Janus Henderson Global Life Sciences Fund' },
+            { code: 'SCBRMMLCA', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ หุ้นยุโรป เพื่อการเลี้ยงชีพ', nameEn: 'SCB European Equity Retirement Mutual Fund', category: 'หุ้นยุโรป', note: 'ลงทุนในหุ้นยุโรปขนาดใหญ่ผ่าน iShares Core EURO STOXX 50' },
+            { code: 'SCBGOLDHRMF', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์โกลด์ THB เฮดจ์ เพื่อการเลี้ยงชีพ', nameEn: 'SCB Gold THB Hedged Retirement Mutual Fund', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนในทองคำแท่งผ่าน SPDR Gold Trust ป้องกันความเสี่ยงค่าเงิน' },
+            { code: 'SCBRMPROP', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ พร็อพเพอร์ตี้ แอนด์ อินฟราสตรัคเจอร์ เพื่อการเลี้ยงชีพ', nameEn: 'SCB Property and Infrastructure Flexible Retirement Mutual Fund', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนใน REITs และ Property Funds ไทยและเอเชีย' },
+            { code: 'SCBRMS50', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ ดัชนี SET50 เพื่อการเลี้ยงชีพ', nameEn: 'SCB SET50 Index Retirement Mutual Fund', category: 'หุ้นไทย', note: 'อิงดัชนี SET50 หุ้นไทยชั้นนำ 50 ตัวแรก' },
+            { code: 'SCBRM4', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ตราสารทุน เพื่อการเลี้ยงชีพ', nameEn: 'SCB Equity Retirement Mutual Fund', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทยปัจจัยพื้นฐานดีและสภาพคล่องสูง' },
+            { code: 'SCBRM3', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์เฟล็กซิเบิ้ลฟันด์ เพื่อการเลี้ยงชีพ', nameEn: 'SCB Flexible Retirement Mutual Fund', category: 'กองทุนผสม', note: 'บริหารสัดส่วนหุ้นและตราสารหนี้อย่างยืดหยุ่น' },
+            { code: 'SCBRM2', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์พันธบัตรรัฐบาล เพื่อการเลี้ยงชีพ', nameEn: 'SCB Government Bond Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในพันธบัตรรัฐบาลไทยและตราสารหนี้ภาครัฐ' },
+            { code: 'SCBRM1', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ตราสารหนี้ระยะสั้น เพื่อการเลี้ยงชีพ', nameEn: 'SCB Short Term Fixed Income Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้ระยะสั้นเน้นความมั่นคงสูง' },
+            { code: 'SCBRMMONEY', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ ตราสารตลาดเงิน เพื่อการเลี้ยงชีพ', nameEn: 'SCB Money Market Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารตลาดเงินและเงินฝากสภาพคล่องสูง' },
 
             // ==========================================
-            // 3. BBLAM - บลจ. บัวหลวง
+            // 3. BBLAM - บลจ. บัวหลวง (Official SEC tickers omit hyphen before RMF)
             // ==========================================
-            { code: 'B-USARMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงยูเอสเอเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang USA Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนในหุ้นสหรัฐฯ ขนาดใหญ่' },
+            { code: 'B-USARMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงยูเอสเอเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang USA Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนในหุ้นสหรัฐฯ ขนาดใหญ่และศักยภาพเติบโต' },
+            { code: 'B-USPASSIVERMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงหุ้นยูเอสพาสซีฟเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang US Equity Passive Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี S&P 500 (iShares Core S&P 500 ETF)' },
             { code: 'B-INNOTECHRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงอินโนเวชั่นเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Innovation Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนใน BGF World Technology Fund' },
-            { code: 'B-FUTURE-RMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงฟิวเจอร์เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Future Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในหุ้นเมกะเทรนด์แห่งอนาคต' },
+            { code: 'B-FUTURERMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงหุ้นฟิวเจอร์เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Future Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในหุ้นเมกะเทรนด์แห่งอนาคตและ AI' },
             { code: 'B-VIETNAMRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงเวียดนามเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Vietnam Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนามศักยภาพเติบโต' },
             { code: 'B-CHINARMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงไชน่าเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang China Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีนผ่าน Allianz China A Shares' },
             { code: 'B-BHARATRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงภารตะเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Bharata Retirement Mutual Fund', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดียผ่าน RAMS India Equities' },
@@ -2749,9 +2750,10 @@
             { code: 'B-TNLRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงธนทวีเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Thanatavee Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้ไทยคุณภาพดี' },
             { code: 'BGOLDRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงโกลด์เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Gold Retirement Mutual Fund', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนในทองคำแท่งผ่าน SPDR Gold Trust' },
             { code: 'B-PROPRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงอสังหาริมทรัพย์เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Property Retirement Mutual Fund', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนในกองทุนรวมอสังหาริมทรัพย์และ REITs' },
+            { code: 'B-DYNAMICRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวง ไดนามิก บอนด์เพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Dynamic Bond Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้ทั่วโลกแบบยืดหยุ่น' },
 
             // ==========================================
-            // 4. KSAM - บลจ. กรุงศรี
+            // 4. KSAM - บลจ. กรุงศรี (Official SEC tickers omit hyphen before RMF)
             // ==========================================
             { code: 'KF-USARMF', amc: 'KSAM (กรุงศรี)', name: 'กองทุนเปิดกรุงศรียูเอสอิควิตี้เพื่อการเลี้ยงชีพ', nameEn: 'Krungsri US Equity Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนใน Baillie Gifford US Growth Trust' },
             { code: 'KF-US500RMF', amc: 'KSAM (กรุงศรี)', name: 'กองทุนเปิดกรุงศรียูเอส 500 อินเด็กซ์เพื่อการเลี้ยงชีพ', nameEn: 'Krungsri US 500 Index Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี S&P 500' },
@@ -2759,120 +2761,133 @@
             { code: 'KF-GTECHRMF', amc: 'KSAM (กรุงศรี)', name: 'กองทุนเปิดกรุงศรีโกลบอลเทคโนโลยีเพื่อการเลี้ยงชีพ', nameEn: 'Krungsri Global Technology Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนใน T. Rowe Price Funds SICAV - Global Technology' },
             { code: 'KF-VIETNAMRMF', amc: 'KSAM (กรุงศรี)', name: 'กองทุนเปิดกรุงศรีเวียดนามเพื่อการเลี้ยงชีพ', nameEn: 'Krungsri Vietnam Equity Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนามที่มีการเติบโตโดดเด่น' },
             { code: 'KF-CHINARMF', amc: 'KSAM (กรุงศรี)', name: 'กองทุนเปิดกรุงศรีไชน่าเพื่อการเลี้ยงชีพ', nameEn: 'Krungsri China Equity Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีน A-Shares และ H-Shares' },
+            { code: 'KF-ACHINARMF', amc: 'KSAM (กรุงศรี)', name: 'กองทุนเปิดกรุงศรีไชน่าเอแชร์อิควิตี้เพื่อการเลี้ยงชีพ', nameEn: 'Krungsri China A Shares Equity Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีน A-Shares' },
             { code: 'KF-INDIARMF', amc: 'KSAM (กรุงศรี)', name: 'กองทุนเปิดกรุงศรีอินเดียเพื่อการเลี้ยงชีพ', nameEn: 'Krungsri India Equity Retirement Mutual Fund', category: 'หุ้นอินเดีย', note: 'ลงทุนใน FSSA Indian Subcontinent Fund' },
             { code: 'KF-HJAPANDIVRMF', amc: 'KSAM (กรุงศรี)', name: 'กองทุนเปิดกรุงศรีเจแปนเฮดจ์ปันผลเพื่อการเลี้ยงชีพ', nameEn: 'Krungsri Japan Hedged Dividend Retirement Mutual Fund', category: 'หุ้นญี่ปุ่น', note: 'ลงทุนในหุ้นญี่ปุ่นปันผลสูง พร้อมป้องกันความเสี่ยงค่าเงิน' },
             { code: 'KF-GLOBALRMF', amc: 'KSAM (กรุงศรี)', name: 'กองทุนเปิดกรุงศรีโกลบอลอิควิตี้เพื่อการเลี้ยงชีพ', nameEn: 'Krungsri Global Equity Retirement Mutual Fund', category: 'หุ้นทั่วโลก', note: 'ลงทุนใน Baillie Gifford Worldwide Long Term Global Growth' },
             { code: 'KF-HEALTHRMF', amc: 'KSAM (กรุงศรี)', name: 'กองทุนเปิดกรุงศรีโกลบอลเฮลธ์แคร์เพื่อการเลี้ยงชีพ', nameEn: 'Krungsri Global Healthcare Retirement Mutual Fund', category: 'หุ้นเฮลธ์แคร์', note: 'ลงทุนใน JPMorgan Global Healthcare Fund' },
-            { code: 'KFGOLD-RMF', amc: 'KSAM (กรุงศรี)', name: 'กองทุนเปิดกรุงศรีโกลด์เพื่อการเลี้ยงชีพ', nameEn: 'Krungsri Gold Retirement Mutual Fund', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนในทองคำแท่ง SPDR Gold Trust' },
-            { code: 'KFEQ-RMF', amc: 'KSAM (กรุงศรี)', name: 'กองทุนเปิดกรุงศรีหุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'Krungsri Equity Retirement Mutual Fund', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทยคัดสรรพิเศษ' },
-            { code: 'KF-MTFI-RMF', amc: 'KSAM (กรุงศรี)', name: 'กองทุนเปิดกรุงศรีตราสารหนี้ระยะกลางเพื่อการเลี้ยงชีพ', nameEn: 'Krungsri Medium Term Fixed Income Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้ภาครัฐและเอกชน' },
+            { code: 'KFGOLDRMF', amc: 'KSAM (กรุงศรี)', name: 'กองทุนเปิดกรุงศรีโกลด์เพื่อการเลี้ยงชีพ', nameEn: 'Krungsri Gold Retirement Mutual Fund', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนในทองคำแท่ง SPDR Gold Trust' },
+            { code: 'KFEQRMF', amc: 'KSAM (กรุงศรี)', name: 'กองทุนเปิดกรุงศรีหุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'Krungsri Equity Retirement Mutual Fund', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทยคัดสรรพิเศษ' },
+            { code: 'KFGOVRMF', amc: 'KSAM (กรุงศรี)', name: 'กองทุนเปิดกรุงศรีรัฐบาลเพื่อการเลี้ยงชีพ', nameEn: 'Krungsri Government Bond Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในพันธบัตรรัฐบาลไทย' },
             { code: 'KFPRORMF', amc: 'KSAM (กรุงศรี)', name: 'กองทุนเปิดกรุงศรีพร็อพเพอร์ตี้เพื่อการเลี้ยงชีพ', nameEn: 'Krungsri Property Retirement Mutual Fund', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนในอสังหาริมทรัพย์และ REITs' },
+            { code: 'KF-SINCOMERMF', amc: 'KSAM (กรุงศรี)', name: 'กองทุนเปิดกรุงศรีโกลบอลสมาร์ทอินคัมเพื่อการเลี้ยงชีพ', nameEn: 'Krungsri Global Smart Income Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนใน PIMCO GIS Income Fund' },
 
             // ==========================================
-            // 5. KKP - บลจ. เกียรตินาคินภัทร
+            // 5. KKP - บลจ. เกียรตินาคินภัทร (Official SEC tickers)
             // ==========================================
-            { code: 'KKP GNP RMF', amc: 'KKP (เกียรตินาคินภัทร)', name: 'กองทุนเปิดเคเคพี โกลบอล นิว เพอร์สเปกทีฟ เพื่อการเลี้ยงชีพ', nameEn: 'KKP Global New Perspective Retirement Mutual Fund', category: 'หุ้นทั่วโลก', note: 'ลงทุนใน Capital Group New Perspective Fund' },
+            { code: 'KKP GNP RMF-H', amc: 'KKP (เกียรตินาคินภัทร)', name: 'กองทุนเปิดเคเคพี โกลบอล นิว เพอร์สเปกทีฟ เพื่อการเลี้ยงชีพ (Hedged)', nameEn: 'KKP Global New Perspective Retirement Mutual Fund - Hedged', category: 'หุ้นทั่วโลก', note: 'ลงทุนใน Capital Group New Perspective Fund ป้องกันความเสี่ยงค่าเงิน' },
+            { code: 'KKP GNP RMF-UH', amc: 'KKP (เกียรตินาคินภัทร)', name: 'กองทุนเปิดเคเคพี โกลบอล นิว เพอร์สเปกทีฟ เพื่อการเลี้ยงชีพ (Unhedged)', nameEn: 'KKP Global New Perspective Retirement Mutual Fund - Unhedged', category: 'หุ้นทั่วโลก', note: 'ลงทุนใน Capital Group New Perspective Fund ไม่ป้องกันความเสี่ยงค่าเงิน' },
             { code: 'KKP NDQ100 - RMF', amc: 'KKP (เกียรตินาคินภัทร)', name: 'กองทุนเปิดเคเคพี แนสแดค 100 เพื่อการเลี้ยงชีพ', nameEn: 'KKP NASDAQ 100 Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี NASDAQ-100 (Invesco QQQ)' },
             { code: 'KKP S&P500 RMF', amc: 'KKP (เกียรตินาคินภัทร)', name: 'กองทุนเปิดเคเคพี เอสแอนด์พี 500 เพื่อการเลี้ยงชีพ', nameEn: 'KKP S&P 500 Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี S&P 500 (iShares Core S&P 500 ETF)' },
-            { code: 'KKP TECH RMF', amc: 'KKP (เกียรตินาคินภัทร)', name: 'กองทุนเปิดเคเคพี เทคโนโลยี เพื่อการเลี้ยงชีพ', nameEn: 'KKP Technology Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในหุ้นกลุ่มเทคโนโลยีระดับโลก' },
+            { code: 'KKP US500 RMF-UH', amc: 'KKP (เกียรตินาคินภัทร)', name: 'กองทุนเปิดเคเคพี US500 เพื่อการเลี้ยงชีพ (Unhedged)', nameEn: 'KKP US500 Retirement Mutual Fund - Unhedged', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี S&P 500 แบบไม่ป้องกันความเสี่ยงค่าเงิน' },
+            { code: 'KKP TECH RMF-H', amc: 'KKP (เกียรตินาคินภัทร)', name: 'กองทุนเปิดเคเคพี EXPANDED TECH เพื่อการเลี้ยงชีพ (Hedged)', nameEn: 'KKP Expanded Tech Retirement Mutual Fund - Hedged', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในหุ้นกลุ่มเทคโนโลยีระดับโลก' },
             { code: 'KKP VIETNAM RMF', amc: 'KKP (เกียรตินาคินภัทร)', name: 'กองทุนเปิดเคเคพี เวียดนาม เพื่อการเลี้ยงชีพ', nameEn: 'KKP Vietnam Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนามชั้นนำ' },
             { code: 'KKP CHINA RMF', amc: 'KKP (เกียรตินาคินภัทร)', name: 'กองทุนเปิดเคเคพี ไชน่า เพื่อการเลี้ยงชีพ', nameEn: 'KKP China Equity Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีนผ่านกองทุนชั้นนำระดับโลก' },
-            { code: 'KKP INDIA RMF', amc: 'KKP (เกียรตินาคินภัทร)', name: 'กองทุนเปิดเคเคพี อินเดีย เพื่อการเลี้ยงชีพ', nameEn: 'KKP India Retirement Mutual Fund', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดียศักยภาพเติบโต' },
+            { code: 'KKP INDIA RMF-UH', amc: 'KKP (เกียรตินาคินภัทร)', name: 'กองทุนเปิดเคเคพี อินเดีย เพื่อการเลี้ยงชีพ (Unhedged)', nameEn: 'KKP India Retirement Mutual Fund - Unhedged', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดียศักยภาพเติบโต' },
             { code: 'KKP EQ RMF', amc: 'KKP (เกียรตินาคินภัทร)', name: 'กองทุนเปิดเคเคพี ตราสารทุน เพื่อการเลี้ยงชีพ', nameEn: 'KKP Equity Retirement Mutual Fund', category: 'หุ้นไทย', note: 'หุ้นไทยคัดสรรโดย บลจ.เกียรตินาคินภัทร' },
             { code: 'KKP MP-RMF', amc: 'KKP (เกียรตินาคินภัทร)', name: 'กองทุนเปิดเคเคพี ตลาดเงิน เพื่อการเลี้ยงชีพ', nameEn: 'KKP Money Market Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้ระยะสั้นและเงินฝาก' },
+            { code: 'KKP INRMF', amc: 'KKP (เกียรตินาคินภัทร)', name: 'กองทุนเปิดเคเคพี อินคัมเพื่อการเลี้ยงชีพ', nameEn: 'KKP Income Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'เน้นลงทุนในตราสารหนี้คุณภาพดี' },
 
             // ==========================================
-            // 6. TISCO - บลจ. ทิสโก้
+            // 6. TISCO - บลจ. ทิสโก้ (Official SEC tickers: T...RMF-A)
             // ==========================================
-            { code: 'TISCOUS-RMF', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ ยูเอส อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'TISCO US Equity Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี S&P 500 (SPDR S&P 500 ETF)' },
-            { code: 'TISCONASDAQ-RMF', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ แนสแดค เพื่อการเลี้ยงชีพ', nameEn: 'TISCO NASDAQ Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี NASDAQ-100' },
-            { code: 'TISCOTECH-RMF', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ โกลบอล เทคโนโลยี เพื่อการเลี้ยงชีพ', nameEn: 'TISCO Global Technology Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในหุ้นเทคโนโลยีระดับโลก' },
-            { code: 'TISCOAI-RMF', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ ปัญญาประดิษฐ์ เพื่อการเลี้ยงชีพ', nameEn: 'TISCO Artificial Intelligence Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในธีม AI และปัญญาประดิษฐ์' },
-            { code: 'TISCOCYBER-RMF', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ ไซเบอร์ซีเคียวริตี้ เพื่อการเลี้ยงชีพ', nameEn: 'TISCO Cybersecurity Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในบริษัทความปลอดภัยทางไซเบอร์' },
-            { code: 'TISCOGY-RMF', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ เยอรมัน อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'TISCO German Equity Retirement Mutual Fund', category: 'หุ้นยุโรป', note: 'อิงดัชนี DAX หุ้นเยอรมนี' },
-            { code: 'TISCOJP-RMF', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ เจแปน เพื่อการเลี้ยงชีพ', nameEn: 'TISCO Japan Retirement Mutual Fund', category: 'หุ้นญี่ปุ่น', note: 'ลงทุนในหุ้นญี่ปุ่นชั้นนำ' },
-            { code: 'TISCOCH-RMF', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ ไชน่า เพื่อการเลี้ยงชีพ', nameEn: 'TISCO China Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีน A-Shares / H-Shares' },
-            { code: 'TISCOVIET-RMF', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ เวียดนาม เพื่อการเลี้ยงชีพ', nameEn: 'TISCO Vietnam Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
-            { code: 'TISCOIN-RMF', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ อินเดีย เพื่อการเลี้ยงชีพ', nameEn: 'TISCO India Retirement Mutual Fund', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดีย' },
-            { code: 'TISCOBIO-RMF', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ ไบโอเทคโนโลยี เพื่อการเลี้ยงชีพ', nameEn: 'TISCO Biotechnology Retirement Mutual Fund', category: 'หุ้นเฮลธ์แคร์', note: 'ลงทุนในหุ้นเทคโนโลยีชีวภาพและการแพทย์' },
-            { code: 'TISCOGOLD-RMF', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ โกลด์ เพื่อการเลี้ยงชีพ', nameEn: 'TISCO Gold Retirement Mutual Fund', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนในทองคำแท่ง SPDR Gold Trust' },
-            { code: 'TISCOEQ-RMF', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ หุ้นทุน เพื่อการเลี้ยงชีพ', nameEn: 'TISCO Equity Retirement Mutual Fund', category: 'หุ้นไทย', note: 'หุ้นไทยปัจจัยพื้นฐานมั่นคง' },
-            { code: 'TISCOBOND-RMF', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ ตราสารหนี้ เพื่อการเลี้ยงชีพ', nameEn: 'TISCO Bond Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้คุณภาพดี' },
+            { code: 'TUSRMF-A', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ ยูเอส อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'TISCO US Equity Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี S&P 500 (SPDR S&P 500 ETF Trust)' },
+            { code: 'TNASDAQRMF-A', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ ยูเอส แนสแดค อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'TISCO US NASDAQ Equity Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี NASDAQ-100 (Invesco QQQ Trust)' },
+            { code: 'TTECHRMF-A', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ เทคโนโลยี อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'TISCO Technology Equity Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในหุ้นเทคโนโลยีชั้นนำระดับโลก' },
+            { code: 'TAIRMF-A', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ AI & Big Data เพื่อการเลี้ยงชีพ', nameEn: 'TISCO AI & Big Data Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในธีม AI, ปัญญาประดิษฐ์ และ Big Data' },
+            { code: 'TCHARMF-A', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ ไชน่า A-Shares อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'TISCO China A-Shares Equity Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีน A-Shares ผ่านกองทุนหลักระดับโลก' },
+            { code: 'TVIETRMF-A', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ เวียดนาม อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'TISCO Vietnam Equity Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนามศักยภาพเติบโตสูง' },
+            { code: 'TINDRMF-A', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ อินเดีย อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'TISCO India Equity Retirement Mutual Fund', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดียที่มีการเติบโตต่อเนื่อง' },
+            { code: 'TGHRMF-A', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ โกลบอล เฮลธ์แคร์ เพื่อการเลี้ยงชีพ', nameEn: 'TISCO Global Healthcare Retirement Mutual Fund', category: 'หุ้นเฮลธ์แคร์', note: 'ลงทุนในนวัตกรรมสุขภาพและการแพทย์ระดับโลก' },
+            { code: 'TGOLDRMF-A', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ โกลด์ เพื่อการเลี้ยงชีพ', nameEn: 'TISCO Gold Retirement Mutual Fund', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนในทองคำแท่ง SPDR Gold Trust' },
+            { code: 'TEGRMF-A', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'TISCO Equity Retirement Mutual Fund', category: 'หุ้นไทย', note: 'หุ้นไทยปัจจัยพื้นฐานมั่นคง' },
+            { code: 'THDRMF-A', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ ไฮ ดิวิเดนด์ หุ้นทุน เพื่อการเลี้ยงชีพ', nameEn: 'TISCO High Dividend Equity Retirement Mutual Fund', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทยที่จ่ายเงินปันผลสูงและสม่ำเสมอ' },
+            { code: 'TMSRMF-A', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ Mid/Small Cap อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'TISCO Mid/Small Cap Equity Retirement Mutual Fund', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทยขนาดกลางและขนาดเล็กเติบโตสูง' },
+            { code: 'TGSMARTRMF-A', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ โกลบอล สมาร์ท แอลโลเคชั่น เพื่อการเลี้ยงชีพ', nameEn: 'TISCO Global Smart Allocation Retirement Mutual Fund', category: 'สินทรัพย์ผสมทั่วโลก', note: 'จัดสรรสินทรัพย์ทั่วโลกผ่าน Schroder ISF Global Target Return' },
+            { code: 'TSFIRMF', amc: 'TISCO (ทิสโก้)', name: 'กองทุนเปิด ทิสโก้ ตราสารหนี้มั่นคงเพื่อการเลี้ยงชีพ', nameEn: 'TISCO Stable Fixed Income Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในพันธบัตรและตราสารหนี้คุณภาพสูง' },
 
             // ==========================================
-            // 7. Asset Plus (ASP) - บลจ. แอสเซท พลัส
+            // 7. Asset Plus (ASP) - บลจ. แอสเซท พลัส (Official SEC tickers)
             // ==========================================
             { code: 'ASP-VIETRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัส เวียดนาม โกรท เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus Vietnam Growth Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนามที่มีศักยภาพการเติบโตสูง' },
-            { code: 'ASP-USARMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัส ยูเอส เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus USA Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนในหุ้นสหรัฐฯ ขนาดใหญ่และมีศักยภาพสูง' },
-            { code: 'ASP-AIEQRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัส อาร์ทิฟิเชียล อินเทลลิเจนช์ อิควิตี้โกรท เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus Artificial Intelligence Equity Growth Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในหุ้นกลุ่มเทคโนโลยี AI และปัญญาประดิษฐ์' },
+            { code: 'ASP-AIEQRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัส โรโบติกส์ & AI เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus Artificial Intelligence & Robotics Equity Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในหุ้นกลุ่มเทคโนโลยี AI ปัญญาประดิษฐ์ และหุ่นยนต์' },
             { code: 'ASP-DISRUPTRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัส ดิสรัปทีฟ ออพพอร์ทูนิตี้ส์ เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus Disruptive Opportunities Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในธุรกิจนวัตกรรมเปลี่ยนโลก Disruptive' },
             { code: 'ASP-DIGIBLOCRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัส ดิจิทัล บล็อกเชน เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus Digital Blockchain Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในสินทรัพย์และเทคโนโลยี Blockchain' },
-            { code: 'ASP-ROBOTRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัส โรโบติกส์ เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus Robotics Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในธุรกิจนวัตกรรมหุ่นยนต์และระบบอัตโนมัติ' },
-            { code: 'ASP-EVRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัส อีวี เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus EV Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในอุตสาหกรรมยานยนต์ไฟฟ้า (EV)' },
-            { code: 'ASP-EVOCHINARMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัส อีโวลูชั่น ไชน่า อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus Evolution China Equity Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีนที่มีการเติบโตตามเศรษฐกิจใหม่' },
-            { code: 'ASP-CHINARMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัส ไชน่า เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus China Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีนผ่านกองทุนหลักต่างประเทศ' },
-            { code: 'ASP-GOLDRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัส โกลด์ เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus Gold Retirement Mutual Fund', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนในทองคำแท่ง' },
-            { code: 'ASP-SMRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัส สมอล แอนด์ มิด แคป เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus Small and Mid Cap Retirement Mutual Fund', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทยขนาดกลางและขนาดเล็ก' },
-            { code: 'ASP-FRF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัสตราสารหนี้เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus Fixed Income Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้ภาครัฐและเอกชน' },
+            { code: 'ASP-NCLRRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัส นิวเคลียร์ เอ็นเนอร์จี เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus Nuclear Energy Retirement Mutual Fund', category: 'หุ้นพลังงานสะอาด & ESG', note: 'ลงทุนในพลังงานนิวเคลียร์สะอาดและห่วงโซ่อุปทานยูเรเนียม' },
+            { code: 'ASP-TOPBRANDRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัส ท็อปแบรนด์ เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus Top Brands Retirement Mutual Fund', category: 'หุ้นทั่วโลก', note: 'ลงทุนในบริษัทเจ้าของแบรนด์ชั้นนำระดับโลก' },
+            { code: 'ASP-SMERMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัส สมอล แอนด์ มิด แคป อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus Small and Mid Cap Equity Retirement Mutual Fund', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทยขนาดกลางและขนาดเล็ก' },
+            { code: 'ASP-ERF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิดแอสเซทพลัสตราสารทุนเพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus Equity Retirement Mutual Fund', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทยปัจจัยพื้นฐานดี' },
+            { code: 'ASP-MRF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิดแอสเซทพลัสหุ้นผสมตราสารหนี้เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus Mixed Retirement Mutual Fund', category: 'กองทุนผสม', note: 'จัดพอร์ตผสมหุ้นไทยและตราสารหนี้' },
+            { code: 'ASP-FRF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิดแอสเซทพลัสตราสารหนี้เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus Fixed Income Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้ภาครัฐและเอกชน' },
 
             // ==========================================
-            // 8. Principal - บลจ. พรินซิเพิล
+            // 8. Principal - บลจ. พรินซิเพิล (Official SEC tickers omit hyphen before RMF)
             // ==========================================
-            { code: 'PRINCIPAL VNEQ-RMF', amc: 'Principal (พรินซิเพิล)', name: 'กองทุนเปิดพรินซิเพิล เวียดนาม อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'Principal Vietnam Equity Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนามที่มีศักยภาพสูง' },
-            { code: 'PRINCIPAL US-RMF', amc: 'Principal (พรินซิเพิล)', name: 'กองทุนเปิดพรินซิเพิล ยูเอส อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'Principal US Equity Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนในหุ้นสหรัฐฯ คุณภาพดี' },
-            { code: 'PRINCIPAL GTECH-RMF', amc: 'Principal (พรินซิเพิล)', name: 'กองทุนเปิดพรินซิเพิล โกลบอล เทคโนโลยี เพื่อการเลี้ยงชีพ', nameEn: 'Principal Global Technology Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในหุ้นเทคโนโลยีระดับโลก' },
-            { code: 'PRINCIPAL GPLUS-RMF', amc: 'Principal (พรินซิเพิล)', name: 'กองทุนเปิดพรินซิเพิล โกลบอล ออพพอร์ทูนิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'Principal Global Opportunity Retirement Mutual Fund', category: 'หุ้นทั่วโลก', note: 'ลงทุนในหุ้นคุณภาพชั้นนำทั่วโลก' },
-            { code: 'PRINCIPAL APDI-RMF', amc: 'Principal (พรินซิเพิล)', name: 'กองทุนเปิดพรินซิเพิล เอเชีย แปซิฟิก ไดนามิก เพื่อการเลี้ยงชีพ', nameEn: 'Principal Asia Pacific Dynamic Retirement Mutual Fund', category: 'หุ้นเอเชีย / ตลาดเกิดใหม่', note: 'ลงทุนในหุ้นภูมิภาคเอเชียแปซิฟิก' },
-            { code: 'PRINCIPAL CHEQ-RMF', amc: 'Principal (พรินซิเพิล)', name: 'กองทุนเปิดพรินซิเพิล ไชน่า อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'Principal China Equity Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีนผ่านกองทุนหลักต่างประเทศ' },
-            { code: 'PRINCIPAL iPROP-RMF', amc: 'Principal (พรินซิเพิล)', name: 'กองทุนเปิดพรินซิเพิล โกลบอล อินฟราสตรัคเจอร์ เพื่อการเลี้ยงชีพ', nameEn: 'Principal Global Infrastructure Retirement Mutual Fund', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนใน REITs และโครงสร้างพื้นฐานระดับโลก' },
-            { code: 'PRINCIPAL EQ-RMF', amc: 'Principal (พรินซิเพิล)', name: 'กองทุนเปิดพรินซิเพิล ตราสารทุน เพื่อการเลี้ยงชีพ', nameEn: 'Principal Equity Retirement Mutual Fund', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทยปัจจัยพื้นฐานดี' },
+            { code: 'PRINCIPAL VNEQRMF', amc: 'Principal (พรินซิเพิล)', name: 'กองทุนเปิดพรินซิเพิล เวียดนาม อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'Principal Vietnam Equity Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนามที่มีศักยภาพสูง' },
+            { code: 'PRINCIPAL APDIRMF', amc: 'Principal (พรินซิเพิล)', name: 'กองทุนเปิดพรินซิเพิล เอเชีย แปซิฟิก ไดนามิก อินคัม เพื่อการเลี้ยงชีพ', nameEn: 'Principal Asia Pacific Dynamic Income Equity Retirement Mutual Fund', category: 'หุ้นเอเชีย / ตลาดเกิดใหม่', note: 'ลงทุนในหุ้นภูมิภาคเอเชียแปซิฟิกปันผลสูง' },
+            { code: 'PRINCIPAL iPROPRMF', amc: 'Principal (พรินซิเพิล)', name: 'กองทุนเปิดพรินซิเพิล พร็อพเพอร์ตี้ อินคัม เพื่อการเลี้ยงชีพ', nameEn: 'Principal Property Income Retirement Mutual Fund', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนใน REITs และอสังหาริมทรัพย์ทั้งในและต่างประเทศ' },
+            { code: 'PRINCIPAL BARMF', amc: 'Principal (พรินซิเพิล)', name: 'กองทุนเปิดพรินซิเพิล บาลานซ์ แอลโลเคชั่น เพื่อการเลี้ยงชีพ', nameEn: 'Principal Balanced Allocation Retirement Mutual Fund', category: 'กองทุนผสม', note: 'กระจายลงทุนในสินทรัพย์หลากหลายเพื่อความสมดุล' },
+            { code: 'PRINCIPAL AARMF', amc: 'Principal (พรินซิเพิล)', name: 'กองทุนเปิดพรินซิเพิล แอสเซท แอลโลเคชั่น เพื่อการเลี้ยงชีพ', nameEn: 'Principal Asset Allocation Retirement Mutual Fund', category: 'กองทุนผสม', note: 'จัดพอร์ตสินทรัพย์ผสมตามเป้าหมาย' },
+            { code: 'PRINCIPAL PRMF', amc: 'Principal (พรินซิเพิล)', name: 'กองทุนเปิดพรินซิเพิล ตราสารทุน เพื่อการเลี้ยงชีพ', nameEn: 'Principal Equity Retirement Mutual Fund', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทยปัจจัยพื้นฐานดี' },
+            { code: 'PRINCIPAL FIRMF', amc: 'Principal (พรินซิเพิล)', name: 'กองทุนเปิดพรินซิเพิล ตราสารหนี้ เพื่อการเลี้ยงชีพ', nameEn: 'Principal Fixed Income Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้คุณภาพดี' },
+            { code: 'PRINCIPAL MMRMF', amc: 'Principal (พรินซิเพิล)', name: 'กองทุนเปิดพรินซิเพิล มันนี่ มาร์เก็ต เพื่อการเลี้ยงชีพ', nameEn: 'Principal Money Market Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตลาดเงินและเงินฝากระยะสั้น' },
 
             // ==========================================
-            // 9. UOBAM - บลจ. ยูโอบี
+            // 9. UOBAM - บลจ. ยูโอบี (Official SEC tickers)
             // ==========================================
-            { code: 'UGERMF', amc: 'UOBAM (ยูโอบี)', name: 'กองทุนเปิด ยูไนเต็ด โกลบอล อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'United Global Equity Retirement Mutual Fund', category: 'หุ้นทั่วโลก', note: 'ลงทุนในหุ้นคุณภาพทั่วโลก' },
-            { code: 'USATECHRMF', amc: 'UOBAM (ยูโอบี)', name: 'กองทุนเปิด ยูไนเต็ด ยูเอส เทคโนโลยี เพื่อการเลี้ยงชีพ', nameEn: 'United US Technology Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในหุ้นเทคโนโลยีสหรัฐฯ' },
-            { code: 'UVIETRMF', amc: 'UOBAM (ยูโอบี)', name: 'กองทุนเปิด ยูไนเต็ด เวียดนาม เพื่อการเลี้ยงชีพ', nameEn: 'United Vietnam Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
-            { code: 'UCHINARMF', amc: 'UOBAM (ยูโอบี)', name: 'กองทุนเปิด ยูไนเต็ด ไชน่า เพื่อการเลี้ยงชีพ', nameEn: 'United China Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีน A-Shares' },
-            { code: 'UINDRMF', amc: 'UOBAM (ยูโอบี)', name: 'กองทุนเปิด ยูไนเต็ด อินเดีย เพื่อการเลี้ยงชีพ', nameEn: 'United India Retirement Mutual Fund', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดีย' },
-            { code: 'UGOLDRMF', amc: 'UOBAM (ยูโอบี)', name: 'กองทุนเปิด ยูไนเต็ด โกลด์ เพื่อการเลี้ยงชีพ', nameEn: 'United Gold Retirement Mutual Fund', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนในทองคำแท่งโลก' },
+            { code: 'UGERMF', amc: 'UOBAM (ยูโอบี)', name: 'กองทุนเปิด ยูไนเต็ด โกลบอล อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'United Global Equity Retirement Mutual Fund', category: 'หุ้นทั่วโลก', note: 'ลงทุนในหุ้นคุณภาพชั้นนำทั่วโลก' },
+            { code: 'UNIRMF', amc: 'UOBAM (ยูโอบี)', name: 'กองทุนเปิด ยูไนเต็ด โกลบอล อินโนเวชั่น ฟันด์ เพื่อการเลี้ยงชีพ', nameEn: 'United Global Innovation Fund RMF', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในธุรกิจนวัตกรรมระดับโลก' },
+            { code: 'UGQGRMF', amc: 'UOBAM (ยูโอบี)', name: 'กองทุนเปิด ยูไนเต็ด โกลบอล ควอลิตี้ โกรท ฟันด์ เพื่อการเลี้ยงชีพ', nameEn: 'United Global Quality Growth Fund RMF', category: 'หุ้นทั่วโลก', note: 'ลงทุนในหุ้นเติบโตคุณภาพสูงทั่วโลก' },
+            { code: 'UHCRMF', amc: 'UOBAM (ยูโอบี)', name: 'กองทุนเปิด ยูไนเต็ด โกลบอล เฮลธ์แคร์ เพื่อการเลี้ยงชีพ', nameEn: 'United Global Healthcare Fund RMF', category: 'หุ้นเฮลธ์แคร์', note: 'ลงทุนในหุ้นกลุ่มสุขภาพและการแพทย์' },
+            { code: 'UOBGRMF-H', amc: 'UOBAM (ยูโอบี)', name: 'กองทุนเปิด ยูโอบี โกลด์ เพื่อการเลี้ยงชีพ (H)', nameEn: 'UOB Gold Retirement Mutual Fund (Hedged)', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนในทองคำแท่งโลก SPDR Gold Trust แบบเฮดจ์ค่าเงิน' },
+            { code: 'UGISRMF', amc: 'UOBAM (ยูโอบี)', name: 'กองทุนเปิด ยูไนเต็ด โกลบอล อินคัม สตราทีจิค เพื่อการเลี้ยงชีพ', nameEn: 'United Global Income Strategic Bond Fund RMF', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนใน PIMCO GIS Income Fund' },
+            { code: 'UGBFRMF', amc: 'UOBAM (ยูโอบี)', name: 'กองทุนเปิด ยูไนเต็ด โกลบอล บาลานซ์ ฟันด์ เพื่อการเลี้ยงชีพ', nameEn: 'United Global Balanced Fund RMF', category: 'กองทุนผสม', note: 'ลงทุนใน JPMorgan Global Balanced Fund' },
+            { code: 'UOBGARMF', amc: 'UOBAM (ยูโอบี)', name: 'กองทุนเปิด ยูโอบี โกลบอล แอลโลเคชั่น เพื่อการเลี้ยงชีพ', nameEn: 'UOB Global Allocation Retirement Mutual Fund', category: 'สินทรัพย์ผสมทั่วโลก', note: 'ลงทุนใน BGF Global Allocation Fund' },
             { code: 'UOBEQRMF', amc: 'UOBAM (ยูโอบี)', name: 'กองทุนเปิด ยูโอบี หุ้นทุน เพื่อการเลี้ยงชีพ', nameEn: 'UOB Equity Retirement Mutual Fund', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทยพื้นฐานดี' },
-            { code: 'UFI-RMF', amc: 'UOBAM (ยูโอบี)', name: 'กองทุนเปิด ยูโอบี ตราสารหนี้ เพื่อการเลี้ยงชีพ', nameEn: 'UOB Fixed Income Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้คุณภาพ' },
 
             // ==========================================
-            // 10. KTAM - บลจ. กรุงไทย
+            // 10. KTAM - บลจ. กรุงไทย (Official SEC tickers: KT-... RMF)
             // ==========================================
-            { code: 'KT-US-RMF', amc: 'KTAM (กรุงไทย)', name: 'กองทุนเปิดกรุงไทย ยูเอส โกรว์ธ เพื่อการเลี้ยงชีพ', nameEn: 'Krung Thai US Growth Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนในหุ้นสหรัฐฯ เติบโต' },
-            { code: 'KT-VIETNAM-RMF', amc: 'KTAM (กรุงไทย)', name: 'กองทุนเปิดกรุงไทย เวียดนาม อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'Krung Thai Vietnam Equity Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
-            { code: 'KT-CHINA-RMF', amc: 'KTAM (กรุงไทย)', name: 'กองทุนเปิดกรุงไทย ไชน่า อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'Krung Thai China Equity Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีน' },
-            { code: 'KT-INDIA-RMF', amc: 'KTAM (กรุงไทย)', name: 'กองทุนเปิดกรุงไทย อินเดีย อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'Krung Thai India Equity Retirement Mutual Fund', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดีย' },
-            { code: 'KT-TECH-RMF', amc: 'KTAM (กรุงไทย)', name: 'กองทุนเปิดกรุงไทย เทคโนโลยี เพื่อการเลี้ยงชีพ', nameEn: 'Krung Thai Technology Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในหุ้นเทคโนโลยีระดับโลก' },
-            { code: 'KT-HEALTH-RMF', amc: 'KTAM (กรุงไทย)', name: 'กองทุนเปิดกรุงไทย เฮลธ์แคร์ เพื่อการเลี้ยงชีพ', nameEn: 'Krung Thai Healthcare Retirement Mutual Fund', category: 'หุ้นเฮลธ์แคร์', note: 'ลงทุนในกลุ่มเฮลธ์แคร์และการแพทย์' },
-            { code: 'KT-GOLD-RMF', amc: 'KTAM (กรุงไทย)', name: 'กองทุนเปิดกรุงไทย โกลด์ เพื่อการเลี้ยงชีพ', nameEn: 'Krung Thai Gold Retirement Mutual Fund', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนในทองคำแท่ง SPDR Gold' },
-            { code: 'KT-EQ-RMF', amc: 'KTAM (กรุงไทย)', name: 'กองทุนเปิดกรุงไทย สมาร์ท อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'Krung Thai Smart Equity Retirement Mutual Fund', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทย' },
-            { code: 'KT-FIXED-RMF', amc: 'KTAM (กรุงไทย)', name: 'กองทุนเปิดกรุงไทย ตราสารหนี้ เพื่อการเลี้ยงชีพ', nameEn: 'Krung Thai Fixed Income Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้ภาครัฐและเอกชน' },
+            { code: 'KT-US RMF', amc: 'KTAM (กรุงไทย)', name: 'กองทุนเปิดกรุงไทย ยูเอส โกรว์ธ เพื่อการเลี้ยงชีพ', nameEn: 'Krung Thai US Growth Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนในหุ้นสหรัฐฯ ขนาดใหญ่และเติบโต' },
+            { code: 'KT-CHINA RMF', amc: 'KTAM (กรุงไทย)', name: 'กองทุนเปิดกรุงไทย ไชน่า อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'Krung Thai China Equity Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีนผ่านกองทุนหลักระดับโลก' },
+            { code: 'KT-INDIA RMF', amc: 'KTAM (กรุงไทย)', name: 'กองทุนเปิดกรุงไทย อินเดีย อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'Krung Thai India Equity Retirement Mutual Fund', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดียที่มีศักยภาพการเติบโต' },
+            { code: 'KT-VIETNAM RMF', amc: 'KTAM (กรุงไทย)', name: 'กองทุนเปิดกรุงไทย เวียดนาม อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'Krung Thai Vietnam Equity Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนามที่มีการเติบโตสูง' },
+            { code: 'KT-BRAIN RMF', amc: 'KTAM (กรุงไทย)', name: 'กองทุนเปิดกรุงไทย เอไอ เบรน เพื่อการเลี้ยงชีพ', nameEn: 'Krung Thai AI Brain Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในธีม AI ปัญญาประดิษฐ์และ Machine Learning' },
+            { code: 'KT-HEALTHC RMF', amc: 'KTAM (กรุงไทย)', name: 'กองทุนเปิดกรุงไทย เวิลด์ เฮลธ์แคร์ เพื่อการเลี้ยงชีพ', nameEn: 'Krung Thai World Healthcare Retirement Mutual Fund', category: 'หุ้นเฮลธ์แคร์', note: 'ลงทุนในกลุ่มเฮลธ์แคร์และการแพทย์ระดับโลก' },
+            { code: 'KT-GOLD RMF', amc: 'KTAM (กรุงไทย)', name: 'กองทุนเปิดกรุงไทย โกลด์ เพื่อการเลี้ยงชีพ', nameEn: 'Krung Thai Gold Retirement Mutual Fund', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนในทองคำแท่ง SPDR Gold Trust' },
+            { code: 'KT-PROPERTY RMF', amc: 'KTAM (กรุงไทย)', name: 'กองทุนเปิดเคแทม เวิลด์ พร็อพเพอร์ตี้ เพื่อการเลี้ยงชีพ', nameEn: 'KTAM World Property Retirement Mutual Fund', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนในกองทุนอสังหาริมทรัพย์และ REITs ทั่วโลก' },
+            { code: 'KT-PIF RMF', amc: 'KTAM (กรุงไทย)', name: 'กองทุนเปิดกรุงไทย พร็อพเพอร์ตี้ แอนด์ อินฟราสตรัคเจอร์ เพื่อการเลี้ยงชีพ', nameEn: 'KTAM Property & Infrastructure Retirement Mutual Fund', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนในอสังหาฯ และโครงสร้างพื้นฐานไทย' },
+            { code: 'KT-BOND RMF', amc: 'KTAM (กรุงไทย)', name: 'กองทุนเปิดกรุงไทย เวิลด์ บอนด์ เพื่อการเลี้ยงชีพ', nameEn: 'Krung Thai World Bond Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้คุณภาพระดับโลก' },
+            { code: 'KT-PRECIOUS RMF', amc: 'KTAM (กรุงไทย)', name: 'กองทุนเปิดเคแทม World Gold and Precious เพื่อการเลี้ยงชีพ', nameEn: 'KTAM World Gold and Precious Retirement Mutual Fund', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนในหุ้นเหมืองทองคำและโลหะมีค่า' },
 
             // ==========================================
-            // 11. Eastspring - บลจ. อีสท์สปริง
+            // 11. Eastspring - บลจ. อีสท์สปริง (Official SEC tickers)
             // ==========================================
             { code: 'ES-INDX-RMF', amc: 'Eastspring (อีสท์สปริง)', name: 'กองทุนเปิดอีสท์สปริง ยูเอส อินเด็กซ์ เพื่อการเลี้ยงชีพ', nameEn: 'Eastspring US Index Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนในดัชนี S&P 500' },
             { code: 'ES-NASDAQ-RMF', amc: 'Eastspring (อีสท์สปริง)', name: 'กองทุนเปิดอีสท์สปริง ยูเอส เทค เพื่อการเลี้ยงชีพ', nameEn: 'Eastspring US Tech NASDAQ Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนในดัชนี NASDAQ-100' },
+            { code: 'ES-GLOBALEQRMF', amc: 'Eastspring (อีสท์สปริง)', name: 'กองทุนเปิดอีสท์สปริง Global Equity เพื่อการเลี้ยงชีพ', nameEn: 'Eastspring Global Equity Retirement Mutual Fund', category: 'หุ้นทั่วโลก', note: 'ลงทุนในหุ้นคุณภาพชั้นนำทั่วโลก' },
+            { code: 'ES-ASIARMF', amc: 'Eastspring (อีสท์สปริง)', name: 'กองทุนเปิดอีสท์สปริง Asia Active Equity เพื่อการเลี้ยงชีพ', nameEn: 'Eastspring Asia Active Equity Retirement Mutual Fund', category: 'หุ้นเอเชีย / ตลาดเกิดใหม่', note: 'ลงทุนในหุ้นภูมิภาคเอเชียที่มีศักยภาพ' },
+            { code: 'ES-CHINAARMF', amc: 'Eastspring (อีสท์สปริง)', name: 'กองทุนเปิดอีสท์สปริง China A เพื่อการเลี้ยงชีพ', nameEn: 'Eastspring China A Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีน A-Shares ผ่านกองทุนหลัก' },
+            { code: 'ES-VIETNAM-RMF', amc: 'Eastspring (อีสท์สปริง)', name: 'กองทุนเปิดอีสท์สปริง เวียดนาม เพื่อการเลี้ยงชีพ', nameEn: 'Eastspring Vietnam Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนามเติบโตสูง' },
+            { code: 'ES-HEALTHCARERMF', amc: 'Eastspring (อีสท์สปริง)', name: 'กองทุนเปิดอีสท์สปริง Global Healthcare เพื่อการเลี้ยงชีพ', nameEn: 'Eastspring Global Healthcare Retirement Mutual Fund', category: 'หุ้นเฮลธ์แคร์', note: 'ลงทุนในหุ้นกลุ่มสุขภาพและการแพทย์' },
+            { code: 'T-GoldRMF', amc: 'Eastspring (อีสท์สปริง)', name: 'กองทุนเปิดธนชาตทองคำแท่งเพื่อการเลี้ยงชีพ', nameEn: 'Thanachart Gold Retirement Mutual Fund', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนในทองคำแท่ง SPDR Gold Trust' },
             { code: 'T-GlobalEqRMF', amc: 'Eastspring (อีสท์สปริง)', name: 'กองทุนเปิดธนชาต โกลบอล อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'Thanachart Global Equity Retirement Mutual Fund', category: 'หุ้นทั่วโลก', note: 'ลงทุนในหุ้นคุณภาพทั่วโลก' },
-            { code: 'T-GoldRMF', amc: 'Eastspring (อีสท์สปริง)', name: 'กองทุนเปิดธนชาตทองคำแท่งเพื่อการเลี้ยงชีพ', nameEn: 'Thanachart Gold Retirement Mutual Fund', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนในทองคำแท่ง SPDR Gold' },
-            { code: 'ES-VIETNAM-RMF', amc: 'Eastspring (อีสท์สปริง)', name: 'กองทุนเปิดอีสท์สปริง เวียดนาม เพื่อการเลี้ยงชีพ', nameEn: 'Eastspring Vietnam Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
-            { code: 'ES-CHINAA-RMF', amc: 'Eastspring (อีสท์สปริง)', name: 'กองทุนเปิดอีสท์สปริง ไชน่า เอแชร์ เพื่อการเลี้ยงชีพ', nameEn: 'Eastspring China A-Shares Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีน A-Shares' },
             { code: 'ES-GINCOME-RMF', amc: 'Eastspring (อีสท์สปริง)', name: 'กองทุนเปิดอีสท์สปริง โกลบอล อินคัม เพื่อการเลี้ยงชีพ', nameEn: 'Eastspring Global Income Retirement Mutual Fund', category: 'สินทรัพย์ผสมทั่วโลก', note: 'จัดสรรสินทรัพย์ผสมทั่วโลก' },
+            { code: 'ES-EQRMF', amc: 'Eastspring (อีสท์สปริง)', name: 'กองทุนเปิดอีสท์สปริง Equity เพื่อการเลี้ยงชีพ', nameEn: 'Eastspring Equity Retirement Mutual Fund', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทยปัจจัยพื้นฐานดี' },
+            { code: 'ES-MMRMF', amc: 'Eastspring (อีสท์สปริง)', name: 'กองทุนเปิดอีสท์สปริง ตลาดเงิน เพื่อการเลี้ยงชีพ', nameEn: 'Eastspring Money Market Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตลาดเงินและเงินฝาก' },
 
             // ==========================================
-            // 12. ONEAM (วรรณ) & DAOL (ดาโอ)
+            // 12. ONEAM (วรรณ) & DAOL (ดาโอ) (Official SEC tickers)
             // ==========================================
-            { code: 'ONE-UGG-RMF', amc: 'ONEAM (วรรณ)', name: 'กองทุนเปิดวรรณ อัลติเมท โกลบอล โกรว์ธ เพื่อการเลี้ยงชีพ', nameEn: 'ONE Ultimate Global Growth Retirement Mutual Fund', category: 'หุ้นทั่วโลก', note: 'ลงทุนใน Baillie Gifford Long Term Global Growth' },
-            { code: 'ONE-DISRMF', amc: 'ONEAM (วรรณ)', name: 'กองทุนเปิดวรรณ ดิสรัปทีฟ เพื่อการเลี้ยงชีพ', nameEn: 'ONE Disruptive Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในนวัตกรรม Disruptive' },
-            { code: 'ONE-GLOBAL-RMF', amc: 'ONEAM (วรรณ)', name: 'กองทุนเปิดวรรณ โกลบอล เพื่อการเลี้ยงชีพ', nameEn: 'ONE Global Retirement Mutual Fund', category: 'หุ้นทั่วโลก', note: 'ลงทุนในหุ้นทั่วโลก' },
-            { code: 'ONE-VIETNAM-RMF', amc: 'ONEAM (วรรณ)', name: 'กองทุนเปิดวรรณ เวียดนาม เพื่อการเลี้ยงชีพ', nameEn: 'ONE Vietnam Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
-            { code: 'DAOL-US-RMF', amc: 'DAOL (ดาโอ)', name: 'กองทุนเปิดดาโอ ยูเอส อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'DAOL US Equity Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนในหุ้นสหรัฐฯ' },
-            { code: 'DAOL-VIETNAM-RMF', amc: 'DAOL (ดาโอ)', name: 'กองทุนเปิดดาโอ เวียดนาม เพื่อการเลี้ยงชีพ', nameEn: 'DAOL Vietnam Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
-            { code: 'DAOL-CYBER-RMF', amc: 'DAOL (ดาโอ)', name: 'กองทุนเปิดดาโอ ไซเบอร์ซีเคียวริตี้ เพื่อการเลี้ยงชีพ', nameEn: 'DAOL Cybersecurity Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในความปลอดภัยทางไซเบอร์' }
+            { code: 'ONE-UGERMF-A', amc: 'ONEAM (วรรณ)', name: 'กองทุนเปิด วรรณ อัลติเมท โกลบอล อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'ONE Ultimate Global Equity Retirement Mutual Fund', category: 'หุ้นทั่วโลก', note: 'ลงทุนใน Baillie Gifford Long Term Global Growth' },
+            { code: 'ONE-DISCRMF-A', amc: 'ONEAM (วรรณ)', name: 'กองทุนเปิด วรรณ ดิสคัฟเวอรี่ เพื่อการเลี้ยงชีพ', nameEn: 'ONE Discovery Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในนวัตกรรม Disruptive และเทคโนโลยี' },
+            { code: 'ONEPROP-RMF', amc: 'ONEAM (วรรณ)', name: 'กองทุนเปิด วรรณ พร็อพเพอร์ตี้ เพื่อการเลี้ยงชีพ', nameEn: 'ONE Property Retirement Mutual Fund', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนในกองทุนรวมอสังหาริมทรัพย์และ REITs' },
+            { code: 'GOLD-RMF-A', amc: 'ONEAM (วรรณ)', name: 'กองทุนเปิดวรรณโกลด์ เพื่อการเลี้ยงชีพ', nameEn: 'ONE Gold Retirement Mutual Fund', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนในทองคำแท่ง' },
+            { code: 'V-RMF-A', amc: 'ONEAM (วรรณ)', name: 'กองทุนเปิด หุ้นคุณค่า เพื่อการเลี้ยงชีพ', nameEn: 'ONE Value Equity Retirement Mutual Fund', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทยเน้นคุณค่า (Value Investing)' },
+            { code: 'F-RMF', amc: 'ONEAM (วรรณ)', name: 'กองทุนเปิด ตราสารหนี้คุณค่า เพื่อการเลี้ยงชีพ', nameEn: 'ONE Fixed Income Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้คุณภาพดี' },
+            { code: 'DAOL-GOLDRMF', amc: 'DAOL (ดาโอ)', name: 'กองทุนเปิด ดาโอ โกลด์ แอนด์ ซิลเวอร์ อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'DAOL Gold & Silver Equity Retirement Mutual Fund', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนใน Jupiter Gold & Silver Fund' },
+            { code: 'DAOL-GTECHRMF', amc: 'DAOL (ดาโอ)', name: 'กองทุนเปิด ดาโอ โกลบอล เทคโนโลยี เพื่อการเลี้ยงชีพ', nameEn: 'DAOL Global Technology Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในหุ้นเทคโนโลยีระดับโลก' },
+            { code: 'DAOL-MONYRMF', amc: 'DAOL (ดาโอ)', name: 'กองทุนเปิด ดาโอ มันนี่ มาร์เก็ต เพื่อการเลี้ยงชีพ', nameEn: 'DAOL Money Market Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตลาดเงินและเงินฝากระยะสั้น' }
         ];
 
         function escapeHtml(str) {
@@ -2895,6 +2910,9 @@
             const clean = rawInput.trim().toUpperCase();
             if (clean.length < 2) return null;
             const normClean = clean.replace(/[-() _]/g, '');
+            const normCleanScb = normClean.startsWith('SCB') && !normClean.startsWith('SCBRM')
+                ? normClean.replace('SCB', 'SCBRM')
+                : '';
 
             // 1. Direct or normalized match in RMF_DATABASE
             const exactMatch = RMF_DATABASE.find(item => {
@@ -2902,8 +2920,9 @@
                 const itemNorm = itemUpper.replace(/[-() _]/g, '');
                 return itemUpper === clean || 
                        itemNorm === normClean || 
+                       (normCleanScb && itemNorm === normCleanScb) ||
                        clean.includes(itemUpper) ||
-                       (itemNorm.length >= 4 && normClean.startsWith(itemNorm));
+                       (itemNorm.length >= 4 && (normClean.startsWith(itemNorm) || itemNorm.startsWith(normClean)));
             });
             if (exactMatch) {
                 return { ...exactMatch, confidence: 'high' };
@@ -2920,7 +2939,7 @@
                 detectedAmc = 'Asset Plus (แอสเซท พลัส)';
             } else if (clean.startsWith('K-') || clean.startsWith('K_') || clean.startsWith('KASSET') || clean.includes('กสิกร')) {
                 detectedAmc = 'KAsset (กสิกรไทย)';
-            } else if (clean.startsWith('SCB') || clean.includes('ไทยพาณิชย์')) {
+            } else if (clean.startsWith('SCB') || clean.startsWith('SCBRM') || clean.includes('ไทยพาณิชย์')) {
                 detectedAmc = 'SCBAM (ไทยพาณิชย์)';
             } else if (clean.startsWith('B-') || clean.startsWith('BBL') || clean.includes('บัวหลวง')) {
                 detectedAmc = 'BBLAM (บัวหลวง)';
@@ -3032,6 +3051,11 @@
                 // Show top 25 diverse funds when empty/focused
                 matches = RMF_DATABASE.slice(0, 25);
             } else {
+                const qTokens = query.toLowerCase().split(/\s+/).filter(t => t.length > 0);
+                const qNormScb = normQuery.startsWith('SCB') && !normQuery.startsWith('SCBRM')
+                    ? normQuery.replace('SCB', 'SCBRM')
+                    : '';
+
                 matches = RMF_DATABASE.filter(f => {
                     const codeUpper = f.code.toUpperCase();
                     const codeNorm = codeUpper.replace(/[-() _]/g, '');
@@ -3042,16 +3066,18 @@
                     const noteLower = (f.note || '').toLowerCase();
                     const qLower = query.toLowerCase();
 
-                    // 1. Match ticker code directly or normalized (e.g. KUS matches K-US, K-USXNDQ)
+                    // 1. Direct or normalized match in ticker code (e.g. SCBRM matches SCBRMS&P500, SCBS&P500 matches SCBRMS&P500)
                     if (codeUpper.includes(upper) || (normQuery.length >= 2 && codeNorm.includes(normQuery))) return true;
-                    // 2. Match AMC name or abbreviation
+                    if (qNormScb && codeNorm.includes(qNormScb)) return true;
+
+                    // 2. Direct AMC match
                     if (amcUpper.includes(upper) || f.amc.toLowerCase().includes(qLower)) return true;
-                    // 3. Match Fund names (Thai / English)
-                    if (nameLower.includes(qLower) || nameEnLower.includes(qLower)) return true;
-                    // 4. Match Category (e.g. หุ้นสหรัฐฯ, เวียดนาม, เทคโนโลยี)
-                    if (catLower.includes(qLower)) return true;
-                    // 5. Match Note / Master fund keywords (e.g. NASDAQ, S&P 500)
-                    if (noteLower.includes(qLower)) return true;
+
+                    // 3. Multi-token match across all fields (e.g. "SCB S&P500", "K US500", "TISCO AI", "ASP VIET")
+                    const combined = `${codeUpper} ${codeNorm} ${f.amc} ${f.name} ${f.nameEn || ''} ${f.category} ${f.note || ''}`.toLowerCase();
+                    const allTokensMatch = qTokens.every(tok => combined.includes(tok));
+                    if (allTokensMatch) return true;
+
                     return false;
                 });
             }
@@ -3199,7 +3225,9 @@
             // Filter funds belonging to this AMC
             const matches = RMF_DATABASE.filter(f => 
                 f.amc.toLowerCase().includes(amcName.toLowerCase()) || 
-                f.code.toUpperCase().startsWith(amcName.toUpperCase())
+                f.code.toUpperCase().startsWith(amcName.toUpperCase()) ||
+                (amcName.toUpperCase() === 'SCB' && f.code.toUpperCase().startsWith('SCBRM')) ||
+                (amcName.toUpperCase() === 'TISCO' && f.amc.toLowerCase().includes('ทิสโก้'))
             );
             renderRmfSuggestions(matches, amcName);
 
@@ -3211,15 +3239,15 @@
                 } else if (lower.includes('kasset')) {
                     codeInput.value = 'K-';
                 } else if (lower.includes('scb')) {
-                    codeInput.value = 'SCB';
+                    codeInput.value = 'SCBRM';
                 } else if (lower.includes('bbl')) {
                     codeInput.value = 'B-';
                 } else if (lower.includes('กรุงศรี') || lower.includes('ksam')) {
-                    codeInput.value = 'KF-';
+                    codeInput.value = 'KF';
                 } else if (lower.includes('kkp')) {
                     codeInput.value = 'KKP ';
                 } else if (lower.includes('tisco')) {
-                    codeInput.value = 'TISCO';
+                    codeInput.value = 'T';
                 } else if (lower.includes('principal')) {
                     codeInput.value = 'PRINCIPAL ';
                 } else if (lower.includes('uob')) {
@@ -3240,10 +3268,10 @@
         function handleRmfNameInput(val) {
             if (!val || val.trim().length < 2) return;
             const codeInput = document.getElementById('fundCode');
-            const isCodeEmpty = !codeInput.value.trim() || codeInput.value === 'ASP-' || codeInput.value === 'K-' || codeInput.value === 'SCB';
+            const isCodeEmpty = !codeInput.value.trim() || codeInput.value === 'ASP-' || codeInput.value === 'K-' || codeInput.value === 'SCB' || codeInput.value === 'SCBRM';
 
             const upper = val.trim().toUpperCase();
-            const looksLikeTicker = /^[A-Z0-9_\-()]{3,}$/.test(upper) || upper.includes('RMF') || upper.includes('-') || upper.startsWith('ASP') || upper.startsWith('SCB') || upper.startsWith('K-');
+            const looksLikeTicker = /^[A-Z0-9_\-()]{3,}$/.test(upper) || upper.includes('RMF') || upper.includes('-') || upper.startsWith('ASP') || upper.startsWith('SCB') || upper.startsWith('K-') || upper.startsWith('SCBRM');
 
             const detected = detectRmfInfo(val);
             if (detected) {
