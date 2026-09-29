@@ -233,6 +233,48 @@
             border-radius: 12px;
         }
 
+        /* RMF Autocomplete Suggestions */
+        .rmf-autocomplete-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            min-width: 320px;
+            width: max(100%, 320px);
+            max-width: 90vw;
+            max-height: 290px;
+            overflow-y: auto;
+            background: #ffffff;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            z-index: 1070;
+        }
+
+        [data-bs-theme="dark"] .rmf-autocomplete-dropdown {
+            background: #1e293b;
+            border-color: #334155;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+        }
+
+        .rmf-suggestion-item {
+            padding: 8px 12px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+            transition: background 0.15s ease;
+        }
+
+        .rmf-suggestion-item:hover, .rmf-suggestion-item.active {
+            background-color: #f0fdf4;
+        }
+
+        [data-bs-theme="dark"] .rmf-suggestion-item {
+            border-bottom-color: rgba(255, 255, 255, 0.05);
+        }
+
+        [data-bs-theme="dark"] .rmf-suggestion-item:hover, [data-bs-theme="dark"] .rmf-suggestion-item.active {
+            background-color: #064e3b;
+        }
+
         .btn-round {
             border-radius: 30px;
         }
@@ -249,7 +291,7 @@
                     <span class="fw-bold text-gradient" style="font-size: 1.15rem; background: linear-gradient(90deg, #f59e0b, #2563eb, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
                         MoneyTree Pro
                     </span>
-                    <span class="badge rounded-pill bg-secondary-subtle text-secondary ms-1 fw-bold" style="font-size: 0.7rem;">RMF & Savings V1.5</span>
+                    <span class="badge rounded-pill bg-success-subtle text-success ms-1 fw-bold" style="font-size: 0.7rem;"><i class="fa-solid fa-code-branch me-1"></i>V1.6 (Auto-Suggest ASP)</span>
                 </div>
             </div>
 
@@ -1015,6 +1057,27 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
+                    <!-- Quick AMC Selector Chips -->
+                    <div class="mb-3 p-2 rounded-3 bg-body-tertiary border">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <label class="form-label small fw-bold text-muted m-0">
+                                <i class="fa-solid fa-building-columns text-success me-1"></i>เลือกตาม บลจ. (คลิกดูรายการ):
+                            </label>
+                            <span class="badge bg-success-subtle text-success small" style="font-size: 0.68rem;">คลิกเลือกได้ทันที</span>
+                        </div>
+                        <div class="d-flex flex-wrap gap-1">
+                            <button type="button" class="btn btn-sm btn-outline-success py-0 px-2 rounded-pill fw-bold" style="font-size: 0.73rem;" onclick="filterRmfByAmc('Asset Plus')">Asset Plus (ASP)</button>
+                            <button type="button" class="btn btn-sm btn-outline-success py-0 px-2 rounded-pill fw-bold" style="font-size: 0.73rem;" onclick="filterRmfByAmc('KAsset')">กสิกร (KAsset)</button>
+                            <button type="button" class="btn btn-sm btn-outline-success py-0 px-2 rounded-pill fw-bold" style="font-size: 0.73rem;" onclick="filterRmfByAmc('SCBAM')">ไทยพาณิชย์ (SCB)</button>
+                            <button type="button" class="btn btn-sm btn-outline-success py-0 px-2 rounded-pill fw-bold" style="font-size: 0.73rem;" onclick="filterRmfByAmc('BBLAM')">บัวหลวง (BBL)</button>
+                            <button type="button" class="btn btn-sm btn-outline-success py-0 px-2 rounded-pill fw-bold" style="font-size: 0.73rem;" onclick="filterRmfByAmc('KSAM')">กรุงศรี (KF)</button>
+                            <button type="button" class="btn btn-sm btn-outline-success py-0 px-2 rounded-pill fw-bold" style="font-size: 0.73rem;" onclick="filterRmfByAmc('Principal')">พรินซิเพิล</button>
+                            <button type="button" class="btn btn-sm btn-outline-success py-0 px-2 rounded-pill fw-bold" style="font-size: 0.73rem;" onclick="filterRmfByAmc('Eastspring')">อีสท์สปริง (TMB)</button>
+                            <button type="button" class="btn btn-sm btn-outline-success py-0 px-2 rounded-pill fw-bold" style="font-size: 0.73rem;" onclick="filterRmfByAmc('ONEAM')">วรรณ (ONE)</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 rounded-pill fw-bold" style="font-size: 0.73rem;" onclick="filterRmfByAmc('')">แสดงทั้งหมด</button>
+                        </div>
+                    </div>
+
                     <form id="formAddFund" onsubmit="saveRmfFund(event)">
                         <input type="hidden" id="fundEditId">
 
@@ -1028,27 +1091,39 @@
                         </div>
 
                         <div class="row g-2 mb-3">
-                            <div class="col-7">
+                            <div class="col-7 position-relative">
                                 <label class="form-label small fw-bold d-flex justify-content-between align-items-center">
                                     <span>รหัสกองทุน (Ticker / Code)</span>
-                                    <span class="badge bg-success-subtle text-success fw-bold" style="font-size: 0.68rem;"><i class="fa-solid fa-wand-magic-sparkles me-1"></i>Auto-Detect</span>
+                                    <span class="badge bg-success-subtle text-success fw-bold" style="font-size: 0.68rem;"><i class="fa-solid fa-magnifying-glass me-1"></i>พิมพ์ค้นหา</span>
                                 </label>
-                                <input type="text" id="fundCode" class="form-control fw-bold" placeholder="เช่น ASP-VIETRMF, K-USA-RMF" list="rmfPresetsList" oninput="onFundCodeInput(this.value)" required style="text-transform: uppercase;">
-                                <datalist id="rmfPresetsList">
-                                    <!-- Dynamic & preloaded options -->
-                                </datalist>
+                                <div class="input-group">
+                                    <input type="text" id="fundCode" class="form-control fw-bold text-success" 
+                                           placeholder="พิมพ์เช่น ASP, K, SCB..." 
+                                           autocomplete="off"
+                                           oninput="handleRmfCodeInput(this.value)" 
+                                           onfocus="handleRmfCodeInput(this.value)"
+                                           required style="text-transform: uppercase;">
+                                    <button type="button" class="btn btn-outline-secondary" onclick="toggleRmfDropdown()" title="เปิด/ปิด รายการกองทุน">
+                                        <i class="fa-solid fa-chevron-down"></i>
+                                    </button>
+                                </div>
+
+                                <!-- Custom Floating Autocomplete Suggestions -->
+                                <div id="rmfSuggestionsDropdown" class="rmf-autocomplete-dropdown d-none">
+                                    <!-- Dynamic list of matching funds -->
+                                </div>
                             </div>
                             <div class="col-5">
                                 <label class="form-label small fw-bold">บลจ. (AMC)</label>
-                                <input type="text" id="fundAmc" class="form-control" placeholder="เช่น Asset Plus, KAsset, SCBAM" required>
+                                <input type="text" id="fundAmc" class="form-control" placeholder="เช่น Asset Plus, KAsset, SCBAM" required oninput="filterRmfByAmc(this.value)">
                             </div>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3 position-relative">
                             <label class="form-label small fw-bold d-flex justify-content-between align-items-center">
                                 <span>ชื่อเต็มกองทุน</span>
                                 <span class="text-muted small fw-normal" style="font-size: 0.72rem;">(พิมพ์ชื่อหรือรหัสกองทุนได้)</span>
                             </label>
-                            <input type="text" id="fundName" class="form-control" placeholder="เช่น แอสเซทพลัส เวียดนาม เพื่อการเลี้ยงชีพ" oninput="onFundNameInput(this.value)" required>
+                            <input type="text" id="fundName" class="form-control" placeholder="เช่น แอสเซทพลัส เวียดนาม เพื่อการเลี้ยงชีพ" oninput="handleRmfNameInput(this.value)" required>
                         </div>
                         <div class="row g-2 mb-2">
                             <div class="col-6">
@@ -2612,57 +2687,82 @@
 
         // ------------------ RMF PRESET DATABASE & AUTO DETECTOR ------------------
         const RMF_DATABASE = [
+            // Asset Plus (ASP) - บลจ. แอสเซท พลัส
             { code: 'ASP-VIETRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'แอสเซทพลัส เวียดนาม เพื่อการเลี้ยงชีพ', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนามที่มีศักยภาพการเติบโตสูง' },
-            { code: 'PRINCIPAL VNEQ-RMF', amc: 'Principal (พรินซิเพิล)', name: 'พรินซิเพิล เวียดนาม อิควิตี้ เพื่อการเลี้ยงชีพ', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
+            { code: 'ASP-CHINARMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'แอสเซทพลัส ไชน่า เพื่อการเลี้ยงชีพ', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีนผ่านกองทุนหลักต่างประเทศ' },
+            { code: 'ASP-USARMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'แอสเซทพลัส ยูเอส เพื่อการเลี้ยงชีพ', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนในหุ้นสหรัฐฯ ขนาดใหญ่และมีศักยภาพ' },
+            { code: 'ASP-ROBOTRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'แอสเซทพลัส โรโบติกส์ เพื่อการเลี้ยงชีพ', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในธุรกิจนวัตกรรมหุ่นยนต์และปัญญาประดิษฐ์' },
+            { code: 'ASP-EVRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'แอสเซทพลัส อีวี เพื่อการเลี้ยงชีพ', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในอุตสาหกรรมยานยนต์ไฟฟ้าและเทคโนโลยีเกี่ยวข้อง' },
+            { code: 'ASP-GOLDRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'แอสเซทพลัส โกลด์ เพื่อการเลี้ยงชีพ', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนในทองคำแท่ง' },
+            { code: 'ASP-SMRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'แอสเซทพลัส สมอล แอนด์ มิด แคป เพื่อการเลี้ยงชีพ', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทยขนาดกลางและขนาดเล็ก' },
+
+            // Kasikorn (KAsset) - บลจ. กสิกรไทย
             { code: 'K-VIETNAM-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค เวียดนาม หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
-            { code: 'SCBVIET(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์ หุ้นเวียดนาม เพื่อการเลี้ยงชีพ', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
-            { code: 'B-VIETNAMRMF', amc: 'BBLAM (บัวหลวง)', name: 'บัวหลวงเวียดนามเพื่อการเลี้ยงชีพ', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
-            
             { code: 'K-USA-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค ยูเอสเอ หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนใน Morgan Stanley US Advantage' },
-            { code: 'SCBUS(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์หุ้นยูเอส เพื่อการเลี้ยงชีพ', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนในหุ้นสหรัฐฯ' },
-            { code: 'KF-USARMF', amc: 'KSAM (กรุงศรี)', name: 'กรุงศรียูเอสอิควิตี้เพื่อการเลี้ยงชีพ', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนใน Baillie Gifford US Growth Trust' },
-            { code: 'SCBNDQ(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์ ดัชนี NASDAQ เพื่อการเลี้ยงชีพ', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี NASDAQ-100' },
             { code: 'K-US500X-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค ยูเอส 500 หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี S&P 500' },
-            
-            { code: 'B-INNOTECHRMF', amc: 'BBLAM (บัวหลวง)', name: 'บัวหลวงอินโนเวชั่นเพื่อการเลี้ยงชีพ', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนใน BGF World Technology Fund' },
-            { code: 'KF-INNOTECHRMF', amc: 'KSAM (กรุงศรี)', name: 'กรุงศรีอินโนเวชั่นเพื่อการเลี้ยงชีพ', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนใน BGF World Technology' },
+            { code: 'K-CHINA-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค ไชน่า หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีน' },
+            { code: 'K-INDIA-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค อินเดีย หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดีย' },
+            { code: 'K-JP-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค เจแปน หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นญี่ปุ่น', note: 'ลงทุนในหุ้นญี่ปุ่น' },
+            { code: 'K-GINCOME-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค โกลบอล อินคัม เพื่อการเลี้ยงชีพ', category: 'สินทรัพย์ผสมทั่วโลก', note: 'ลงทุนใน JPMorgan Global Income' },
+            { code: 'K-GHEALTH-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค โกลบอล เฮลท์แคร์ หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นเฮลธ์แคร์', note: 'ลงทุนใน JPMorgan Global Healthcare' },
+            { code: 'KGDRMF', amc: 'KAsset (กสิกรไทย)', name: 'เค โกลด์ เพื่อการเลี้ยงชีพ', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนใน SPDR Gold Shares' },
+            { code: 'K-EQRMF', amc: 'KAsset (กสิกรไทย)', name: 'เค หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทย' },
+            { code: 'K-FIXED-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค ตราสารหนี้เพื่อการเลี้ยงชีพ', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้' },
+            { code: 'K-PROP-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค พร็อพเพอร์ตี้ เซคเตอร์ เพื่อการเลี้ยงชีพ', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนในกองทุนอสังหาริมทรัพย์ & REITs' },
+            { code: 'K-CLIMATE-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค ไคลเมท แอคชั่น หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นพลังงานสะอาด & ESG', note: 'ลงทุนในหุ้นที่เกี่ยวข้องกับสิ่งแวดล้อม' },
+
+            // SCBAM - บลจ. ไทยพาณิชย์
+            { code: 'SCBVIET(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์ หุ้นเวียดนาม เพื่อการเลี้ยงชีพ', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
+            { code: 'SCBUS(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์หุ้นยูเอส เพื่อการเลี้ยงชีพ', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนในหุ้นสหรัฐฯ' },
+            { code: 'SCBNDQ(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์ ดัชนี NASDAQ เพื่อการเลี้ยงชีพ', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี NASDAQ-100' },
             { code: 'SCBSEMI(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์ Semiconductor เพื่อการเลี้ยงชีพ', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในหุ้นเซมิคอนดักเตอร์ทั่วโลก' },
             { code: 'SCBEV(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์ Electric Vehicles เพื่อการเลี้ยงชีพ', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในยานยนต์ไฟฟ้าและห่วงโซ่อุปทาน' },
-            
-            { code: 'ONE-UGG-RMF', amc: 'ONEAM (วรรณ)', name: 'วรรณ อัลติเมท โกลบอล โกรว์ธ เพื่อการเลี้ยงชีพ', category: 'หุ้นทั่วโลก', note: 'ลงทุนใน Baillie Gifford Long Term Global Growth' },
             { code: 'SCBWORLD(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์ หุ้นทั่วโลก เพื่อการเลี้ยงชีพ', category: 'หุ้นทั่วโลก', note: 'ลงทุนในหุ้นทั่วโลก' },
-            { code: 'K-GINCOME-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค โกลบอล อินคัม เพื่อการเลี้ยงชีพ', category: 'สินทรัพย์ผสมทั่วโลก', note: 'ลงทุนใน JPMorgan Global Income' },
-            
-            { code: 'K-GHEALTH-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค โกลบอล เฮลท์แคร์ หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นเฮลธ์แคร์', note: 'ลงทุนใน JPMorgan Global Healthcare' },
             { code: 'SCBHEALTH(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์ โกลบอลเฮลธ์แคร์ เพื่อการเลี้ยงชีพ', category: 'หุ้นเฮลธ์แคร์', note: 'ลงทุนในหุ้นเฮลธ์แคร์ทั่วโลก' },
-            
-            { code: 'K-CHINA-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค ไชน่า หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีน' },
             { code: 'SCBCHINA(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์หุ้นจีน เพื่อการเลี้ยงชีพ', category: 'หุ้นจีน', note: 'ลงทุนใน Hang Seng China Enterprises' },
-            { code: 'KF-CHINARMF', amc: 'KSAM (กรุงศรี)', name: 'กรุงศรีไชน่าเพื่อการเลี้ยงชีพ', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีน A-Shares / H-Shares' },
-            
-            { code: 'K-INDIA-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค อินเดีย หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดีย' },
             { code: 'SCBINDIA(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์หุ้นอินเดีย เพื่อการเลี้ยงชีพ', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดีย' },
+            { code: 'SCBJAPAN(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์หุ้นญี่ปุ่น เพื่อการเลี้ยงชีพ', category: 'หุ้นญี่ปุ่น', note: 'ลงทุนใน Nikkei 225' },
+            { code: 'SCBGOLD(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์โกลด์ เพื่อการเลี้ยงชีพ', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนใน SPDR Gold Trust' },
+            { code: 'SCBRM4', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นไทย', note: 'หุ้นไทยปัจจัยพื้นฐานดี' },
+            { code: 'SCBRF1', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์พันธบัตรรัฐบาลเพื่อการเลี้ยงชีพ', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'พันธบัตรรัฐบาล' },
+            { code: 'SCBPROP(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์ พร็อพเพอร์ตี้ เพื่อการเลี้ยงชีพ', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนใน REITs ไทยและสิงคโปร์' },
+
+            // BBLAM - บลจ. บัวหลวง
+            { code: 'B-VIETNAMRMF', amc: 'BBLAM (บัวหลวง)', name: 'บัวหลวงเวียดนามเพื่อการเลี้ยงชีพ', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
+            { code: 'B-INNOTECHRMF', amc: 'BBLAM (บัวหลวง)', name: 'บัวหลวงอินโนเวชั่นเพื่อการเลี้ยงชีพ', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนใน BGF World Technology Fund' },
+            { code: 'BERMF', amc: 'BBLAM (บัวหลวง)', name: 'บัวหลวงตราสารทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทย' },
+            { code: 'B-TNLRMF', amc: 'BBLAM (บัวหลวง)', name: 'บัวหลวงธนทวีเพื่อการเลี้ยงชีพ', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้ไทย' },
+
+            // KSAM - บลจ. กรุงศรี
+            { code: 'KF-USARMF', amc: 'KSAM (กรุงศรี)', name: 'กรุงศรียูเอสอิควิตี้เพื่อการเลี้ยงชีพ', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนใน Baillie Gifford US Growth Trust' },
+            { code: 'KF-INNOTECHRMF', amc: 'KSAM (กรุงศรี)', name: 'กรุงศรีอินโนเวชั่นเพื่อการเลี้ยงชีพ', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนใน BGF World Technology' },
+            { code: 'KF-CHINARMF', amc: 'KSAM (กรุงศรี)', name: 'กรุงศรีไชน่าเพื่อการเลี้ยงชีพ', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีน A-Shares / H-Shares' },
             { code: 'KF-INDIARMF', amc: 'KSAM (กรุงศรี)', name: 'กรุงศรีอินเดียเพื่อการเลี้ยงชีพ', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดีย' },
 
-            { code: 'K-JP-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค เจแปน หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นญี่ปุ่น', note: 'ลงทุนในหุ้นญี่ปุ่น' },
-            { code: 'SCBJAPAN(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์หุ้นญี่ปุ่น เพื่อการเลี้ยงชีพ', category: 'หุ้นญี่ปุ่น', note: 'ลงทุนใน Nikkei 225' },
+            // Principal - บลจ. พรินซิเพิล
+            { code: 'PRINCIPAL VNEQ-RMF', amc: 'Principal (พรินซิเพิล)', name: 'พรินซิเพิล เวียดนาม อิควิตี้ เพื่อการเลี้ยงชีพ', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
+            { code: 'PRINCIPAL APDI-RMF', amc: 'Principal (พรินซิเพิล)', name: 'พรินซิเพิล เอเชีย แปซิฟิก ไดนามิก เพื่อการเลี้ยงชีพ', category: 'หุ้นเอเชีย / ตลาดเกิดใหม่', note: 'ลงทุนในหุ้นเอเชียแปซิฟิก' },
+            { code: 'PRINCIPAL GPLUS-RMF', amc: 'Principal (พรินซิเพิล)', name: 'พรินซิเพิล โกลบอล ออพพอร์ทูนิตี้ เพื่อการเลี้ยงชีพ', category: 'หุ้นทั่วโลก', note: 'ลงทุนในหุ้นทั่วโลก' },
 
+            // Eastspring - บลจ. อีสท์สปริง
             { code: 'T-GoldRMF', amc: 'Eastspring (อีสท์สปริง)', name: 'ธนชาตทองคำแท่งเพื่อการเลี้ยงชีพ', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนในทองคำแท่ง SPDR Gold' },
-            { code: 'SCBGOLD(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์โกลด์ เพื่อการเลี้ยงชีพ', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนใน SPDR Gold Trust' },
-            { code: 'KGDRMF', amc: 'KAsset (กสิกรไทย)', name: 'เค โกลด์ เพื่อการเลี้ยงชีพ', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนใน SPDR Gold Shares' },
+            { code: 'ES-INDX-RMF', amc: 'Eastspring (อีสท์สปริง)', name: 'อีสท์สปริง ยูเอส อินเด็กซ์ เพื่อการเลี้ยงชีพ', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนในดัชนี S&P 500' },
+            { code: 'T-GlobalEqRMF', amc: 'Eastspring (อีสท์สปริง)', name: 'ธนชาต โกลบอล อิควิตี้ เพื่อการเลี้ยงชีพ', category: 'หุ้นทั่วโลก', note: 'ลงทุนในหุ้นคุณภาพทั่วโลก' },
 
-            { code: 'SCBRM4', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นไทย', note: 'หุ้นไทยปัจจัยพื้นฐานดี' },
-            { code: 'BERMF', amc: 'BBLAM (บัวหลวง)', name: 'บัวหลวงตราสารทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทย' },
-            { code: 'K-EQRMF', amc: 'KAsset (กสิกรไทย)', name: 'เค หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทย' },
+            // ONEAM - บลจ. วรรณ
+            { code: 'ONE-UGG-RMF', amc: 'ONEAM (วรรณ)', name: 'วรรณ อัลติเมท โกลบอล โกรว์ธ เพื่อการเลี้ยงชีพ', category: 'หุ้นทั่วโลก', note: 'ลงทุนใน Baillie Gifford Long Term Global Growth' },
+            { code: 'ONE-DISRMF', amc: 'ONEAM (วรรณ)', name: 'วรรณ ดิสรัปทีฟ เพื่อการเลี้ยงชีพ', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในนวัตกรรม Disruptive' },
 
-            { code: 'B-TNLRMF', amc: 'BBLAM (บัวหลวง)', name: 'บัวหลวงธนทวีเพื่อการเลี้ยงชีพ', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้ไทย' },
-            { code: 'K-FIXED-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค ตราสารหนี้เพื่อการเลี้ยงชีพ', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้' },
-            { code: 'SCBRF1', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์พันธบัตรรัฐบาลเพื่อการเลี้ยงชีพ', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'พันธบัตรรัฐบาล' },
-
-            { code: 'K-PROP-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค พร็อพเพอร์ตี้ เซคเตอร์ เพื่อการเลี้ยงชีพ', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนในกองทุนอสังหาริมทรัพย์ & REITs' },
-            { code: 'SCBPROP(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์ พร็อพเพอร์ตี้ เพื่อการเลี้ยงชีพ', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนใน REITs ไทยและสิงคโปร์' },
-            { code: 'K-CLIMATE-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค ไคลเมท แอคชั่น หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นพลังงานสะอาด & ESG', note: 'ลงทุนในหุ้นที่เกี่ยวข้องกับสิ่งแวดล้อม' }
+            // KTAM - บลจ. กรุงไทย
+            { code: 'KT-VIETNAM-RMF', amc: 'KTAM (กรุงไทย)', name: 'กรุงไทย เวียดนาม อิควิตี้ เพื่อการเลี้ยงชีพ', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
+            { code: 'KT-CHINA-RMF', amc: 'KTAM (กรุงไทย)', name: 'กรุงไทย ไชน่า อิควิตี้ เพื่อการเลี้ยงชีพ', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีน' },
+            { code: 'KT-US-RMF', amc: 'KTAM (กรุงไทย)', name: 'กรุงไทย ยูเอส โกรว์ธ เพื่อการเลี้ยงชีพ', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนในหุ้นสหรัฐฯ' }
         ];
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        }
 
         function initRmfPresets() {
             const list = document.getElementById('rmfPresetsList');
@@ -2796,22 +2896,204 @@
             };
         }
 
-        function onFundCodeInput(val) {
-            if (!val || val.trim().length < 2) return;
-            const detected = detectRmfInfo(val);
-            if (detected) {
-                applyDetectedRmf(detected, false);
+        // ------------------ AUTOCOMPLETE SUGGESTIONS & AUTO DETECTOR ------------------
+        function handleRmfCodeInput(val) {
+            const dropdown = document.getElementById('rmfSuggestionsDropdown');
+            if (!dropdown) return;
+
+            const query = (val || '').trim();
+            const upper = query.toUpperCase();
+
+            let matches = [];
+            if (!query) {
+                // Show top 15 funds when empty/focused
+                matches = RMF_DATABASE.slice(0, 15);
+            } else {
+                matches = RMF_DATABASE.filter(f => {
+                    const codeUpper = f.code.toUpperCase();
+                    const amcUpper = f.amc.toUpperCase();
+                    const nameLower = (f.name || '').toLowerCase();
+                    const catLower = (f.category || '').toLowerCase();
+                    const qLower = query.toLowerCase();
+
+                    // Match ticker code (e.g. ASP matches ASP-VIETRMF, ASP-CHINARMF, etc.)
+                    if (codeUpper.includes(upper)) return true;
+                    // Match without hyphens / symbols
+                    if (codeUpper.replace(/[-() ]/g, '').includes(upper.replace(/[-() ]/g, ''))) return true;
+                    // Match AMC keyword (e.g. ASP -> Asset Plus, K -> KAsset, SCB -> SCBAM)
+                    if (amcUpper.includes(upper) || f.amc.toLowerCase().includes(qLower)) return true;
+                    if (nameLower.includes(qLower)) return true;
+                    if (catLower.includes(qLower)) return true;
+                    return false;
+                });
+            }
+
+            renderRmfSuggestions(matches, query);
+
+            // Also run heuristic detection
+            if (upper.length >= 2) {
+                const detected = detectRmfInfo(val);
+                if (detected) {
+                    applyDetectedRmf(detected, false);
+                }
             }
         }
 
-        function onFundNameInput(val) {
+        function renderRmfSuggestions(list, query = '') {
+            const dropdown = document.getElementById('rmfSuggestionsDropdown');
+            if (!dropdown) return;
+
+            if (!list || list.length === 0) {
+                dropdown.innerHTML = `
+                    <div class="p-3 text-center text-muted small">
+                        <i class="fa-solid fa-circle-question text-warning me-1"></i> ไม่พบกองทุนที่ตรงกับ "<b>${escapeHtml(query)}</b>"
+                        <div class="mt-1 text-muted" style="font-size: 0.72rem;">คุณสามารถพิมพ์รหัสและกรอกข้อมูลเองด้านล่างได้เลยครับ</div>
+                    </div>
+                `;
+                dropdown.classList.remove('d-none');
+                return;
+            }
+
+            let html = `
+                <div class="px-2 py-1 bg-body-tertiary border-bottom d-flex justify-content-between align-items-center">
+                    <span class="small fw-bold text-muted" style="font-size: 0.7rem;">
+                        <i class="fa-solid fa-list-check text-success me-1"></i>คลิกเพื่อเลือกกองทุน (${list.length} รายการ):
+                    </span>
+                    <button type="button" class="btn-close" style="font-size: 0.6rem;" onclick="closeRmfDropdown()" title="ปิด"></button>
+                </div>
+                <div style="max-height: 230px; overflow-y: auto;">
+            `;
+
+            list.forEach(item => {
+                const catBadge = getRmfCategoryBadge(item.category);
+                html += `
+                    <div class="rmf-suggestion-item" onclick="selectRmfPreset('${item.code}')">
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <span class="fw-bold text-success font-monospace" style="font-size: 0.88rem;">${item.code}</span>
+                            <div>${catBadge}</div>
+                        </div>
+                        <div class="small text-truncate fw-medium" title="${item.name}">${item.name}</div>
+                        <div class="d-flex justify-content-between align-items-center mt-1" style="font-size: 0.72rem;">
+                            <span class="text-muted"><i class="fa-solid fa-building-columns me-1"></i>${item.amc}</span>
+                            ${item.note ? `<span class="text-truncate text-secondary ms-2" style="max-width: 170px;">${item.note}</span>` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `</div>`;
+            dropdown.innerHTML = html;
+            dropdown.classList.remove('d-none');
+        }
+
+        function selectRmfPreset(code) {
+            const item = RMF_DATABASE.find(f => f.code === code);
+            if (!item) return;
+
+            document.getElementById('fundCode').value = item.code;
+            document.getElementById('fundAmc').value = item.amc;
+            document.getElementById('fundName').value = item.name;
+            document.getElementById('fundCategory').value = item.category;
+            if (item.note) {
+                document.getElementById('fundNote').value = item.note;
+            }
+
+            // Show Auto-Detect notification banner
+            const banner = document.getElementById('rmfAutoDetectBanner');
+            const textEl = document.getElementById('rmfAutoDetectText');
+            if (banner && textEl) {
+                banner.classList.remove('d-none');
+                banner.classList.add('d-flex');
+                textEl.innerHTML = `<strong>✨ เลือกกองทุนสำเร็จ:</strong> ${item.code} • บลจ. <b>${item.amc}</b> • หมวดหมู่: <span class="badge bg-success">${item.category}</span>`;
+            }
+
+            closeRmfDropdown();
+
+            // Focus to current NAV so user can quickly type NAV
+            const navInput = document.getElementById('fundCurrentNav');
+            if (navInput && (!navInput.value || navInput.value === '0')) {
+                navInput.focus();
+            }
+        }
+
+        function closeRmfDropdown() {
+            const dropdown = document.getElementById('rmfSuggestionsDropdown');
+            if (dropdown) {
+                dropdown.classList.add('d-none');
+            }
+        }
+
+        function toggleRmfDropdown() {
+            const dropdown = document.getElementById('rmfSuggestionsDropdown');
+            if (!dropdown) return;
+            if (dropdown.classList.contains('d-none')) {
+                const val = document.getElementById('fundCode').value;
+                handleRmfCodeInput(val);
+            } else {
+                dropdown.classList.add('d-none');
+            }
+        }
+
+        function filterRmfByAmc(amcName) {
+            const amcInput = document.getElementById('fundAmc');
+            const codeInput = document.getElementById('fundCode');
+
+            if (!amcName) {
+                // Show all
+                if (amcInput) amcInput.value = '';
+                renderRmfSuggestions(RMF_DATABASE, '');
+                return;
+            }
+
+            // Set AMC input value if matching AMC is in database
+            const fullAmcObj = RMF_DATABASE.find(f => f.amc.toLowerCase().includes(amcName.toLowerCase()));
+            if (amcInput && fullAmcObj) {
+                amcInput.value = fullAmcObj.amc;
+            }
+
+            // Filter funds belonging to this AMC
+            const matches = RMF_DATABASE.filter(f => 
+                f.amc.toLowerCase().includes(amcName.toLowerCase()) || 
+                f.code.toUpperCase().startsWith(amcName.toUpperCase())
+            );
+            renderRmfSuggestions(matches, amcName);
+
+            // Pre-fill prefix for convenience
+            if (amcName.toLowerCase().includes('asset') || amcName.toLowerCase().includes('asp')) {
+                if (!codeInput.value || codeInput.value.length < 3) {
+                    codeInput.value = 'ASP-';
+                }
+            } else if (amcName.toLowerCase().includes('kasset')) {
+                if (!codeInput.value || codeInput.value.length < 2) {
+                    codeInput.value = 'K-';
+                }
+            } else if (amcName.toLowerCase().includes('scb')) {
+                if (!codeInput.value || codeInput.value.length < 3) {
+                    codeInput.value = 'SCB';
+                }
+            } else if (amcName.toLowerCase().includes('bbl')) {
+                if (!codeInput.value || codeInput.value.length < 2) {
+                    codeInput.value = 'B-';
+                }
+            } else if (amcName.toLowerCase().includes('ksam')) {
+                if (!codeInput.value || codeInput.value.length < 3) {
+                    codeInput.value = 'KF-';
+                }
+            }
+
+            if (codeInput) {
+                codeInput.focus();
+            }
+        }
+
+        function handleRmfNameInput(val) {
             if (!val || val.trim().length < 2) return;
             const codeInput = document.getElementById('fundCode');
-            const isCodeEmpty = !codeInput.value.trim();
-            
+            const isCodeEmpty = !codeInput.value.trim() || codeInput.value === 'ASP-' || codeInput.value === 'K-' || codeInput.value === 'SCB';
+
             const upper = val.trim().toUpperCase();
             const looksLikeTicker = /^[A-Z0-9_\-()]{3,}$/.test(upper) || upper.includes('RMF') || upper.includes('-') || upper.startsWith('ASP') || upper.startsWith('SCB') || upper.startsWith('K-');
-            
+
             const detected = detectRmfInfo(val);
             if (detected) {
                 if (isCodeEmpty && looksLikeTicker) {
@@ -2820,6 +3102,10 @@
                 applyDetectedRmf(detected, looksLikeTicker);
             }
         }
+
+        // Backward compatibility aliases
+        function onFundCodeInput(val) { handleRmfCodeInput(val); }
+        function onFundNameInput(val) { handleRmfNameInput(val); }
 
         function applyDetectedRmf(info, isFromTickerInName = false) {
             const codeInput = document.getElementById('fundCode');
@@ -2886,10 +3172,22 @@
             return `<span class="badge bg-body-secondary text-secondary">${cat}</span>`;
         }
 
+        // Close RMF suggestion dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            const dropdown = document.getElementById('rmfSuggestionsDropdown');
+            const codeInput = document.getElementById('fundCode');
+            if (!dropdown || dropdown.classList.contains('d-none')) return;
+
+            if (!dropdown.contains(e.target) && e.target !== codeInput && !e.target.closest('#fundCode') && !e.target.closest('[onclick="toggleRmfDropdown()"]')) {
+                dropdown.classList.add('d-none');
+            }
+        });
+
         // ------------------ RMF FUND MODAL ------------------
         function openAddFundModal(fundId = null) {
             initRmfPresets();
             dismissRmfAutoDetect();
+            closeRmfDropdown();
 
             const title = document.getElementById('fundModalTitle');
             const editId = document.getElementById('fundEditId');
