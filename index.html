@@ -291,7 +291,7 @@
                     <span class="fw-bold text-gradient" style="font-size: 1.15rem; background: linear-gradient(90deg, #f59e0b, #2563eb, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
                         MoneyTree Pro
                     </span>
-                    <span class="badge rounded-pill bg-success-subtle text-success ms-1 fw-bold" style="font-size: 0.7rem;"><i class="fa-solid fa-code-branch me-1"></i>V1.6 (Auto-Suggest ASP)</span>
+                    <span class="badge rounded-pill bg-success-subtle text-success ms-1 fw-bold" style="font-size: 0.7rem;"><i class="fa-solid fa-code-branch me-1"></i>V1.7 (Full Official Names)</span>
                 </div>
             </div>
 
@@ -1115,15 +1115,16 @@
                             </div>
                             <div class="col-5">
                                 <label class="form-label small fw-bold">บลจ. (AMC)</label>
-                                <input type="text" id="fundAmc" class="form-control" placeholder="เช่น Asset Plus, KAsset, SCBAM" required oninput="filterRmfByAmc(this.value)">
+                                <input type="text" id="fundAmc" class="form-control" style="font-size: 0.82rem;" placeholder="เช่น Asset Plus, KAsset, SCBAM" required oninput="filterRmfByAmc(this.value)">
                             </div>
                         </div>
                         <div class="mb-3 position-relative">
                             <label class="form-label small fw-bold d-flex justify-content-between align-items-center">
-                                <span>ชื่อเต็มกองทุน</span>
-                                <span class="text-muted small fw-normal" style="font-size: 0.72rem;">(พิมพ์ชื่อหรือรหัสกองทุนได้)</span>
+                                <span>ชื่อเต็มกองทุน (Official Full Name)</span>
+                                <span class="badge bg-secondary-subtle text-secondary small fw-normal" style="font-size: 0.68rem;">ตามหนังสือชี้ชวน ก.ล.ต.</span>
                             </label>
-                            <input type="text" id="fundName" class="form-control" placeholder="เช่น แอสเซทพลัส เวียดนาม เพื่อการเลี้ยงชีพ" oninput="handleRmfNameInput(this.value)" required>
+                            <input type="text" id="fundName" class="form-control fw-medium" placeholder="เช่น กองทุนเปิด แอสเซทพลัส เวียดนาม โกรท เพื่อการเลี้ยงชีพ" oninput="handleRmfNameInput(this.value)" required>
+                            <div id="fundNameEnHint" class="small text-muted mt-1" style="font-size: 0.73rem;"></div>
                         </div>
                         <div class="row g-2 mb-2">
                             <div class="col-6">
@@ -2688,75 +2689,80 @@
         // ------------------ RMF PRESET DATABASE & AUTO DETECTOR ------------------
         const RMF_DATABASE = [
             // Asset Plus (ASP) - บลจ. แอสเซท พลัส
-            { code: 'ASP-VIETRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'แอสเซทพลัส เวียดนาม เพื่อการเลี้ยงชีพ', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนามที่มีศักยภาพการเติบโตสูง' },
-            { code: 'ASP-CHINARMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'แอสเซทพลัส ไชน่า เพื่อการเลี้ยงชีพ', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีนผ่านกองทุนหลักต่างประเทศ' },
-            { code: 'ASP-USARMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'แอสเซทพลัส ยูเอส เพื่อการเลี้ยงชีพ', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนในหุ้นสหรัฐฯ ขนาดใหญ่และมีศักยภาพ' },
-            { code: 'ASP-ROBOTRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'แอสเซทพลัส โรโบติกส์ เพื่อการเลี้ยงชีพ', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในธุรกิจนวัตกรรมหุ่นยนต์และปัญญาประดิษฐ์' },
-            { code: 'ASP-EVRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'แอสเซทพลัส อีวี เพื่อการเลี้ยงชีพ', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในอุตสาหกรรมยานยนต์ไฟฟ้าและเทคโนโลยีเกี่ยวข้อง' },
-            { code: 'ASP-GOLDRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'แอสเซทพลัส โกลด์ เพื่อการเลี้ยงชีพ', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนในทองคำแท่ง' },
-            { code: 'ASP-SMRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'แอสเซทพลัส สมอล แอนด์ มิด แคป เพื่อการเลี้ยงชีพ', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทยขนาดกลางและขนาดเล็ก' },
+            { code: 'ASP-VIETRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัส เวียดนาม โกรท เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus Vietnam Growth Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนามที่มีศักยภาพการเติบโตสูง' },
+            { code: 'ASP-EVOCHINARMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัส อีโวลูชั่น ไชน่า อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus Evolution China Equity Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีนที่มีการเติบโตตามเศรษฐกิจใหม่' },
+            { code: 'ASP-CHINARMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัส ไชน่า เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus China Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีนผ่านกองทุนหลักต่างประเทศ' },
+            { code: 'ASP-AIEQRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัส อาร์ทิฟิเชียล อินเทลลิเจนช์ อิควิตี้โกรท เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus Artificial Intelligence Equity Growth Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในหุ้นกลุ่มเทคโนโลยี AI และปัญญาประดิษฐ์' },
+            { code: 'ASP-DISRUPTRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัส ดิสรัปทีฟ ออพพอร์ทูนิตี้ส์ เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus Disruptive Opportunities Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในธุรกิจนวัตกรรมเปลี่ยนโลก Disruptive' },
+            { code: 'ASP-DIGIBLOCRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัส ดิจิทัล บล็อกเชน เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus Digital Blockchain Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในสินทรัพย์และเทคโนโลยี Blockchain' },
+            { code: 'ASP-ROBOTRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัส โรโบติกส์ เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus Robotics Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในธุรกิจนวัตกรรมหุ่นยนต์และระบบอัตโนมัติ' },
+            { code: 'ASP-USARMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัส ยูเอส เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus USA Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนในหุ้นสหรัฐฯ ขนาดใหญ่และมีศักยภาพสูง' },
+            { code: 'ASP-EVRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัส อีวี เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus EV Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในอุตสาหกรรมยานยนต์ไฟฟ้า (EV)' },
+            { code: 'ASP-GOLDRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัส โกลด์ เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus Gold Retirement Mutual Fund', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนในทองคำแท่ง' },
+            { code: 'ASP-SMRMF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัส สมอล แอนด์ มิด แคป เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus Small and Mid Cap Retirement Mutual Fund', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทยขนาดกลางและขนาดเล็ก' },
+            { code: 'ASP-FRF', amc: 'Asset Plus (แอสเซท พลัส)', name: 'กองทุนเปิด แอสเซทพลัสตราสารหนี้เพื่อการเลี้ยงชีพ', nameEn: 'Asset Plus Fixed Income Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้ภาครัฐและเอกชน' },
 
             // Kasikorn (KAsset) - บลจ. กสิกรไทย
-            { code: 'K-VIETNAM-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค เวียดนาม หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
-            { code: 'K-USA-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค ยูเอสเอ หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนใน Morgan Stanley US Advantage' },
-            { code: 'K-US500X-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค ยูเอส 500 หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี S&P 500' },
-            { code: 'K-CHINA-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค ไชน่า หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีน' },
-            { code: 'K-INDIA-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค อินเดีย หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดีย' },
-            { code: 'K-JP-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค เจแปน หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นญี่ปุ่น', note: 'ลงทุนในหุ้นญี่ปุ่น' },
-            { code: 'K-GINCOME-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค โกลบอล อินคัม เพื่อการเลี้ยงชีพ', category: 'สินทรัพย์ผสมทั่วโลก', note: 'ลงทุนใน JPMorgan Global Income' },
-            { code: 'K-GHEALTH-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค โกลบอล เฮลท์แคร์ หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นเฮลธ์แคร์', note: 'ลงทุนใน JPMorgan Global Healthcare' },
-            { code: 'KGDRMF', amc: 'KAsset (กสิกรไทย)', name: 'เค โกลด์ เพื่อการเลี้ยงชีพ', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนใน SPDR Gold Shares' },
-            { code: 'K-EQRMF', amc: 'KAsset (กสิกรไทย)', name: 'เค หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทย' },
-            { code: 'K-FIXED-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค ตราสารหนี้เพื่อการเลี้ยงชีพ', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้' },
-            { code: 'K-PROP-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค พร็อพเพอร์ตี้ เซคเตอร์ เพื่อการเลี้ยงชีพ', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนในกองทุนอสังหาริมทรัพย์ & REITs' },
-            { code: 'K-CLIMATE-RMF', amc: 'KAsset (กสิกรไทย)', name: 'เค ไคลเมท แอคชั่น หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นพลังงานสะอาด & ESG', note: 'ลงทุนในหุ้นที่เกี่ยวข้องกับสิ่งแวดล้อม' },
+            { code: 'K-VIETNAM-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค เวียดนาม หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K Vietnam Equity Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
+            { code: 'K-USA-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค ยูเอสเอ หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K USA Equity Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนใน Morgan Stanley US Advantage' },
+            { code: 'K-US500X-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค ยูเอส 500 หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K US500 Equity Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี S&P 500' },
+            { code: 'K-CHINA-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค ไชน่า หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K China Equity Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีน' },
+            { code: 'K-INDIA-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค อินเดีย หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K India Equity Retirement Mutual Fund', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดีย' },
+            { code: 'K-JP-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค เจแปน หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K Japan Equity Retirement Mutual Fund', category: 'หุ้นญี่ปุ่น', note: 'ลงทุนในหุ้นญี่ปุ่น' },
+            { code: 'K-GINCOME-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค โกลบอล อินคัม เพื่อการเลี้ยงชีพ', nameEn: 'K Global Income Retirement Mutual Fund', category: 'สินทรัพย์ผสมทั่วโลก', note: 'ลงทุนใน JPMorgan Global Income' },
+            { code: 'K-GHEALTH-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค โกลบอล เฮลท์แคร์ หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K Global Healthcare Equity Retirement Mutual Fund', category: 'หุ้นเฮลธ์แคร์', note: 'ลงทุนใน JPMorgan Global Healthcare' },
+            { code: 'KGDRMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค โกลด์ เพื่อการเลี้ยงชีพ', nameEn: 'K Gold Retirement Mutual Fund', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนใน SPDR Gold Shares' },
+            { code: 'K-EQRMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K Equity Retirement Mutual Fund', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทย' },
+            { code: 'K-FIXED-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค ตราสารหนี้เพื่อการเลี้ยงชีพ', nameEn: 'K Fixed Income Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้' },
+            { code: 'K-PROP-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค พร็อพเพอร์ตี้ เซคเตอร์ เพื่อการเลี้ยงชีพ', nameEn: 'K Property Sector Retirement Mutual Fund', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนในกองทุนอสังหาริมทรัพย์ & REITs' },
+            { code: 'K-CLIMATE-RMF', amc: 'KAsset (กสิกรไทย)', name: 'กองทุนเปิดเค ไคลเมท แอคชั่น หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'K Climate Action Equity Retirement Mutual Fund', category: 'หุ้นพลังงานสะอาด & ESG', note: 'ลงทุนในหุ้นที่เกี่ยวข้องกับสิ่งแวดล้อม' },
 
             // SCBAM - บลจ. ไทยพาณิชย์
-            { code: 'SCBVIET(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์ หุ้นเวียดนาม เพื่อการเลี้ยงชีพ', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
-            { code: 'SCBUS(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์หุ้นยูเอส เพื่อการเลี้ยงชีพ', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนในหุ้นสหรัฐฯ' },
-            { code: 'SCBNDQ(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์ ดัชนี NASDAQ เพื่อการเลี้ยงชีพ', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี NASDAQ-100' },
-            { code: 'SCBSEMI(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์ Semiconductor เพื่อการเลี้ยงชีพ', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในหุ้นเซมิคอนดักเตอร์ทั่วโลก' },
-            { code: 'SCBEV(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์ Electric Vehicles เพื่อการเลี้ยงชีพ', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในยานยนต์ไฟฟ้าและห่วงโซ่อุปทาน' },
-            { code: 'SCBWORLD(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์ หุ้นทั่วโลก เพื่อการเลี้ยงชีพ', category: 'หุ้นทั่วโลก', note: 'ลงทุนในหุ้นทั่วโลก' },
-            { code: 'SCBHEALTH(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์ โกลบอลเฮลธ์แคร์ เพื่อการเลี้ยงชีพ', category: 'หุ้นเฮลธ์แคร์', note: 'ลงทุนในหุ้นเฮลธ์แคร์ทั่วโลก' },
-            { code: 'SCBCHINA(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์หุ้นจีน เพื่อการเลี้ยงชีพ', category: 'หุ้นจีน', note: 'ลงทุนใน Hang Seng China Enterprises' },
-            { code: 'SCBINDIA(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์หุ้นอินเดีย เพื่อการเลี้ยงชีพ', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดีย' },
-            { code: 'SCBJAPAN(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์หุ้นญี่ปุ่น เพื่อการเลี้ยงชีพ', category: 'หุ้นญี่ปุ่น', note: 'ลงทุนใน Nikkei 225' },
-            { code: 'SCBGOLD(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์โกลด์ เพื่อการเลี้ยงชีพ', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนใน SPDR Gold Trust' },
-            { code: 'SCBRM4', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์หุ้นทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นไทย', note: 'หุ้นไทยปัจจัยพื้นฐานดี' },
-            { code: 'SCBRF1', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์พันธบัตรรัฐบาลเพื่อการเลี้ยงชีพ', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'พันธบัตรรัฐบาล' },
-            { code: 'SCBPROP(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'ไทยพาณิชย์ พร็อพเพอร์ตี้ เพื่อการเลี้ยงชีพ', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนใน REITs ไทยและสิงคโปร์' },
+            { code: 'SCBVIET(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ หุ้นเวียดนาม เพื่อการเลี้ยงชีพ', nameEn: 'SCB Vietnam Equity Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
+            { code: 'SCBUS(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์หุ้นยูเอส เพื่อการเลี้ยงชีพ', nameEn: 'SCB US Equity Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนในหุ้นสหรัฐฯ' },
+            { code: 'SCBNDQ(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ ดัชนี NASDAQ เพื่อการเลี้ยงชีพ', nameEn: 'SCB NASDAQ Index Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'อิงดัชนี NASDAQ-100' },
+            { code: 'SCBSEMI(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ Semiconductor เพื่อการเลี้ยงชีพ', nameEn: 'SCB Semiconductor Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในหุ้นเซมิคอนดักเตอร์ทั่วโลก' },
+            { code: 'SCBEV(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ Electric Vehicles เพื่อการเลี้ยงชีพ', nameEn: 'SCB Electric Vehicles Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในยานยนต์ไฟฟ้าและห่วงโซ่อุปทาน' },
+            { code: 'SCBWORLD(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ หุ้นทั่วโลก เพื่อการเลี้ยงชีพ', nameEn: 'SCB World Equity Retirement Mutual Fund', category: 'หุ้นทั่วโลก', note: 'ลงทุนในหุ้นทั่วโลก' },
+            { code: 'SCBHEALTH(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ โกลบอลเฮลธ์แคร์ เพื่อการเลี้ยงชีพ', nameEn: 'SCB Global Healthcare Retirement Mutual Fund', category: 'หุ้นเฮลธ์แคร์', note: 'ลงทุนในหุ้นเฮลธ์แคร์ทั่วโลก' },
+            { code: 'SCBCHINA(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์หุ้นจีน เพื่อการเลี้ยงชีพ', nameEn: 'SCB China Equity Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนใน Hang Seng China Enterprises' },
+            { code: 'SCBINDIA(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์หุ้นอินเดีย เพื่อการเลี้ยงชีพ', nameEn: 'SCB India Equity Retirement Mutual Fund', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดีย' },
+            { code: 'SCBJAPAN(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์หุ้นญี่ปุ่น เพื่อการเลี้ยงชีพ', nameEn: 'SCB Japan Equity Retirement Mutual Fund', category: 'หุ้นญี่ปุ่น', note: 'ลงทุนใน Nikkei 225' },
+            { code: 'SCBGOLD(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์โกลด์ เพื่อการเลี้ยงชีพ', nameEn: 'SCB Gold Retirement Mutual Fund', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนใน SPDR Gold Trust' },
+            { code: 'SCBRM4', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์หุ้นทุนเพื่อการเลี้ยงชีพ', nameEn: 'SCB Equity Retirement Mutual Fund', category: 'หุ้นไทย', note: 'หุ้นไทยปัจจัยพื้นฐานดี' },
+            { code: 'SCBRF1', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์พันธบัตรรัฐบาลเพื่อการเลี้ยงชีพ', nameEn: 'SCB Government Bond Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'พันธบัตรรัฐบาล' },
+            { code: 'SCBPROP(RMF)', amc: 'SCBAM (ไทยพาณิชย์)', name: 'กองทุนเปิดไทยพาณิชย์ พร็อพเพอร์ตี้ เพื่อการเลี้ยงชีพ', nameEn: 'SCB Property Retirement Mutual Fund', category: 'กองทุนอสังหาริมทรัพย์ & REITs', note: 'ลงทุนใน REITs ไทยและสิงคโปร์' },
 
             // BBLAM - บลจ. บัวหลวง
-            { code: 'B-VIETNAMRMF', amc: 'BBLAM (บัวหลวง)', name: 'บัวหลวงเวียดนามเพื่อการเลี้ยงชีพ', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
-            { code: 'B-INNOTECHRMF', amc: 'BBLAM (บัวหลวง)', name: 'บัวหลวงอินโนเวชั่นเพื่อการเลี้ยงชีพ', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนใน BGF World Technology Fund' },
-            { code: 'BERMF', amc: 'BBLAM (บัวหลวง)', name: 'บัวหลวงตราสารทุนเพื่อการเลี้ยงชีพ', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทย' },
-            { code: 'B-TNLRMF', amc: 'BBLAM (บัวหลวง)', name: 'บัวหลวงธนทวีเพื่อการเลี้ยงชีพ', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้ไทย' },
+            { code: 'B-VIETNAMRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงเวียดนามเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Vietnam Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
+            { code: 'B-INNOTECHRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงอินโนเวชั่นเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Innovation Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนใน BGF World Technology Fund' },
+            { code: 'BERMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงตราสารทุนเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Equity Retirement Mutual Fund', category: 'หุ้นไทย', note: 'ลงทุนในหุ้นไทย' },
+            { code: 'B-TNLRMF', amc: 'BBLAM (บัวหลวง)', name: 'กองทุนเปิดบัวหลวงธนทวีเพื่อการเลี้ยงชีพ', nameEn: 'Bualuang Thanatavee Retirement Mutual Fund', category: 'ตราสารหนี้ / ตลาดเงิน', note: 'ลงทุนในตราสารหนี้ไทย' },
 
             // KSAM - บลจ. กรุงศรี
-            { code: 'KF-USARMF', amc: 'KSAM (กรุงศรี)', name: 'กรุงศรียูเอสอิควิตี้เพื่อการเลี้ยงชีพ', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนใน Baillie Gifford US Growth Trust' },
-            { code: 'KF-INNOTECHRMF', amc: 'KSAM (กรุงศรี)', name: 'กรุงศรีอินโนเวชั่นเพื่อการเลี้ยงชีพ', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนใน BGF World Technology' },
-            { code: 'KF-CHINARMF', amc: 'KSAM (กรุงศรี)', name: 'กรุงศรีไชน่าเพื่อการเลี้ยงชีพ', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีน A-Shares / H-Shares' },
-            { code: 'KF-INDIARMF', amc: 'KSAM (กรุงศรี)', name: 'กรุงศรีอินเดียเพื่อการเลี้ยงชีพ', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดีย' },
+            { code: 'KF-USARMF', amc: 'KSAM (กรุงศรี)', name: 'กองทุนเปิดกรุงศรียูเอสอิควิตี้เพื่อการเลี้ยงชีพ', nameEn: 'Krungsri US Equity Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนใน Baillie Gifford US Growth Trust' },
+            { code: 'KF-INNOTECHRMF', amc: 'KSAM (กรุงศรี)', name: 'กองทุนเปิดกรุงศรีอินโนเวชั่นเพื่อการเลี้ยงชีพ', nameEn: 'Krungsri Innovation Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนใน BGF World Technology' },
+            { code: 'KF-CHINARMF', amc: 'KSAM (กรุงศรี)', name: 'กองทุนเปิดกรุงศรีไชน่าเพื่อการเลี้ยงชีพ', nameEn: 'Krungsri China Equity Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีน A-Shares / H-Shares' },
+            { code: 'KF-INDIARMF', amc: 'KSAM (กรุงศรี)', name: 'กองทุนเปิดกรุงศรีอินเดียเพื่อการเลี้ยงชีพ', nameEn: 'Krungsri India Equity Retirement Mutual Fund', category: 'หุ้นอินเดีย', note: 'ลงทุนในหุ้นอินเดีย' },
 
             // Principal - บลจ. พรินซิเพิล
-            { code: 'PRINCIPAL VNEQ-RMF', amc: 'Principal (พรินซิเพิล)', name: 'พรินซิเพิล เวียดนาม อิควิตี้ เพื่อการเลี้ยงชีพ', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
-            { code: 'PRINCIPAL APDI-RMF', amc: 'Principal (พรินซิเพิล)', name: 'พรินซิเพิล เอเชีย แปซิฟิก ไดนามิก เพื่อการเลี้ยงชีพ', category: 'หุ้นเอเชีย / ตลาดเกิดใหม่', note: 'ลงทุนในหุ้นเอเชียแปซิฟิก' },
-            { code: 'PRINCIPAL GPLUS-RMF', amc: 'Principal (พรินซิเพิล)', name: 'พรินซิเพิล โกลบอล ออพพอร์ทูนิตี้ เพื่อการเลี้ยงชีพ', category: 'หุ้นทั่วโลก', note: 'ลงทุนในหุ้นทั่วโลก' },
+            { code: 'PRINCIPAL VNEQ-RMF', amc: 'Principal (พรินซิเพิล)', name: 'กองทุนเปิดพรินซิเพิล เวียดนาม อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'Principal Vietnam Equity Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
+            { code: 'PRINCIPAL APDI-RMF', amc: 'Principal (พรินซิเพิล)', name: 'กองทุนเปิดพรินซิเพิล เอเชีย แปซิฟิก ไดนามิก เพื่อการเลี้ยงชีพ', nameEn: 'Principal Asia Pacific Dynamic Retirement Mutual Fund', category: 'หุ้นเอเชีย / ตลาดเกิดใหม่', note: 'ลงทุนในหุ้นเอเชียแปซิฟิก' },
+            { code: 'PRINCIPAL GPLUS-RMF', amc: 'Principal (พรินซิเพิล)', name: 'กองทุนเปิดพรินซิเพิล โกลบอล ออพพอร์ทูนิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'Principal Global Opportunity Retirement Mutual Fund', category: 'หุ้นทั่วโลก', note: 'ลงทุนในหุ้นทั่วโลก' },
 
             // Eastspring - บลจ. อีสท์สปริง
-            { code: 'T-GoldRMF', amc: 'Eastspring (อีสท์สปริง)', name: 'ธนชาตทองคำแท่งเพื่อการเลี้ยงชีพ', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนในทองคำแท่ง SPDR Gold' },
-            { code: 'ES-INDX-RMF', amc: 'Eastspring (อีสท์สปริง)', name: 'อีสท์สปริง ยูเอส อินเด็กซ์ เพื่อการเลี้ยงชีพ', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนในดัชนี S&P 500' },
-            { code: 'T-GlobalEqRMF', amc: 'Eastspring (อีสท์สปริง)', name: 'ธนชาต โกลบอล อิควิตี้ เพื่อการเลี้ยงชีพ', category: 'หุ้นทั่วโลก', note: 'ลงทุนในหุ้นคุณภาพทั่วโลก' },
+            { code: 'T-GoldRMF', amc: 'Eastspring (อีสท์สปริง)', name: 'กองทุนเปิดธนชาตทองคำแท่งเพื่อการเลี้ยงชีพ', nameEn: 'Thanachart Gold Retirement Mutual Fund', category: 'สินค้าโภคภัณฑ์ (ทองคำ)', note: 'ลงทุนในทองคำแท่ง SPDR Gold' },
+            { code: 'ES-INDX-RMF', amc: 'Eastspring (อีสท์สปริง)', name: 'กองทุนเปิดอีสท์สปริง ยูเอส อินเด็กซ์ เพื่อการเลี้ยงชีพ', nameEn: 'Eastspring US Index Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนในดัชนี S&P 500' },
+            { code: 'T-GlobalEqRMF', amc: 'Eastspring (อีสท์สปริง)', name: 'กองทุนเปิดธนชาต โกลบอล อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'Thanachart Global Equity Retirement Mutual Fund', category: 'หุ้นทั่วโลก', note: 'ลงทุนในหุ้นคุณภาพทั่วโลก' },
 
             // ONEAM - บลจ. วรรณ
-            { code: 'ONE-UGG-RMF', amc: 'ONEAM (วรรณ)', name: 'วรรณ อัลติเมท โกลบอล โกรว์ธ เพื่อการเลี้ยงชีพ', category: 'หุ้นทั่วโลก', note: 'ลงทุนใน Baillie Gifford Long Term Global Growth' },
-            { code: 'ONE-DISRMF', amc: 'ONEAM (วรรณ)', name: 'วรรณ ดิสรัปทีฟ เพื่อการเลี้ยงชีพ', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในนวัตกรรม Disruptive' },
+            { code: 'ONE-UGG-RMF', amc: 'ONEAM (วรรณ)', name: 'กองทุนเปิดวรรณ อัลติเมท โกลบอล โกรว์ธ เพื่อการเลี้ยงชีพ', nameEn: 'ONE Ultimate Global Growth Retirement Mutual Fund', category: 'หุ้นทั่วโลก', note: 'ลงทุนใน Baillie Gifford Long Term Global Growth' },
+            { code: 'ONE-DISRMF', amc: 'ONEAM (วรรณ)', name: 'กองทุนเปิดวรรณ ดิสรัปทีฟ เพื่อการเลี้ยงชีพ', nameEn: 'ONE Disruptive Retirement Mutual Fund', category: 'หุ้นเทคโนโลยี', note: 'ลงทุนในนวัตกรรม Disruptive' },
 
             // KTAM - บลจ. กรุงไทย
-            { code: 'KT-VIETNAM-RMF', amc: 'KTAM (กรุงไทย)', name: 'กรุงไทย เวียดนาม อิควิตี้ เพื่อการเลี้ยงชีพ', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
-            { code: 'KT-CHINA-RMF', amc: 'KTAM (กรุงไทย)', name: 'กรุงไทย ไชน่า อิควิตี้ เพื่อการเลี้ยงชีพ', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีน' },
-            { code: 'KT-US-RMF', amc: 'KTAM (กรุงไทย)', name: 'กรุงไทย ยูเอส โกรว์ธ เพื่อการเลี้ยงชีพ', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนในหุ้นสหรัฐฯ' }
+            { code: 'KT-VIETNAM-RMF', amc: 'KTAM (กรุงไทย)', name: 'กองทุนเปิดกรุงไทย เวียดนาม อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'Krung Thai Vietnam Equity Retirement Mutual Fund', category: 'หุ้นเวียดนาม', note: 'ลงทุนในหุ้นเวียดนาม' },
+            { code: 'KT-CHINA-RMF', amc: 'KTAM (กรุงไทย)', name: 'กองทุนเปิดกรุงไทย ไชน่า อิควิตี้ เพื่อการเลี้ยงชีพ', nameEn: 'Krung Thai China Equity Retirement Mutual Fund', category: 'หุ้นจีน', note: 'ลงทุนในหุ้นจีน' },
+            { code: 'KT-US-RMF', amc: 'KTAM (กรุงไทย)', name: 'กองทุนเปิดกรุงไทย ยูเอส โกรว์ธ เพื่อการเลี้ยงชีพ', nameEn: 'Krung Thai US Growth Retirement Mutual Fund', category: 'หุ้นสหรัฐฯ', note: 'ลงทุนในหุ้นสหรัฐฯ' }
         ];
 
         function escapeHtml(str) {
@@ -2913,6 +2919,7 @@
                     const codeUpper = f.code.toUpperCase();
                     const amcUpper = f.amc.toUpperCase();
                     const nameLower = (f.name || '').toLowerCase();
+                    const nameEnLower = (f.nameEn || '').toLowerCase();
                     const catLower = (f.category || '').toLowerCase();
                     const qLower = query.toLowerCase();
 
@@ -2923,6 +2930,7 @@
                     // Match AMC keyword (e.g. ASP -> Asset Plus, K -> KAsset, SCB -> SCBAM)
                     if (amcUpper.includes(upper) || f.amc.toLowerCase().includes(qLower)) return true;
                     if (nameLower.includes(qLower)) return true;
+                    if (nameEnLower.includes(qLower)) return true;
                     if (catLower.includes(qLower)) return true;
                     return false;
                 });
@@ -2961,7 +2969,7 @@
                     </span>
                     <button type="button" class="btn-close" style="font-size: 0.6rem;" onclick="closeRmfDropdown()" title="ปิด"></button>
                 </div>
-                <div style="max-height: 230px; overflow-y: auto;">
+                <div style="max-height: 240px; overflow-y: auto;">
             `;
 
             list.forEach(item => {
@@ -2972,10 +2980,11 @@
                             <span class="fw-bold text-success font-monospace" style="font-size: 0.88rem;">${item.code}</span>
                             <div>${catBadge}</div>
                         </div>
-                        <div class="small text-truncate fw-medium" title="${item.name}">${item.name}</div>
+                        <div class="small fw-bold text-truncate" title="${item.name}">${item.name}</div>
+                        ${item.nameEn ? `<div class="small text-muted text-truncate" style="font-size: 0.72rem;">${item.nameEn}</div>` : ''}
                         <div class="d-flex justify-content-between align-items-center mt-1" style="font-size: 0.72rem;">
-                            <span class="text-muted"><i class="fa-solid fa-building-columns me-1"></i>${item.amc}</span>
-                            ${item.note ? `<span class="text-truncate text-secondary ms-2" style="max-width: 170px;">${item.note}</span>` : ''}
+                            <span class="text-secondary"><i class="fa-solid fa-building-columns me-1"></i>${item.amc}</span>
+                            ${item.note ? `<span class="text-truncate text-muted ms-2" style="max-width: 170px;">${item.note}</span>` : ''}
                         </div>
                     </div>
                 `;
@@ -2998,13 +3007,19 @@
                 document.getElementById('fundNote').value = item.note;
             }
 
+            // Display English name hint if available
+            const hintEl = document.getElementById('fundNameEnHint');
+            if (hintEl) {
+                hintEl.innerHTML = item.nameEn ? `<span class="badge bg-secondary-subtle text-secondary me-1">EN</span> ${item.nameEn}` : '';
+            }
+
             // Show Auto-Detect notification banner
             const banner = document.getElementById('rmfAutoDetectBanner');
             const textEl = document.getElementById('rmfAutoDetectText');
             if (banner && textEl) {
                 banner.classList.remove('d-none');
                 banner.classList.add('d-flex');
-                textEl.innerHTML = `<strong>✨ เลือกกองทุนสำเร็จ:</strong> ${item.code} • บลจ. <b>${item.amc}</b> • หมวดหมู่: <span class="badge bg-success">${item.category}</span>`;
+                textEl.innerHTML = `<strong>✨ เลือกกองทุนสำเร็จ:</strong> ${item.code} • <b>${item.name}</b> • หมวดหมู่: <span class="badge bg-success">${item.category}</span>`;
             }
 
             closeRmfDropdown();
@@ -3188,6 +3203,8 @@
             initRmfPresets();
             dismissRmfAutoDetect();
             closeRmfDropdown();
+            const hintEl = document.getElementById('fundNameEnHint');
+            if (hintEl) hintEl.innerHTML = '';
 
             const title = document.getElementById('fundModalTitle');
             const editId = document.getElementById('fundEditId');
