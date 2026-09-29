@@ -291,7 +291,7 @@
                     <span class="fw-bold text-gradient" style="font-size: 1.15rem; background: linear-gradient(90deg, #f59e0b, #2563eb, #10b981); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
                         MoneyTree Pro
                     </span>
-                    <span class="badge rounded-pill bg-success-subtle text-success ms-1 fw-bold" style="font-size: 0.7rem;"><i class="fa-solid fa-code-branch me-1"></i>V1.7 (Full Official Names)</span>
+                    <span class="badge rounded-pill bg-success-subtle text-success ms-1 fw-bold" style="font-size: 0.7rem;"><i class="fa-solid fa-code-branch me-1"></i>V1.8 (Clean UI)</span>
                 </div>
             </div>
 
@@ -1052,52 +1052,28 @@
     <div class="modal fade" id="modalAddFund" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content rounded-4 border-0 shadow">
-                <div class="modal-header">
-                    <h5 class="modal-title fw-bold" id="fundModalTitle">🟢 เพิ่มกองทุน RMF ใหม่</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <!-- Quick AMC Selector Chips -->
-                    <div class="mb-3 p-2 rounded-3 bg-body-tertiary border">
-                        <div class="d-flex justify-content-between align-items-center mb-1">
-                            <label class="form-label small fw-bold text-muted m-0">
-                                <i class="fa-solid fa-building-columns text-success me-1"></i>เลือกตาม บลจ. (คลิกดูรายการ):
-                            </label>
-                            <span class="badge bg-success-subtle text-success small" style="font-size: 0.68rem;">คลิกเลือกได้ทันที</span>
-                        </div>
-                        <div class="d-flex flex-wrap gap-1">
-                            <button type="button" class="btn btn-sm btn-outline-success py-0 px-2 rounded-pill fw-bold" style="font-size: 0.73rem;" onclick="filterRmfByAmc('Asset Plus')">Asset Plus (ASP)</button>
-                            <button type="button" class="btn btn-sm btn-outline-success py-0 px-2 rounded-pill fw-bold" style="font-size: 0.73rem;" onclick="filterRmfByAmc('KAsset')">กสิกร (KAsset)</button>
-                            <button type="button" class="btn btn-sm btn-outline-success py-0 px-2 rounded-pill fw-bold" style="font-size: 0.73rem;" onclick="filterRmfByAmc('SCBAM')">ไทยพาณิชย์ (SCB)</button>
-                            <button type="button" class="btn btn-sm btn-outline-success py-0 px-2 rounded-pill fw-bold" style="font-size: 0.73rem;" onclick="filterRmfByAmc('BBLAM')">บัวหลวง (BBL)</button>
-                            <button type="button" class="btn btn-sm btn-outline-success py-0 px-2 rounded-pill fw-bold" style="font-size: 0.73rem;" onclick="filterRmfByAmc('KSAM')">กรุงศรี (KF)</button>
-                            <button type="button" class="btn btn-sm btn-outline-success py-0 px-2 rounded-pill fw-bold" style="font-size: 0.73rem;" onclick="filterRmfByAmc('Principal')">พรินซิเพิล</button>
-                            <button type="button" class="btn btn-sm btn-outline-success py-0 px-2 rounded-pill fw-bold" style="font-size: 0.73rem;" onclick="filterRmfByAmc('Eastspring')">อีสท์สปริง (TMB)</button>
-                            <button type="button" class="btn btn-sm btn-outline-success py-0 px-2 rounded-pill fw-bold" style="font-size: 0.73rem;" onclick="filterRmfByAmc('ONEAM')">วรรณ (ONE)</button>
-                            <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 rounded-pill fw-bold" style="font-size: 0.73rem;" onclick="filterRmfByAmc('')">แสดงทั้งหมด</button>
+                <div class="modal-header border-bottom py-3 px-4">
+                    <div class="d-flex align-items-center gap-2">
+                        <span class="fs-4">📊</span>
+                        <div>
+                            <h5 class="modal-title fw-bold m-0" id="fundModalTitle">เพิ่มกองทุน RMF ใหม่</h5>
+                            <small class="text-muted" style="font-size: 0.75rem;">พิมพ์ค้นหารหัสหรือเลือกจากรายการอัตโนมัติ</small>
                         </div>
                     </div>
-
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
                     <form id="formAddFund" onsubmit="saveRmfFund(event)">
                         <input type="hidden" id="fundEditId">
 
-                        <!-- Auto Detect Live Banner -->
-                        <div id="rmfAutoDetectBanner" class="alert alert-success py-2 px-3 small mb-3 d-none align-items-center justify-content-between rounded-3 border-success-subtle shadow-sm" style="background-color: #ecfdf5;">
-                            <div>
-                                <i class="fa-solid fa-wand-magic-sparkles text-success me-1"></i>
-                                <span id="rmfAutoDetectText">ตรวจพบข้อมูลกองทุนอัตโนมัติ</span>
-                            </div>
-                            <button type="button" class="btn-close btn-close-sm" style="font-size: 0.65rem;" onclick="dismissRmfAutoDetect()" title="ปิด"></button>
-                        </div>
-
+                        <!-- รหัสกองทุน & บลจ. -->
                         <div class="row g-2 mb-3">
                             <div class="col-7 position-relative">
-                                <label class="form-label small fw-bold d-flex justify-content-between align-items-center">
-                                    <span>รหัสกองทุน (Ticker / Code)</span>
-                                    <span class="badge bg-success-subtle text-success fw-bold" style="font-size: 0.68rem;"><i class="fa-solid fa-magnifying-glass me-1"></i>พิมพ์ค้นหา</span>
+                                <label class="form-label small fw-bold text-secondary mb-1">
+                                    รหัสกองทุน (Ticker) <span class="text-danger">*</span>
                                 </label>
                                 <div class="input-group">
-                                    <input type="text" id="fundCode" class="form-control fw-bold text-success" 
+                                    <input type="text" id="fundCode" class="form-control fw-bold text-success font-monospace" 
                                            placeholder="พิมพ์เช่น ASP, K, SCB..." 
                                            autocomplete="off"
                                            oninput="handleRmfCodeInput(this.value)" 
@@ -1108,69 +1084,83 @@
                                     </button>
                                 </div>
 
-                                <!-- Custom Floating Autocomplete Suggestions -->
+                                <!-- Floating Autocomplete Suggestions -->
                                 <div id="rmfSuggestionsDropdown" class="rmf-autocomplete-dropdown d-none">
                                     <!-- Dynamic list of matching funds -->
                                 </div>
                             </div>
                             <div class="col-5">
-                                <label class="form-label small fw-bold">บลจ. (AMC)</label>
-                                <input type="text" id="fundAmc" class="form-control" style="font-size: 0.82rem;" placeholder="เช่น Asset Plus, KAsset, SCBAM" required oninput="filterRmfByAmc(this.value)">
-                            </div>
-                        </div>
-                        <div class="mb-3 position-relative">
-                            <label class="form-label small fw-bold d-flex justify-content-between align-items-center">
-                                <span>ชื่อเต็มกองทุน (Official Full Name)</span>
-                                <span class="badge bg-secondary-subtle text-secondary small fw-normal" style="font-size: 0.68rem;">ตามหนังสือชี้ชวน ก.ล.ต.</span>
-                            </label>
-                            <input type="text" id="fundName" class="form-control fw-medium" placeholder="เช่น กองทุนเปิด แอสเซทพลัส เวียดนาม โกรท เพื่อการเลี้ยงชีพ" oninput="handleRmfNameInput(this.value)" required>
-                            <div id="fundNameEnHint" class="small text-muted mt-1" style="font-size: 0.73rem;"></div>
-                        </div>
-                        <div class="row g-2 mb-2">
-                            <div class="col-6">
-                                <label class="form-label small fw-bold">หมวดหมู่ / สินทรัพย์</label>
-                                <input type="text" id="fundCategory" class="form-control fw-bold text-primary" placeholder="เช่น หุ้นเวียดนาม, หุ้นสหรัฐฯ, ตราสารหนี้">
-                            </div>
-                            <div class="col-6">
-                                <label class="form-label small fw-bold">ราคา NAV ล่าสุด</label>
-                                <input type="number" id="fundCurrentNav" class="form-control" step="0.0001" placeholder="เช่น 21.3500" required>
+                                <label class="form-label small fw-bold text-secondary mb-1">
+                                    บลจ. (AMC) <span class="text-danger">*</span>
+                                </label>
+                                <input type="text" id="fundAmc" class="form-control" style="font-size: 0.85rem;" placeholder="เช่น Asset Plus, KAsset" required oninput="filterRmfByAmc(this.value)">
                             </div>
                         </div>
 
-                        <!-- Quick Category Pills -->
+                        <!-- ชื่อเต็มกองทุน -->
                         <div class="mb-3">
-                            <label class="form-label text-muted mb-1" style="font-size: 0.75rem;"><i class="fa-solid fa-tags text-primary me-1"></i>หมวดหมู่ยอดนิยม (คลิกเพื่อเลือกทันที):</label>
-                            <div class="d-flex flex-wrap gap-1">
-                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 rounded-pill" style="font-size: 0.74rem;" onclick="setFundCategory('หุ้นเวียดนาม')">🇻🇳 หุ้นเวียดนาม</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 rounded-pill" style="font-size: 0.74rem;" onclick="setFundCategory('หุ้นสหรัฐฯ')">🇺🇸 หุ้นสหรัฐฯ</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 rounded-pill" style="font-size: 0.74rem;" onclick="setFundCategory('หุ้นทั่วโลก')">🌐 หุ้นทั่วโลก</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 rounded-pill" style="font-size: 0.74rem;" onclick="setFundCategory('หุ้นเทคโนโลยี')">💻 เทคโนโลยี</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 rounded-pill" style="font-size: 0.74rem;" onclick="setFundCategory('หุ้นจีน')">🇨🇳 หุ้นจีน</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 rounded-pill" style="font-size: 0.74rem;" onclick="setFundCategory('หุ้นอินเดีย')">🇮🇳 หุ้นอินเดีย</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 rounded-pill" style="font-size: 0.74rem;" onclick="setFundCategory('หุ้นไทย')">🇹🇭 หุ้นไทย</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 rounded-pill" style="font-size: 0.74rem;" onclick="setFundCategory('หุ้นเฮลธ์แคร์')">🏥 เฮลธ์แคร์</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 rounded-pill" style="font-size: 0.74rem;" onclick="setFundCategory('ตราสารหนี้ / ตลาดเงิน')">🏦 ตราสารหนี้</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 rounded-pill" style="font-size: 0.74rem;" onclick="setFundCategory('สินค้าโภคภัณฑ์ (ทองคำ)')">🪙 ทองคำ</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 rounded-pill" style="font-size: 0.74rem;" onclick="setFundCategory('กองทุนอสังหาริมทรัพย์ & REITs')">🏢 อสังหาฯ/REITs</button>
-                            </div>
+                            <label class="form-label small fw-bold text-secondary mb-1">
+                                ชื่อเต็มกองทุน <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" id="fundName" class="form-control" placeholder="ชื่อทางการตามหนังสือชี้ชวน ก.ล.ต." oninput="handleRmfNameInput(this.value)" required>
+                            <div id="fundNameEnHint" class="text-muted mt-1 text-truncate" style="font-size: 0.73rem;"></div>
                         </div>
 
+                        <!-- หมวดหมู่ & NAV -->
                         <div class="row g-2 mb-3">
                             <div class="col-6">
-                                <label class="form-label small fw-bold">จำนวนหน่วยเริ่มต้น</label>
-                                <input type="number" id="fundUnits" class="form-control" step="0.0001" min="0" value="0">
+                                <label class="form-label small fw-bold text-secondary mb-1">หมวดหมู่สินทรัพย์</label>
+                                <input type="text" id="fundCategory" class="form-control fw-medium text-primary" placeholder="เช่น หุ้นเวียดนาม, หุ้นสหรัฐฯ" list="rmfCategoryOptions">
+                                <datalist id="rmfCategoryOptions">
+                                    <option value="หุ้นเวียดนาม">
+                                    <option value="หุ้นสหรัฐฯ">
+                                    <option value="หุ้นเทคโนโลยี">
+                                    <option value="หุ้นทั่วโลก">
+                                    <option value="หุ้นจีน">
+                                    <option value="หุ้นอินเดีย">
+                                    <option value="หุ้นญี่ปุ่น">
+                                    <option value="หุ้นไทย">
+                                    <option value="หุ้นเฮลธ์แคร์">
+                                    <option value="ตราสารหนี้ / ตลาดเงิน">
+                                    <option value="สินค้าโภคภัณฑ์ (ทองคำ)">
+                                    <option value="กองทุนอสังหาริมทรัพย์ & REITs">
+                                    <option value="หุ้นพลังงานสะอาด & ESG">
+                                </datalist>
                             </div>
                             <div class="col-6">
-                                <label class="form-label small fw-bold">ต้นทุนเฉลี่ย / หน่วย</label>
-                                <input type="number" id="fundAvgCost" class="form-control" step="0.0001" min="0" value="0">
+                                <label class="form-label small fw-bold text-secondary mb-1">
+                                    ราคา NAV ล่าสุด (บาท) <span class="text-danger">*</span>
+                                </label>
+                                <div class="input-group">
+                                    <span class="input-group-text bg-body-tertiary">฿</span>
+                                    <input type="number" id="fundCurrentNav" class="form-control fw-bold" step="0.0001" placeholder="เช่น 21.3500" required>
+                                </div>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label small fw-bold">หมายเหตุ / กองทุนหลัก (Master Fund)</label>
-                            <input type="text" id="fundNote" class="form-control" placeholder="เช่น ลงทุนใน Morgan Stanley US Advantage">
+
+                        <!-- กล่องข้อมูลการถือครองเริ่มต้น (เรียบง่าย เป็นสัดส่วน) -->
+                        <div class="p-3 mb-3 rounded-3 bg-body-tertiary border">
+                            <div class="small fw-bold text-muted mb-2">
+                                <i class="fa-solid fa-coins text-warning me-1"></i> ยอดถือครองและต้นทุน (ถ้ามี):
+                            </div>
+                            <div class="row g-2 mb-2">
+                                <div class="col-6">
+                                    <label class="form-label small text-muted mb-1">จำนวนหน่วย</label>
+                                    <input type="number" id="fundUnits" class="form-control form-control-sm" step="0.0001" min="0" value="0">
+                                </div>
+                                <div class="col-6">
+                                    <label class="form-label small text-muted mb-1">ต้นทุนเฉลี่ย / หน่วย (บาท)</label>
+                                    <input type="number" id="fundAvgCost" class="form-control form-control-sm" step="0.0001" min="0" value="0">
+                                </div>
+                            </div>
+                            <div>
+                                <label class="form-label small text-muted mb-1">หมายเหตุ / กองทุนหลัก (Master Fund)</label>
+                                <input type="text" id="fundNote" class="form-control form-control-sm" placeholder="เช่น ลงทุนใน Morgan Stanley US Advantage">
+                            </div>
                         </div>
-                        <button type="submit" class="btn btn-success w-100 py-2 fw-bold rounded-pill">
-                            <i class="fa-solid fa-save me-1"></i> บันทึกกองทุน
+
+                        <button type="submit" class="btn btn-success w-100 py-2 fw-bold rounded-pill shadow-sm">
+                            <i class="fa-solid fa-check me-1"></i> บันทึกข้อมูลกองทุน
                         </button>
                     </form>
                 </div>
@@ -2963,13 +2953,24 @@
             }
 
             let html = `
-                <div class="px-2 py-1 bg-body-tertiary border-bottom d-flex justify-content-between align-items-center">
-                    <span class="small fw-bold text-muted" style="font-size: 0.7rem;">
-                        <i class="fa-solid fa-list-check text-success me-1"></i>คลิกเพื่อเลือกกองทุน (${list.length} รายการ):
-                    </span>
-                    <button type="button" class="btn-close" style="font-size: 0.6rem;" onclick="closeRmfDropdown()" title="ปิด"></button>
+                <div class="p-2 bg-body-tertiary border-bottom">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <span class="small fw-bold text-muted" style="font-size: 0.72rem;">
+                            <i class="fa-solid fa-list-check text-success me-1"></i>เลือกกองทุน (${list.length} รายการ):
+                        </span>
+                        <button type="button" class="btn-close" style="font-size: 0.6rem;" onclick="closeRmfDropdown()" title="ปิด"></button>
+                    </div>
+                    <div class="d-flex gap-1 overflow-x-auto pb-1" style="scrollbar-width: none;">
+                        <button type="button" class="btn btn-sm btn-outline-secondary py-0 px-2 rounded-pill fw-bold" style="font-size: 0.68rem;" onclick="event.stopPropagation(); handleRmfCodeInput('')">ทั้งหมด</button>
+                        <button type="button" class="btn btn-sm btn-outline-success py-0 px-2 rounded-pill fw-bold" style="font-size: 0.68rem;" onclick="event.stopPropagation(); handleRmfCodeInput('ASP')">ASP</button>
+                        <button type="button" class="btn btn-sm btn-outline-success py-0 px-2 rounded-pill fw-bold" style="font-size: 0.68rem;" onclick="event.stopPropagation(); handleRmfCodeInput('K-')">KAsset</button>
+                        <button type="button" class="btn btn-sm btn-outline-success py-0 px-2 rounded-pill fw-bold" style="font-size: 0.68rem;" onclick="event.stopPropagation(); handleRmfCodeInput('SCB')">SCB</button>
+                        <button type="button" class="btn btn-sm btn-outline-success py-0 px-2 rounded-pill fw-bold" style="font-size: 0.68rem;" onclick="event.stopPropagation(); handleRmfCodeInput('B-')">BBL</button>
+                        <button type="button" class="btn btn-sm btn-outline-success py-0 px-2 rounded-pill fw-bold" style="font-size: 0.68rem;" onclick="event.stopPropagation(); handleRmfCodeInput('KF')">กรุงศรี</button>
+                        <button type="button" class="btn btn-sm btn-outline-success py-0 px-2 rounded-pill fw-bold" style="font-size: 0.68rem;" onclick="event.stopPropagation(); handleRmfCodeInput('PRINCIPAL')">Principal</button>
+                    </div>
                 </div>
-                <div style="max-height: 240px; overflow-y: auto;">
+                <div style="max-height: 250px; overflow-y: auto;">
             `;
 
             list.forEach(item => {
@@ -3010,16 +3011,7 @@
             // Display English name hint if available
             const hintEl = document.getElementById('fundNameEnHint');
             if (hintEl) {
-                hintEl.innerHTML = item.nameEn ? `<span class="badge bg-secondary-subtle text-secondary me-1">EN</span> ${item.nameEn}` : '';
-            }
-
-            // Show Auto-Detect notification banner
-            const banner = document.getElementById('rmfAutoDetectBanner');
-            const textEl = document.getElementById('rmfAutoDetectText');
-            if (banner && textEl) {
-                banner.classList.remove('d-none');
-                banner.classList.add('d-flex');
-                textEl.innerHTML = `<strong>✨ เลือกกองทุนสำเร็จ:</strong> ${item.code} • <b>${item.name}</b> • หมวดหมู่: <span class="badge bg-success">${item.category}</span>`;
+                hintEl.innerHTML = item.nameEn ? `<span class="text-secondary"><i class="fa-solid fa-globe me-1"></i>${item.nameEn}</span>` : '';
             }
 
             closeRmfDropdown();
